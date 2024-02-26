@@ -27,13 +27,13 @@ export default function App({favoritesVolume, stayPlaces}: AppProps): JSX.Elemen
           />
           <Route
             path={AppRoute.Login}
-            element={(<Login /> )}
-            // element={(
-            //   <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
-            //     <Login />
-            //   </PrivateRoute>
-            // )}
+            element={(<Login />)}
           />
+          {/* element={(
+              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
+                <Login />
+              </PrivateRoute>
+            )} */}
           <Route
             path={AppRoute.Favorites}
             element={(
