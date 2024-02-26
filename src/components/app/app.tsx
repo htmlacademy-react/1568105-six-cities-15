@@ -27,13 +27,12 @@ export default function App({favoritesVolume, stayPlaces}: AppProps): JSX.Elemen
           />
           <Route
             path={AppRoute.Login}
-            element={(<Login />)}
-          />
-          {/* element={(
+            element={(
               <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
                 <Login />
               </PrivateRoute>
-            )} */}
+            )}
+          />
           <Route
             path={AppRoute.Favorites}
             element={(
@@ -42,14 +41,9 @@ export default function App({favoritesVolume, stayPlaces}: AppProps): JSX.Elemen
               </PrivateRoute>
             )}
           />
-
           <Route
             path={AppRoute.Offer}
-            element={(
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <Offer />
-              </PrivateRoute>
-            )}
+            element={(<Offer />)}
           />
           <Route path='*' element={<PageNotFound />} />
         </Route>

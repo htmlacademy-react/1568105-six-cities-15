@@ -4,7 +4,6 @@ export const getLayoutState = (pathName: AppRoute) => {
   let rootClassName = '';
   let linkClassName = '';
   let renderUser = true;
-
   // let renderFooter = false;
 
   if (pathName === AppRoute.Root) {

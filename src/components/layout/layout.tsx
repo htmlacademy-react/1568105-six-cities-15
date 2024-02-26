@@ -8,12 +8,12 @@ type LayoutProps = {
 }
 
 export default function Layout({favoritesVolume}: LayoutProps): JSX.Element {
-  const {pathName} = useLocation();
-  const {rootClassName, linkClassName, renderUser} = getLayoutState(pathName as AppRoute); /* , renderFooter */
+  const {pathname} = useLocation();
+  const {rootClassName, linkClassName, renderUser} = getLayoutState(pathname as AppRoute); /* , renderFooter */
   const authorizationStatus = getAuthorizationStatus();
 
   return (
-    <div className={`${rootClassName}`}>
+    <div className={`page${rootClassName}`}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
