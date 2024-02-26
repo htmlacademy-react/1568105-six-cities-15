@@ -1,9 +1,4 @@
-// import { AuthorizationStatus } from '../../constants';
-// import { getAuthorizationStatus } from '../../authorizationStatus';
-
 export default function Offer() {
-  // const authorizationStatus = getAuthorizationStatus();
-  // if (authorizationStatus === AuthorizationStatus.Auth ?) {}
   return (
     <div className="page">
       <main className="page__main page__main--offer">
