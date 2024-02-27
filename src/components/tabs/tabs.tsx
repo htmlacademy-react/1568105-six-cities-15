@@ -1,4 +1,4 @@
-export default function CitiesTabs() {
+export default function Tabs() {
   return (
     <div className="tabs">
       <section className="locations container">
