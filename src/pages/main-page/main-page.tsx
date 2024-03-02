@@ -1,17 +1,48 @@
-import Tabs from '../../components/tabs';
+import { useState } from 'react';
+// import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import Card from '../../components/card';
 import Map from '../../components/map';
+import { CITIES } from '../../const';
+import { PLACE_OPTIONS } from '../../const';
 
-type PageMainProps = {
+type MainPageProps = {
   stayPlaces: number;
 }
 
-export default function MainPage({stayPlaces}: PageMainProps): JSX.Element {
+export default function MainPage({stayPlaces}: MainPageProps): JSX.Element {
+  const [activeCity, setActiveCity] = useState<string | null>(null);
+
+  const handleMouseEnter = (city: string) => {
+    setActiveCity(city);
+  };
+
+  const handleMouseLeave = () => {
+    setActiveCity(null);
+  };
+
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <Tabs />
+        <div className="tabs">
+          <section className="locations container">
+            <ul className="locations__list tabs__list">
+              {CITIES.map((city) => (
+                <li className="locations__item" key={city}>
+                  <Link
+                    to={`/${city}`}
+                    className={`locations__item-link tabs__item ${activeCity === city ? 'tabs__item--active' : ''}`}
+                    onMouseEnter={() => handleMouseEnter(city)}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    <span>{city}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
+        </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -26,10 +57,11 @@ export default function MainPage({stayPlaces}: PageMainProps): JSX.Element {
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
+                  {PLACE_OPTIONS.map((option) => (
+                    <li className="places__option" tabIndex={0} key={option}> {/* places__option--active */}
+                      {option}
+                    </li>
+                  ))}
                 </ul>
               </form>
 
