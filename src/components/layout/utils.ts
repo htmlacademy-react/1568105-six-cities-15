@@ -1,4 +1,4 @@
-import { AppRoute } from '../../constants';
+import { AppRoute } from '../../const';
 
 export const getLayoutState = (pathName: AppRoute) => {
   let rootClassName = '';

@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../constants';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import { getLayoutState } from './utils';
 import { getAuthorizationStatus } from '../../authorizationStatus';
 
