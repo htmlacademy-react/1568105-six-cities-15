@@ -1,6 +1,4 @@
-import { OFFER_INSIDE_ITEMS } from '../../constants';
-
-export default function Offer() {
+export default function OfferPage() {
   return (
     <div className="page">
       <main className="page__main page__main--offer">
@@ -60,11 +58,16 @@ export default function Offer() {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {OFFER_INSIDE_ITEMS.map((item) => (
-                    <li className="offer__inside-item" tabIndex={0} key={item}>
-                      {item}
-                    </li>
-                  ))}
+                  <li className="offer__inside-item">Wi-Fi</li>
+                  <li className="offer__inside-item">Washing machine</li>
+                  <li className="offer__inside-item">Towels</li>
+                  <li className="offer__inside-item">Heating</li>
+                  <li className="offer__inside-item">Coffee machine</li>
+                  <li className="offer__inside-item">Baby seat</li>
+                  <li className="offer__inside-item">Kitchen</li>
+                  <li className="offer__inside-item">Dishwasher</li>
+                  <li className="offer__inside-item">Cabel TV</li>
+                  <li className="offer__inside-item">Fridge</li>
                 </ul>
               </div>
               <div className="offer__host">

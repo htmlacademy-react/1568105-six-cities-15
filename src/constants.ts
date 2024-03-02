@@ -7,7 +7,7 @@ export enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer/:id'
+  OfferPage = '/offer/:id'
 }
 
 export enum AuthorizationStatus {
@@ -15,32 +15,3 @@ export enum AuthorizationStatus {
   NoAuth='NoAuth',
   Unknown='Unknown'
 }
-
-export const CITIES: string[] = [
-  'Paris',
-  'Cologne',
-  'Brussels',
-  'Amsterdam',
-  'Hamburg',
-  'Dusseldorf',
-];
-
-export const PLACES_OPTIONS: string[] = [
-  'Popular',
-  'Price: low to high',
-  'Price: high to low',
-  'Top rated first',
-];
-
-export const OFFER_INSIDE_ITEMS: string[] = [
-  'Wi-Fi',
-  'Washing machine',
-  'Towels',
-  'Heating',
-  'Coffee machine',
-  'Baby seat',
-  'Kitchen',
-  'Dishwasher',
-  'Cabel TV',
-  'Fridge'
-];

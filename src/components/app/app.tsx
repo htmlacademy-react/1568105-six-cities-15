@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../constants';
 import Layout from '../layout/layout';
-import PageMain from '../../pages/page-main';
+import MainPage from '../../pages/main-page';
 import Login from '../../pages/login';
 import Favorites from '../../pages/favorites';
-import Offer from '../../pages/offer';
+import OfferPage from '../../pages/offer-page';
 import PageNotFound from '../../pages/page-not-found';
 import PrivateRoute from '../private-route';
 
@@ -23,7 +23,7 @@ export default function App({favoritesVolume, stayPlaces}: AppProps): JSX.Elemen
         >
           <Route
             index
-            element={<PageMain stayPlaces={stayPlaces} />}
+            element={<MainPage stayPlaces={stayPlaces} />}
           />
           <Route
             path={AppRoute.Login}
@@ -42,8 +42,8 @@ export default function App({favoritesVolume, stayPlaces}: AppProps): JSX.Elemen
             )}
           />
           <Route
-            path={AppRoute.Offer}
-            element={(<Offer />)}
+            path={AppRoute.OfferPage}
+            element={(<OfferPage />)}
           />
           <Route path='*' element={<PageNotFound />} />
         </Route>

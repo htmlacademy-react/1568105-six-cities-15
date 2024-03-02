@@ -1,14 +1,12 @@
-import { PLACES_OPTIONS } from '../../constants';
 import Tabs from '../../components/tabs';
 import Card from '../../components/card';
 import Map from '../../components/map';
-
 
 type PageMainProps = {
   stayPlaces: number;
 }
 
-export default function PageMain({stayPlaces}: PageMainProps): JSX.Element {
+export default function MainPage({stayPlaces}: PageMainProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <main className="page__main page__main--index">
@@ -28,11 +26,10 @@ export default function PageMain({stayPlaces}: PageMainProps): JSX.Element {
                   </svg>
                 </span>
                 <ul className="places__options places__options--custom places__options--opened">
-                  {PLACES_OPTIONS.map((option) => (
-                    <li className="places__option" tabIndex={0} key={option}> {/* places__option--active */}
-                      {option}
-                    </li>
-                  ))}
+                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
+                  <li className="places__option" tabIndex={0}>Price: low to high</li>
+                  <li className="places__option" tabIndex={0}>Price: high to low</li>
+                  <li className="places__option" tabIndex={0}>Top rated first</li>
                 </ul>
               </form>
 
