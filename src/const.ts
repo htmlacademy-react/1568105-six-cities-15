@@ -4,7 +4,7 @@ export const Data = {
 } as const;
 
 export enum AppRoute {
-  Root = '/',
+  MainPage = '/',
   Login = '/login',
   Favorites = '/favorites',
   OfferPage = '/offer/:id'
@@ -31,3 +31,16 @@ export const PLACE_OPTIONS: string[] = [
   'Price: high to low',
   'Top rated first',
 ];
+
+export const optionCard = {
+  CITIES_CARD: {
+    classCard: 'cities__card',
+    width: '260',
+    height: '200'
+  },
+  FAVORITES_CARD: {
+    classCard: 'favorites__card',
+    width: '150',
+    height: '110'
+  }
+};

@@ -7,23 +7,25 @@ import Favorites from '../../pages/favorites';
 import OfferPage from '../../pages/offer-page';
 import PageNotFound from '../../pages/page-not-found';
 import PrivateRoute from '../private-route';
+import { Offer } from '../../types/offer';
 
 type AppProps = {
+  mockOffers: Offer[];
   favoritesVolume: number;
   stayPlaces: number;
 }
 
-export default function App({favoritesVolume, stayPlaces}: AppProps): JSX.Element {
+export default function App({mockOffers, favoritesVolume, stayPlaces}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
-          path={AppRoute.Root}
+          path={AppRoute.MainPage}
           element={<Layout favoritesVolume={favoritesVolume} />}
         >
           <Route
             index
-            element={<MainPage stayPlaces={stayPlaces} />}
+            element={<MainPage stayPlaces={stayPlaces} />} //mockOffers={mockOffers}
           />
           <Route
             path={AppRoute.Login}
@@ -43,7 +45,7 @@ export default function App({favoritesVolume, stayPlaces}: AppProps): JSX.Elemen
           />
           <Route
             path={AppRoute.OfferPage}
-            element={(<OfferPage />)}
+            element={(<OfferPage mockOffers={mockOffers}/>)}
           />
           <Route path='*' element={<PageNotFound />} />
         </Route>

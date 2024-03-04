@@ -1,17 +1,33 @@
-export default function OfferPage() {
+import { useParams } from 'react-router-dom';
+import { Offer } from '../../types/offer';
+
+type OfferPageProps = {
+  mockOffers: Offer[];
+}
+
+export default function OfferPage({mockOffers}: OfferPageProps): JSX.Element {
+
+  const { offerId } = useParams();
+  const dataOffer = mockOffers.find((offer) => offer.id === offerId);
+
   return (
     <div className="page">
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
+              {/* {dataOffer.images.map((image: string) => (
+                <div className="offer__image-wrapper" key={image.slice(0, image.length - 6)}>
+                  <img className="offer__image" src={`${image}`} alt="Photo studio" />
+                </div>
+              ))} */}
               <div className="offer__image-wrapper">
                 <img className="offer__image" src="img/room.jpg" alt="Photo studio" />
               </div>
               <div className="offer__image-wrapper">
                 <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
               </div>
-              <div className="offer__image-wrapper">
+              {/* <div className="offer__image-wrapper">
                 <img className="offer__image" src="img/apartment-02.jpg" alt="Photo studio" />
               </div>
               <div className="offer__image-wrapper">
@@ -22,7 +38,7 @@ export default function OfferPage() {
               </div>
               <div className="offer__image-wrapper">
                 <img className="offer__image" src="img/apartment-01.jpg" alt="Photo studio" />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="offer__container container">
@@ -30,8 +46,10 @@ export default function OfferPage() {
               <div className="offer__mark">
                 <span>Premium</span>
               </div>
+
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">Beautiful &amp; luxurious studio at great location</h1>
+                {/* <h2 className="offer__name">Beautiful{mockOffers.title}</h2> */}
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />

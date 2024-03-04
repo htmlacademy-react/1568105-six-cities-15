@@ -4,12 +4,14 @@ import { Link } from 'react-router-dom';
 import Card from '../../components/card';
 import Map from '../../components/map';
 import { CITIES } from '../../const';
-import { PLACE_OPTIONS } from '../../const';
+import { PLACE_OPTIONS } from '../../const'; // , optionCard
+// import { Offer } from '../../types/offer';
 
 type MainPageProps = {
+  // offers: Offer[];
   stayPlaces: number;
 }
-
+  // offers ;
 export default function MainPage({stayPlaces}: MainPageProps): JSX.Element {
   const [activeCity, setActiveCity] = useState<string | null>(null);
 

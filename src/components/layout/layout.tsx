@@ -9,11 +9,11 @@ type LayoutProps = {
 
 export default function Layout({favoritesVolume}: LayoutProps): JSX.Element {
   const {pathname} = useLocation();
-  const {rootClassName, linkClassName, renderUser} = getLayoutState(pathname as AppRoute); /* , renderFooter */
+  const {pageClassName, linkClassName, renderUser} = getLayoutState(pathname as AppRoute); /* , renderFooter */
   const authorizationStatus = getAuthorizationStatus();
 
   return (
-    <div className={`page${rootClassName}`}>
+    <div className={`page${pageClassName}`}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
