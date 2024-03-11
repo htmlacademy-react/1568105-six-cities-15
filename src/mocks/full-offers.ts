@@ -1,11 +1,20 @@
-import { Offer } from '../types/offer';
+import { FullOffer } from '../types/offer-types';
 
-export const mockOffers: Offer[] = [
+export const fullOffers: FullOffer[] = [
   {
     id: 'ba3bf035-7a38-4f59-bf40-ff07122f5456',
     title: 'Canal View Prinsengracht',
+    description: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
     type: 'house',
     price: 543,
+    images: [
+      'https://15.design.htmlacademy.pro/static/hotel/9.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/12.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/8.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/17.jpg'
+    ],
     city: {
       name: 'Dusseldorf',
       location: {
@@ -18,12 +27,6 @@ export const mockOffers: Offer[] = [
       longitude: 6.784314,
       zoom: 16
     },
-    isPremium: true,
-    isFavorite: false,
-    rating: 3.4,
-    previewImage: 'https://url-to-image/image.png',
-    description: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
-    bedrooms: 4,
     goods: [
       'Coffee machine',
       'Breakfast',
@@ -43,21 +46,26 @@ export const mockOffers: Offer[] = [
       name: 'Angelina',
       avatarUrl: 'https://15.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
     },
-    images: [
-      'https://15.design.htmlacademy.pro/static/hotel/9.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/1.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/12.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/8.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/17.jpg'
-    ],
+    isPremium: true,
+    isFavorite: false,
+    rating: 3.4,
+    bedrooms: 4,
     maxAdults: 1
   },
   {
     id: 'd06007ba-52d1-4f3f-91de-7dcd4dc2220e',
     title: 'Waterfront with extraordinary view',
+    description: 'Design interior in most sympathetic area! Complitely renovated, well-equipped, cosy studio in idyllic, over 100 years old wooden house. Calm street, fast connection to center and airport.',
     type: 'hotel',
     price: 195,
+    images: [
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/6.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/16.jpg'
+    ],
     city: {
       name: 'Hamburg',
       location: {
@@ -74,8 +82,6 @@ export const mockOffers: Offer[] = [
     isPremium: true,
     isFavorite: false,
     rating: 3.1,
-    previewImage: 'https://url-to-image/image.png',
-    description: 'Design interior in most sympathetic area! Complitely renovated, well-equipped, cosy studio in idyllic, over 100 years old wooden house. Calm street, fast connection to center and airport.',
     bedrooms: 2,
     goods: [
       'Wi-Fi',
@@ -88,21 +94,22 @@ export const mockOffers: Offer[] = [
       name: 'Angelina',
       avatarUrl: 'https://15.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
     },
-    images: [
-      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/6.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/2.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/19.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/16.jpg'
-    ],
     maxAdults: 2
   },
   {
     id: '8b5a7be7-8cf0-4ead-af45-790242856c4a',
     title: 'Canal View Prinsengracht',
+    description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     type: 'hotel',
     price: 149,
+    images: [
+      'https://15.design.htmlacademy.pro/static/hotel/7.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/12.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/16.jpg'
+    ],
     city: {
       name: 'Amsterdam',
       location: {
@@ -119,8 +126,6 @@ export const mockOffers: Offer[] = [
     isPremium: true,
     isFavorite: false,
     rating: 3.3,
-    previewImage: 'https://url-to-image/image.png',
-    description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     bedrooms: 4,
     goods: [
       'Kitchen',
@@ -134,21 +139,22 @@ export const mockOffers: Offer[] = [
       name: 'Angelina',
       avatarUrl: 'https://15.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
     },
-    images: [
-      'https://15.design.htmlacademy.pro/static/hotel/7.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/19.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/12.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/3.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/4.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/16.jpg'
-    ],
     maxAdults: 2
   },
   {
     id: '55232be2-36d1-4ea6-99d6-5c0a33ffa1ce',
     title: 'The house among olive ',
+    description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     type: 'hotel',
     price: 223,
+    images: [
+      'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/5.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+      'https://15.design.htmlacademy.pro/static/hotel/16.jpg'
+    ],
     city: {
       name: 'Brussels',
       location: {
@@ -165,8 +171,6 @@ export const mockOffers: Offer[] = [
     isPremium: true,
     isFavorite: false,
     rating: 3.8,
-    previewImage: 'https://url-to-image/image.png',
-    description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     bedrooms: 3,
     goods: [
       'Dishwasher',
@@ -179,14 +183,6 @@ export const mockOffers: Offer[] = [
       name: 'Angelina',
       avatarUrl: 'https://15.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
     },
-    images: [
-      'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/17.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/5.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
-      'https://15.design.htmlacademy.pro/static/hotel/16.jpg'
-    ],
     maxAdults: 7
   }
 ];

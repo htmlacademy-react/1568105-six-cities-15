@@ -10,6 +10,7 @@ type PrivateRouteProps = {
 export default function PrivateRoute({authorizationStatus, isReverse, children}: PrivateRouteProps) {
   return (
     authorizationStatus === (isReverse ? AuthorizationStatus.NoAuth : AuthorizationStatus.Auth) ?
-      children : <Navigate to={isReverse ? AppRoute.MainPage : AppRoute.Login} replace />
+      children :
+      <Navigate to={isReverse ? AppRoute.Root : AppRoute.Login} replace />
   );
 }

@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes} from 'react-router-dom'; //, useParams
+import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import Layout from '../layout';
 import MainPage from '../../pages/main-page';
@@ -7,49 +8,54 @@ import Favorites from '../../pages/favorites';
 import OfferPage from '../../pages/offer-page';
 import PageNotFound from '../../pages/page-not-found';
 import PrivateRoute from '../private-route';
-import { Offer } from '../../types/offer';
+import { FullOffer, PreviewOffer } from '../../types/offer-types';
 
 type AppProps = {
-  mockOffers: Offer[];
+  previewOffers: PreviewOffer[];
+  fullOffers: FullOffer[];
   favoritesVolume: number;
   stayPlaces: number;
 }
 
-export default function App({mockOffers, favoritesVolume, stayPlaces}: AppProps): JSX.Element {
+export default function App({previewOffers, fullOffers, favoritesVolume, stayPlaces}: AppProps): JSX.Element {
+  // const { offerId } = useParams();
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.MainPage}
-          element={<Layout favoritesVolume={favoritesVolume} />}
-        >
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
           <Route
-            index
-            element={<MainPage stayPlaces={stayPlaces} />} //mockOffers={mockOffers}
-          />
-          <Route
-            path={AppRoute.Login}
-            element={(
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
-                <Login />
-              </PrivateRoute>
-            )}
-          />
-          <Route
-            path={AppRoute.Favorites}
-            element={(
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <Favorites />
-              </PrivateRoute>
-            )}
-          />
-          <Route
-            path={AppRoute.OfferPage}
-            element={(<OfferPage mockOffers={mockOffers}/>)}
-          />
-          <Route path='*' element={<PageNotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            path={AppRoute.Root}
+            element={<Layout favoritesVolume={favoritesVolume} />}
+          >
+            <Route
+              index
+              element={<MainPage stayPlaces={stayPlaces} previewOffers={previewOffers}/>}
+            />
+            <Route
+              path={AppRoute.OfferPage}
+              element={(<OfferPage fullOffers={fullOffers} previewOffers={previewOffers} />)}
+            />
+            <Route
+              path={AppRoute.Login}
+              element={(
+                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
+                  <Login />
+                </PrivateRoute>
+              )}
+            />
+            <Route
+              path={AppRoute.Favorites}
+              element={(
+                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                  <Favorites />
+                </PrivateRoute>
+              )}
+            />
+            <Route path='*' element={<PageNotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }

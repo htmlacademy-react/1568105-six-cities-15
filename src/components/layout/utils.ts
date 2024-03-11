@@ -6,7 +6,7 @@ export const getLayoutState = (pathName: AppRoute) => {
   let renderUser = true;
   // let renderFooter = false;
 
-  if (pathName === AppRoute.MainPage) {
+  if (pathName === AppRoute.Root) {
     pageClassName = ' page--gray page--main';
     linkClassName = ' header__logo-link--active';
   } else if (pathName === AppRoute.Login) {
@@ -16,5 +16,5 @@ export const getLayoutState = (pathName: AppRoute) => {
     renderFooter = true;
   }*/
 
-  return {pageClassName, linkClassName, renderUser}; /* , renderFooter */
+  return { pageClassName, linkClassName, renderUser }; /* , renderFooter */
 };

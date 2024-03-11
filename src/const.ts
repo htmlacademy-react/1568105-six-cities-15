@@ -4,7 +4,7 @@ export const Data = {
 } as const;
 
 export enum AppRoute {
-  MainPage = '/',
+  Root = '/',
   Login = '/login',
   Favorites = '/favorites',
   OfferPage = '/offer/:id'

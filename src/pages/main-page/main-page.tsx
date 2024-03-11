@@ -1,18 +1,18 @@
 import { useState } from 'react';
-// import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Card from '../../components/card';
 import Map from '../../components/map';
 import { CITIES } from '../../const';
 import { PLACE_OPTIONS } from '../../const'; // , optionCard
-// import { Offer } from '../../types/offer';
+// import { PreviewOffer } from '../../types/preview-offer';
 
 type MainPageProps = {
-  // offers: Offer[];
+  // previewOffers: PreviewOffer[];
   stayPlaces: number;
 }
-  // offers ;
-export default function MainPage({stayPlaces}: MainPageProps): JSX.Element {
+//, previewOffers
+export default function MainPage({ stayPlaces }: MainPageProps): JSX.Element {
   const [activeCity, setActiveCity] = useState<string | null>(null);
 
   const handleMouseEnter = (city: string) => {
@@ -25,6 +25,9 @@ export default function MainPage({stayPlaces}: MainPageProps): JSX.Element {
 
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>6 cities</title>
+      </Helmet>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
