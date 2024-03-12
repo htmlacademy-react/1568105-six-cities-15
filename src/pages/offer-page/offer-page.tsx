@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import { AuthorizationStatus } from '../../authorizationStatus';
 import { FullOffer, PreviewOffer } from '../../types/offer-types';
+import { capitalize } from '../../utils';
 
 type OfferPageProps = {
   previewOffers: PreviewOffer[];
@@ -10,9 +11,10 @@ type OfferPageProps = {
 
 export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): JSX.Element {
 
-  // const { id: offerId } = useParams();
-  // const getOfferById = (offerId?: string) => fullOffers.find((offer) => offer.id === offerId);
-  // const currentOffer = getOfferById(offerId);
+  const { offerId } = useParams();
+  const currentOffer = fullOffers.find((offer) => offer.id === offerId);
+
+  // const { title, description, type, price, images, goods, host, isPremium, isFavorite, rating, bedrooms, maxAdults } = currentOffer;
 
   return (
     <div className="page">
@@ -63,7 +65,7 @@ export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): 
 
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {fullOffers[0].type && fullOffers[0].type}
+                  {fullOffers[0].type && capitalize(fullOffers[0].type)}
                 </li>
 
                 <li className="offer__feature offer__feature--bedrooms">
@@ -227,7 +229,7 @@ export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): 
                   <h2 className="place-card__name">
                     <a href="#">{previewOffers[1].title}</a>
                   </h2>
-                  <p className="place-card__type">{previewOffers[1].type}</p>
+                  <p className="place-card__type">{capitalize(previewOffers[1].type)}</p>
                 </div>
               </article>
 

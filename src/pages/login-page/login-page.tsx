@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 
-export default function Login() {
+export default function LoginPage() {
   return (
     <main className="page__main page__main--login">
       <Helmet>

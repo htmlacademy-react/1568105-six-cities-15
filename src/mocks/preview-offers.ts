@@ -6,7 +6,7 @@ export const previewOffers: PreviewOffer[] = [
     title: 'Canal View Prinsengracht',
     type: 'house',
     price: 543,
-    previewImage: 'https://url-to-image/image.png',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/5.jpg',
     city: {
       name: 'Dusseldorf',
       location: {
@@ -28,7 +28,7 @@ export const previewOffers: PreviewOffer[] = [
     title: 'Waterfront with extraordinary view',
     type: 'hotel',
     price: 195,
-    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/5.jpg',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
     city: {
       name: 'Hamburg',
       location: {
@@ -51,7 +51,7 @@ export const previewOffers: PreviewOffer[] = [
     title: 'Canal View Prinsengracht',
     type: 'hotel',
     price: 149,
-    previewImage: 'https://url-to-image/image.png',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
     city: {
       name: 'Amsterdam',
       location: {
@@ -74,7 +74,7 @@ export const previewOffers: PreviewOffer[] = [
     title: 'The house among olive ',
     type: 'hotel',
     price: 223,
-    previewImage: 'https://url-to-image/image.png',
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
     city: {
       name: 'Brussels',
       location: {
