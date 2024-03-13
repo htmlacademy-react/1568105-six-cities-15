@@ -1,8 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-// import { AuthorizationStatus } from '../../authorizationStatus';
 import { FullOffer, PreviewOffer } from '../../types/offer-types';
 import { capitalize } from '../../utils';
+import NearPlacesCard from '../../components/near-places-card';
+// import Card from '../../components/card';
+// import { AuthorizationStatus } from '../../authorizationStatus';
+// import { PageNotFound } from '../page-not-found';
 
 type OfferPageProps = {
   previewOffers: PreviewOffer[];
@@ -11,10 +14,17 @@ type OfferPageProps = {
 
 export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): JSX.Element {
 
-  const { offerId } = useParams();
+  const { id: offerId } = useParams();
   const currentOffer = fullOffers.find((offer) => offer.id === offerId);
 
-  // const { title, description, type, price, images, goods, host, isPremium, isFavorite, rating, bedrooms, maxAdults } = currentOffer;
+  if (!currentOffer) {
+    return <p>---</p>; // <PageNotFound />
+  }
+
+  const { title, description, type, price, images,
+    goods, host, isPremium, isFavorite,
+    rating, bedrooms, maxAdults
+  } = currentOffer;
 
   return (
     <div className="page">
@@ -26,7 +36,7 @@ export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): 
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
 
-              {fullOffers[0].images.map((image: string) => (
+              {images.map((image: string) => (
                 <div className="offer__image-wrapper" key={image}>
                   <img className="offer__image"
                     src={image}
@@ -40,14 +50,17 @@ export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): 
 
           <div className="offer__container container">
             <div className="offer__wrapper">
-              {fullOffers[0].isPremium &&
+              {isPremium &&
                 <div className="offer__mark">
                   <span>Premium</span>
                 </div>}
 
               <div className="offer__name-wrapper">
-                <h1 className="offer__name">{fullOffers[0].title}</h1>
-                <button className="offer__bookmark-button button" type="button">
+                <h1 className="offer__name">{title}</h1>
+                <button
+                  className={`offer__bookmark-button button ${isFavorite && 'offer__bookmark-button--active'}`}
+                  type="button"
+                >
                   <svg className="offer__bookmark-icon" width={31} height={33}>
                     <use xlinkHref="#icon-bookmark" />
                   </svg>
@@ -65,27 +78,27 @@ export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): 
 
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {fullOffers[0].type && capitalize(fullOffers[0].type)}
+                  {type && capitalize(type)}
                 </li>
 
                 <li className="offer__feature offer__feature--bedrooms">
-                  {fullOffers[0].bedrooms && `${fullOffers[0].bedrooms} Bedrooms`}
+                  {bedrooms && `${bedrooms} Bedrooms`}
                 </li>
 
                 <li className="offer__feature offer__feature--adults">
-                  {`Max ${fullOffers[0].maxAdults && fullOffers[0].maxAdults} adults`}
+                  {`Max ${maxAdults && maxAdults} adults`}
                 </li>
               </ul>
 
               <div className="offer__price">
-                <b className="offer__price-value">&euro;{fullOffers[0].price}</b>
+                <b className="offer__price-value">&euro;{price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
 
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  {fullOffers[0].goods.map((good) =>
+                  {goods.map((good) =>
                     <li className="offer__inside-item" key={good}>{good}</li>
                   )}
                 </ul>
@@ -97,20 +110,20 @@ export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): 
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="offer__avatar user__avatar"
-                      src={fullOffers[0].host.avatarUrl}
+                      src={host.avatarUrl}
                       width={74} height={74} alt="Host avatar"
                     />
                   </div>
 
-                  <span className="offer__user-name">{fullOffers[0].host.name}</span>
+                  <span className="offer__user-name">{host.name}</span>
 
-                  {fullOffers[0].host.isPro &&
+                  {host.isPro &&
                     <span className="offer__user-status">Pro</span>}
                 </div>
 
                 <div className="offer__description">
-                  {fullOffers[0].description &&
-                    <p className="offer__text">{fullOffers[0].description}</p>}
+                  {description &&
+                    <p className="offer__text">{description}</p>}
                 </div>
               </div>
 
@@ -193,8 +206,10 @@ export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): 
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
+              {previewOffers.slice(0, 3).map((offer) => <NearPlacesCard key={offer.id} previewOffer={offer}/>)}
+              {/* <NearPlacesCard /> */}
 
-              <article className="near-places__card place-card">
+              {/* <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
 
                   <a href="#">
@@ -231,9 +246,9 @@ export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): 
                   </h2>
                   <p className="place-card__type">{capitalize(previewOffers[1].type)}</p>
                 </div>
-              </article>
+              </article> */}
 
-              <article className="near-places__card place-card">
+              {/* <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
                     <img className="place-card__image" src="img/apartment-02.jpg" width={260} height={200} alt="Place image" />
@@ -297,7 +312,7 @@ export default function OfferPage({fullOffers, previewOffers}: OfferPageProps): 
                   </h2>
                   <p className="place-card__type">Apartment</p>
                 </div>
-              </article>
+              </article> */}
             </div>
           </section>
         </div>

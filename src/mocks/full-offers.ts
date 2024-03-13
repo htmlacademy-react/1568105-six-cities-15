@@ -5,7 +5,7 @@ export const fullOffers: FullOffer[] = [
     id: 'ba3bf035-7a38-4f59-bf40-ff07122f5456',
     title: 'Canal View Prinsengracht',
     description: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
-    type: 'house',
+    type: 'apartment',
     price: 543,
     images: [
       'https://15.design.htmlacademy.pro/static/hotel/9.jpg',
@@ -79,8 +79,8 @@ export const fullOffers: FullOffer[] = [
       longitude: 9.999654000000001,
       zoom: 16
     },
-    isPremium: true,
-    isFavorite: false,
+    isPremium: false,
+    isFavorite: true,
     rating: 3.1,
     bedrooms: 2,
     goods: [
@@ -98,9 +98,9 @@ export const fullOffers: FullOffer[] = [
   },
   {
     id: '8b5a7be7-8cf0-4ead-af45-790242856c4a',
-    title: 'Canal View Prinsengracht',
+    title: 'The Joshua Tree House',
     description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
-    type: 'hotel',
+    type: 'room',
     price: 149,
     images: [
       'https://15.design.htmlacademy.pro/static/hotel/7.jpg',
@@ -123,7 +123,7 @@ export const fullOffers: FullOffer[] = [
       longitude: 4.886976,
       zoom: 16
     },
-    isPremium: true,
+    isPremium: false,
     isFavorite: false,
     rating: 3.3,
     bedrooms: 4,
@@ -145,7 +145,7 @@ export const fullOffers: FullOffer[] = [
     id: '55232be2-36d1-4ea6-99d6-5c0a33ffa1ce',
     title: 'The house among olive ',
     description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
-    type: 'hotel',
+    type: 'house',
     price: 223,
     images: [
       'https://15.design.htmlacademy.pro/static/hotel/13.jpg',
@@ -169,7 +169,7 @@ export const fullOffers: FullOffer[] = [
       zoom: 16
     },
     isPremium: true,
-    isFavorite: false,
+    isFavorite: true,
     rating: 3.8,
     bedrooms: 3,
     goods: [

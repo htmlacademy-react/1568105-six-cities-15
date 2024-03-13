@@ -4,7 +4,7 @@ export const previewOffers: PreviewOffer[] = [
   {
     id: 'ba3bf035-7a38-4f59-bf40-ff07122f5456',
     title: 'Canal View Prinsengracht',
-    type: 'house',
+    type: 'apartment',
     price: 543,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/5.jpg',
     city: {
@@ -42,14 +42,14 @@ export const previewOffers: PreviewOffer[] = [
       longitude: 9.999654000000001,
       zoom: 16
     },
-    isPremium: true,
-    isFavorite: false,
+    isPremium: false,
+    isFavorite: true,
     rating: 3.1,
   },
   {
     id: '8b5a7be7-8cf0-4ead-af45-790242856c4a',
-    title: 'Canal View Prinsengracht',
-    type: 'hotel',
+    title: 'The Joshua Tree House',
+    type: 'room',
     price: 149,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
     city: {
@@ -65,14 +65,14 @@ export const previewOffers: PreviewOffer[] = [
       longitude: 4.886976,
       zoom: 16
     },
-    isPremium: true,
+    isPremium: false,
     isFavorite: false,
     rating: 3.3,
   },
   {
     id: '55232be2-36d1-4ea6-99d6-5c0a33ffa1ce',
     title: 'The house among olive ',
-    type: 'hotel',
+    type: 'house',
     price: 223,
     previewImage: 'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
     city: {
@@ -89,7 +89,7 @@ export const previewOffers: PreviewOffer[] = [
       zoom: 16
     },
     isPremium: true,
-    isFavorite: false,
+    isFavorite: true,
     rating: 3.8,
   }
 ];

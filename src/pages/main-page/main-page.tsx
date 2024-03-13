@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 import Card from '../../components/card';
 import Map from '../../components/map';
 import { CITIES } from '../../const';
-import { PLACE_OPTIONS } from '../../const'; // , optionCard
-// import { PreviewOffer } from '../../types/preview-offer';
+import { PLACE_OPTIONS } from '../../const';
+import { PreviewOffer } from '../../types/offer-types';
 
 type MainPageProps = {
-  // previewOffers: PreviewOffer[];
+  previewOffers: PreviewOffer[];
   stayPlaces: number;
 }
-//, previewOffers
-export default function MainPage({ stayPlaces }: MainPageProps): JSX.Element {
+
+export default function MainPage({ stayPlaces, previewOffers }: MainPageProps): JSX.Element {
   const [activeCity, setActiveCity] = useState<string | null>(null);
 
   const handleMouseEnter = (city: string) => {
@@ -71,11 +71,7 @@ export default function MainPage({ stayPlaces }: MainPageProps): JSX.Element {
               </form>
 
               <div className="cities__places-list places__list tabs__content">
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
+                {previewOffers.map((offer) => <Card key={offer.id} previewOffer={offer}/>)}
               </div>
             </section>
 

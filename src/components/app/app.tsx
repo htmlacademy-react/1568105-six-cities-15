@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import PrivateRoute from '../private-route';
 import Layout from '../layout';
 import MainPage from '../../pages/main-page';
+import OfferPage from '../../pages/offer-page';
 import LoginPage from '../../pages/login-page';
 import Favorites from '../../pages/favorites';
-import OfferPage from '../../pages/offer-page';
 import PageNotFound from '../../pages/page-not-found';
-import PrivateRoute from '../private-route';
 import { FullOffer, PreviewOffer } from '../../types/offer-types';
 
 type AppProps = {
@@ -32,16 +32,20 @@ export default function App({previewOffers, fullOffers, favoritesVolume, stayPla
               element={<MainPage stayPlaces={stayPlaces} previewOffers={previewOffers}/>}
             />
             <Route
-              path={AppRoute.OfferPage} // `/${AppRoute.OfferPage}/:Id`
+              path={AppRoute.OfferPage}
               element={(<OfferPage fullOffers={fullOffers} previewOffers={previewOffers} />)}
             />
             <Route
-              path={AppRoute.Login} element={(<LoginPage />)}
+              path={AppRoute.Login} element={(
+                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
+                  <LoginPage />
+                </PrivateRoute>
+              )}
             />
             <Route
               path={AppRoute.Favorites}
               element={(
-                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
+                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
                   <Favorites />
                 </PrivateRoute>
               )}
