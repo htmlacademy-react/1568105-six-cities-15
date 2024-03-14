@@ -1,4 +1,4 @@
-import { PreviewOffer } from '../types/offer-types';
+import { PreviewOffer } from '../types/types';
 
 export const previewOffers: PreviewOffer[] = [
   {

@@ -6,7 +6,7 @@ export const Data = {
 export enum AppRoute {
   Root = '/',
   Login = '/login',
-  Favorites = '/favorites',
+  FavoritesPage = '/favorites',
   OfferPage = '/offer/:id'
 }
 

@@ -5,7 +5,7 @@ import Card from '../../components/card';
 import Map from '../../components/map';
 import { CITIES } from '../../const';
 import { PLACE_OPTIONS } from '../../const';
-import { PreviewOffer } from '../../types/offer-types';
+import { PreviewOffer } from '../../types/types';
 
 type MainPageProps = {
   previewOffers: PreviewOffer[];

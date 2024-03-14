@@ -27,6 +27,7 @@ export type OfferBase = {
   rating: number;
 }
 
+//* FullOffer *
 export type FullOffer = OfferBase & {
   description: string;
   bedrooms: number;
@@ -36,6 +37,25 @@ export type FullOffer = OfferBase & {
   maxAdults: number;
 }
 
+//* PreviewOffer *
 export type PreviewOffer = OfferBase & {
   previewImage: string;
+}
+
+//* User *
+export type User = {
+  name: string;
+  avatarUrl: string;
+  isPro: boolean;
+  email: string;
+  token: string;
+}
+
+// * Review *
+export type Review = {
+  id: string;
+  date: string;
+  user: Omit<User, 'email' | 'token'>;
+  comment: string;
+  rating: number;
 }

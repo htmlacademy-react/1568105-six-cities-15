@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import FavoritesList from '../../components/favorites-list';
 import Footer from '../../components/footer';
 
-export default function Favorites() {
+export default function FavoritesPage() {
   return (
     <div className="page">
       <Helmet>

@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { getLayoutState } from '../../utils';
 import { getAuthorizationStatus } from '../../authorizationStatus';
+import ScrollToTop from '../../utils';
 // import Footer from '../footer';
 
 type LayoutProps = {
@@ -16,6 +17,7 @@ export default function Layout({favoritesVolume}: LayoutProps): JSX.Element {
 
   return (
     <div className={`page${rootClassName}`}>
+      <ScrollToTop />
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -29,16 +31,16 @@ export default function Layout({favoritesVolume}: LayoutProps): JSX.Element {
                 <nav className="header__nav">
                   <ul className="header__nav-list">
                     <li className="header__nav-item user">
-                      <Link className="header__nav-link header__nav-link--profile" to="/favorites">
-                        <div className="header__avatar-wrapper user__avatar-wrapper">
-                        </div>
-                        {authorizationStatus === AuthorizationStatus.Auth ? (
+                      {authorizationStatus === AuthorizationStatus.Auth ? (
+                        <Link className="header__nav-link header__nav-link--profile" to="/favorites">
+                          <div className="header__avatar-wrapper user__avatar-wrapper">
+                          </div>
                           <>
                             <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                             <span className="header__favorite-count">{favoritesVolume}</span>
                           </>
-                        ) : <span className="header__login">Sign in</span>}
-                      </Link>
+                        </Link>
+                      ) : <span className="header__login">Sign in</span>}
                     </li>
                     {authorizationStatus === AuthorizationStatus.Auth ? (
                       <li className="header__nav-item">

@@ -6,18 +6,19 @@ import Layout from '../layout';
 import MainPage from '../../pages/main-page';
 import OfferPage from '../../pages/offer-page';
 import LoginPage from '../../pages/login-page';
-import Favorites from '../../pages/favorites';
+import FavoritesPage from '../../pages/favorites-page';
 import PageNotFound from '../../pages/page-not-found';
-import { FullOffer, PreviewOffer } from '../../types/offer-types';
+import { FullOffer, PreviewOffer, Review } from '../../types/types';
 
 type AppProps = {
   previewOffers: PreviewOffer[];
   fullOffers: FullOffer[];
+  reviews: Review[];
   favoritesVolume: number;
   stayPlaces: number;
 }
 
-export default function App({previewOffers, fullOffers, favoritesVolume, stayPlaces}: AppProps): JSX.Element {
+export default function App({reviews, previewOffers, fullOffers, favoritesVolume, stayPlaces}: AppProps): JSX.Element {
 
   return (
     <HelmetProvider>
@@ -33,7 +34,7 @@ export default function App({previewOffers, fullOffers, favoritesVolume, stayPla
             />
             <Route
               path={AppRoute.OfferPage}
-              element={(<OfferPage fullOffers={fullOffers} previewOffers={previewOffers} />)}
+              element={(<OfferPage fullOffers={fullOffers} previewOffers={previewOffers} reviews={reviews}/>)}
             />
             <Route
               path={AppRoute.Login} element={(
@@ -43,10 +44,10 @@ export default function App({previewOffers, fullOffers, favoritesVolume, stayPla
               )}
             />
             <Route
-              path={AppRoute.Favorites}
+              path={AppRoute.FavoritesPage}
               element={(
                 <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                  <Favorites />
+                  <FavoritesPage />
                 </PrivateRoute>
               )}
             />

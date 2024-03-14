@@ -1,4 +1,4 @@
-import { PreviewOffer } from '../../types/offer-types';
+import { PreviewOffer } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { capitalize } from '../../utils';

@@ -1,4 +1,4 @@
-import { PreviewOffer } from '../../types/offer-types';
+import { PreviewOffer } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { capitalize } from '../../utils';
@@ -49,7 +49,7 @@ export default function NearPlacesCard({previewOffer}: NearPlacesCardProps) {
           </div>
         </div>
         <h2 className='place-card__name'>
-          <a href='#'>{title}</a>
+          <Link to={AppRoute.OfferPage.replace(':id', id)}>{title}</Link>
         </h2>
         <p className='place-card__type'>{capitalize(type)}</p>
       </div>
