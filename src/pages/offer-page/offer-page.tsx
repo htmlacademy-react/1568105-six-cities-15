@@ -6,8 +6,6 @@ import { capitalize } from '../../utils';
 import Reviews from '../../components/reviews';
 import NearPlacesCard from '../../components/near-places-card';
 
-// import { AuthorizationStatus } from '../../authorizationStatus';
-
 type OfferPageProps = {
   previewOffers: PreviewOffer[];
   fullOffers: FullOffer[];
