@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Outlet, useLocation } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthStatus } from '../../const';
 import { getLayoutState } from '../../utils';
-import { getAuthorizationStatus } from '../../authorizationStatus';
+import { getUserAuth } from '../../get-user-auth';
 import ScrollToTop from '../../utils';
 // import Footer from '../footer';
 
@@ -13,7 +13,7 @@ type LayoutProps = {
 export default function Layout({favoritesVolume}: LayoutProps): JSX.Element {
   const {pathname} = useLocation();
   const {rootClassName, linkClassName, renderUser} = getLayoutState(pathname as AppRoute); /* , renderFooter */
-  const authorizationStatus = getAuthorizationStatus();
+  const userAuth = getUserAuth();
 
   return (
     <div className={`page${rootClassName}`}>
@@ -34,7 +34,7 @@ export default function Layout({favoritesVolume}: LayoutProps): JSX.Element {
                       <Link className="header__nav-link header__nav-link--profile" to="/favorites">
                         <div className="header__avatar-wrapper user__avatar-wrapper">
                         </div>
-                        {authorizationStatus === AuthorizationStatus.Auth ? (
+                        {userAuth === AuthStatus.Auth ? (
                           <>
                             <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                             <span className="header__favorite-count">{favoritesVolume}</span>
@@ -42,7 +42,7 @@ export default function Layout({favoritesVolume}: LayoutProps): JSX.Element {
                         ) : <span className="header__login">Sign in</span>}
                       </Link>
                     </li>
-                    {authorizationStatus === AuthorizationStatus.Auth ? (
+                    {userAuth === AuthStatus.Auth ? (
                       <li className="header__nav-item">
                         <a className="header__nav-link" href="#">
                           <span className="header__signout">Sign out</span>

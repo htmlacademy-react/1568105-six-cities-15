@@ -10,7 +10,7 @@ export enum AppRoute {
   OfferPage = '/offer/:id'
 }
 
-export enum AuthorizationStatus {
+export enum AuthStatus {
   Auth='Auth',
   NoAuth='NoAuth',
   Unknown='Unknown'
@@ -32,15 +32,15 @@ export const PLACE_OPTIONS: string[] = [
   'Top rated first',
 ];
 
-export const optionCard = {
-  CITIES_CARD: {
-    classCard: 'cities__card',
-    width: '260',
-    height: '200'
-  },
-  FAVORITES_CARD: {
-    classCard: 'favorites__card',
-    width: '150',
-    height: '110'
-  }
-};
+// export const optionCard = {
+//   CITIES_CARD: {
+//     classCard: 'cities__card',
+//     width: '260',
+//     height: '200'
+//   },
+//   FAVORITES_CARD: {
+//     classCard: 'favorites__card',
+//     width: '150',
+//     height: '110'
+//   }
+// };

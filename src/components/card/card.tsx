@@ -1,7 +1,8 @@
 import { PreviewOffer } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { capitalize } from '../../utils';
+import { getPercents } from '../../utils';
+import { doFirstCap } from '../../utils';
 
 type CardProps = {
   previewOffer: PreviewOffer;
@@ -41,7 +42,7 @@ export default function Card({previewOffer}: CardProps) {
 
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: getPercents(rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -49,7 +50,7 @@ export default function Card({previewOffer}: CardProps) {
         <h2 className="place-card__name">
           <Link to={AppRoute.OfferPage.replace(':id', id)}>{title}</Link>
         </h2>
-        <p className="place-card__type">{capitalize(type)}</p>
+        <p className="place-card__type">{doFirstCap(type)}</p>
       </div>
     </article>
   );

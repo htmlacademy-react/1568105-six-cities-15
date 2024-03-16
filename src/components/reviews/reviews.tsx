@@ -1,7 +1,7 @@
 import ReviewsList from '../reviews-list';
-import ReviewsForm from '../reviews-form';
-import { AuthorizationStatus } from '../../const';
-import { getAuthorizationStatus } from '../../authorizationStatus';
+import ReviewForm from '../review-form';
+import { AuthStatus } from '../../const';
+import { getUserAuth } from '../../get-user-auth';
 
 import { Review } from '../../types/types';
 
@@ -10,15 +10,18 @@ type ReviewsProps = {
 }
 
 export default function Reviews({ reviews }: ReviewsProps): JSX.Element {
+  const userAuth = getUserAuth();
 
-  const authorizationStatus = getAuthorizationStatus();
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
-        Reviews &middot; <span className="reviews__amount">1</span>
+        Reviews &middot; <span className="reviews__amount">{ReviewsList.length}</span>
       </h2>
       <ReviewsList reviews={reviews}/>
-      {authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm />}
+      {userAuth === AuthStatus.Auth && <ReviewForm />}
+      {userAuth === AuthStatus.NoAuth && <p className="reviews__title offer__price-text">Only authorized users can make a review.</p> }
+
+      {/* log in and you can leave comments */}
     </section>
   );
 }

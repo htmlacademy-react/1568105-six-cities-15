@@ -1,4 +1,5 @@
 import { Review } from '../../types/types';
+import { getPercents } from '../../utils';
 
 type ReviewsItemProps = {
   review: Review;
@@ -6,7 +7,7 @@ type ReviewsItemProps = {
 
 export default function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
 
-  const { date, user, comment, rating } = review; // id, name, avatarUrl, isPro
+  const { user, comment, rating } = review; // id, name, avatarUrl, isPro /// date, – доделать
 
   return (
     <li className="reviews__item">
@@ -21,7 +22,7 @@ export default function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: '80%' }} />
+            <span style={{width: getPercents(rating)}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>

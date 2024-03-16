@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppRoute } from './const';
 
+//* getLayoutState() *
 export const getLayoutState = (pathName: AppRoute) => {
   let rootClassName = '';
   let linkClassName = '';
@@ -21,6 +22,7 @@ export const getLayoutState = (pathName: AppRoute) => {
   return { rootClassName, linkClassName, renderUser }; /* , renderFooter */
 };
 
+//* ScrollToTop() *
 export default function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -31,4 +33,8 @@ export default function ScrollToTop() {
   return null;
 }
 
-export const capitalize = (str: string) => str[0].toUpperCase() + str.slice(1);
+//* doFirstCap *
+export const doFirstCap = (str: string) => str[0].toUpperCase() + str.slice(1);
+
+//* getPercents *
+export const getPercents = (item: number) => `${String(Math.round(item) * 20)}%`;

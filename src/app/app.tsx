@@ -1,14 +1,15 @@
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import PrivateRoute from '../private-route';
-import Layout from '../layout';
-import MainPage from '../../pages/main-page';
-import OfferPage from '../../pages/offer-page';
-import LoginPage from '../../pages/login-page';
-import FavoritesPage from '../../pages/favorites-page';
-import PageNotFound from '../../pages/page-not-found';
-import { FullOffer, PreviewOffer, Review } from '../../types/types';
+import { AppRoute } from '../const';
+import PrivateRoute from '../components/private-route';
+import Layout from '../components/layout';
+import MainPage from '../pages/main-page';
+import OfferPage from '../pages/offer-page';
+import LoginPage from '../pages/login-page';
+import FavoritesPage from '../pages/favorites-page';
+import PageNotFound from '../pages/page-not-found';
+import { FullOffer, PreviewOffer, Review } from '../types/types';
+import { getUserAuth } from '../get-user-auth';
 
 type AppProps = {
   previewOffers: PreviewOffer[];
@@ -18,7 +19,8 @@ type AppProps = {
   stayPlaces: number;
 }
 
-export default function App({reviews, previewOffers, fullOffers, favoritesVolume, stayPlaces}: AppProps): JSX.Element {
+export default function App({ favoritesVolume, stayPlaces,reviews, previewOffers, fullOffers }: AppProps): JSX.Element {
+  const auth = getUserAuth();
 
   return (
     <HelmetProvider>
@@ -38,7 +40,7 @@ export default function App({reviews, previewOffers, fullOffers, favoritesVolume
             />
             <Route
               path={AppRoute.Login} element={(
-                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth} isReverse>
+                <PrivateRoute authorisedUser={auth} isReverse>
                   <LoginPage />
                 </PrivateRoute>
               )}
@@ -46,7 +48,7 @@ export default function App({reviews, previewOffers, fullOffers, favoritesVolume
             <Route
               path={AppRoute.FavoritesPage}
               element={(
-                <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                <PrivateRoute authorisedUser={auth}>
                   <FavoritesPage />
                 </PrivateRoute>
               )}

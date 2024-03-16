@@ -2,7 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import PageNotFound from '../page-not-found';
 import { FullOffer, PreviewOffer, Review } from '../../types/types';
-import { capitalize } from '../../utils';
+import { getPercents } from '../../utils';
+import { doFirstCap } from '../../utils';
 import Reviews from '../../components/reviews';
 import NearPlacesCard from '../../components/near-places-card';
 
@@ -67,15 +68,15 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
 
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{ width: '80%' }} />
+                  <span style={{width: getPercents(rating)}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{rating}</span>
               </div>
 
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type && capitalize(type)}
+                  {type && doFirstCap(type)}
                 </li>
 
                 <li className="offer__feature offer__feature--bedrooms">
