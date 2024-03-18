@@ -1,50 +1,59 @@
-import { useRef, useEffect } from 'react'; //  , React,
-import leaflet from 'leaflet';
-// import 'leaflet/dist/leaflet.css';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
-import { City, PreviewOffer } from '../../types/types';
+import {useRef, useEffect} from 'react';
+import {Icon, Marker, layerGroup} from 'leaflet';
 import useMap from '../../hooks/use-map';
+// import {City, Points, Point} from '../../types/types';
+import { City, PreviewOffer, Location } from '../../types/types';
+import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
 
 type MapProps = {
   cityData: City;
   previewOffers: PreviewOffer[];
-}
+  selectedPoint: Location | undefined;
+};
 
-// {city, points, selectedPoint}
-export default function Map({cityData, previewOffers, selectedPoint}: MapProps): JSX.Element {
+const defaultCustomIcon = new Icon({
+  iconUrl: URL_MARKER_DEFAULT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40]
+});
+
+const currentCustomIcon = new Icon({
+  iconUrl: URL_MARKER_CURRENT,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40]
+});
+
+function Map(props: MapProps): JSX.Element {
+  const {cityData, previewOffers, selectedPoint} = props;
+
   const mapRef = useRef(null);
   const map = useMap(mapRef, cityData);
 
-  const defaultCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_DEFAULT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const currentCustomIcon = leaflet.icon({
-    iconUrl: URL_MARKER_CURRENT,
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
   useEffect(() => {
     if (map) {
-      previewOffers.forEach((previewOffer) => {
-        leaflet
-          .marker({
-            lat: previewOffer.lat,
-            lng: previewOffer.lng,
-          }, {
-            icon: (previewOffer.title === selectedPoint.title)
+      const markerLayer = layerGroup().addTo(map);
+      previewOffers.forEach((offer) => {
+        const marker = new Marker({
+          latitude: offer.location.latitude,
+          longitude: offer.location.longitude
+        });
+
+        marker
+          .setIcon(
+            selectedPoint !== undefined && offer.title === selectedPoint.name
               ? currentCustomIcon
-              : defaultCustomIcon,
-          })
-          .addTo(map);
+              : defaultCustomIcon
+          )
+          .addTo(markerLayer);
       });
+
+      return () => {
+        map.removeLayer(markerLayer);
+      };
     }
   }, [map, previewOffers, selectedPoint]);
 
-  return (
-    <div className="cities__map map" ref={mapRef}></div>
-  );
+  return <div ref={mapRef}></div>;
 }
+
+export default Map;

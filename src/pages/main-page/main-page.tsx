@@ -3,22 +3,21 @@ import { Helmet } from 'react-helmet-async';
 import Card from '../../components/card';
 import Tabs from '../../components/tabs';
 import Map from '../../components/map';
-// import { CITIES } from '../../const';
 import { PLACE_OPTIONS } from '../../const';
-import { PreviewOffer, City } from '../../types/types';
+import { PreviewOffer, City} from '../../types/types'; // , Location
 
 type MainPageProps = {
   previewOffers: PreviewOffer[];
   cityData: City;
+  // Location: Location;
 }
 
 export default function MainPage({ previewOffers, cityData }: MainPageProps): JSX.Element {
-  const [selectedPoint, setSelectedPoint] = useState({});
+  const [selectedPoint, setSelectedPoint] = useState<Location | undefined>(undefined);
 
-  const handleListItemHover = (listItemName) => {
-    const currentPoint = previewOffers.find((previewOffer) =>
-    previewOffer.title === listItemName,
-    );
+  const handleListItemHover = (listItemName: string) => {
+    const currentPoint = previewOffers.find((offer) => offer.title === listItemName);
+
     setSelectedPoint(currentPoint);
   };
   // const [activeCity, setActiveCity] = useState<string | null>(null);
@@ -87,7 +86,7 @@ export default function MainPage({ previewOffers, cityData }: MainPageProps): JS
             </section>
 
             <div className="cities__right-section">
-              {/* <Map cityData={cityData} previewOffers={previewOffers}/> */}
+              <Map cityData={cityData} previewOffers={previewOffers} selectedPoint={selectedPoint}/>
             </div>
           </div>
         </div>
