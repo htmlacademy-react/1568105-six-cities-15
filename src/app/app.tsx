@@ -8,7 +8,7 @@ import OfferPage from '../pages/offer-page';
 import LoginPage from '../pages/login-page';
 import FavoritesPage from '../pages/favorites-page';
 import PageNotFound from '../pages/page-not-found';
-import { FullOffer, PreviewOffer, Review } from '../types/types';
+import { FullOffer, PreviewOffer, Review, City } from '../types/types';
 import { getUserAuth } from '../get-user-auth';
 
 type AppProps = {
@@ -16,10 +16,10 @@ type AppProps = {
   fullOffers: FullOffer[];
   reviews: Review[];
   favoritesVolume: number;
-  stayPlaces: number;
+  cityData: City;
 }
 
-export default function App({ favoritesVolume, stayPlaces,reviews, previewOffers, fullOffers }: AppProps): JSX.Element {
+export default function App({ favoritesVolume, reviews, previewOffers, fullOffers, cityData }: AppProps): JSX.Element {
   const auth = getUserAuth();
 
   return (
@@ -32,7 +32,7 @@ export default function App({ favoritesVolume, stayPlaces,reviews, previewOffers
           >
             <Route
               index
-              element={<MainPage stayPlaces={stayPlaces} previewOffers={previewOffers}/>}
+              element={<MainPage cityData={cityData} previewOffers={previewOffers}/>}
             />
             <Route
               path={AppRoute.OfferPage}
