@@ -1,9 +1,11 @@
+//* Location * "Point"(в Лифлете)
 export type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
+//* City *
 export type City = {
   name: string;
   location: Location;

@@ -1,27 +1,20 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
 import Card from '../../components/card';
+import Tabs from '../../components/tabs';
 import Map from '../../components/map';
-import { CITIES } from '../../const';
 import { PLACE_OPTIONS } from '../../const';
-import { PreviewOffer } from '../../types/types';
+import { PreviewOffer, City} from '../../types/types';
 
 type MainPageProps = {
   previewOffers: PreviewOffer[];
-  stayPlaces: number;
+  cityData: City;
 }
 
-export default function MainPage({ stayPlaces, previewOffers }: MainPageProps): JSX.Element {
-  const [activeCity, setActiveCity] = useState<string | null>(null);
+const ACTIVE_CITY_NAME = 'Cologne';
 
-  const handleMouseEnter = (city: string) => {
-    setActiveCity(city);
-  };
-
-  const handleMouseLeave = () => {
-    setActiveCity(null);
-  };
+export default function MainPage({ previewOffers, cityData }: MainPageProps): JSX.Element {
+  const [selectedPointId, setSelectedPointId] = useState('');
 
   return (
     <div className="page page--gray page--main">
@@ -31,28 +24,13 @@ export default function MainPage({ stayPlaces, previewOffers }: MainPageProps): 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {CITIES.map((city) => (
-                <li className="locations__item" key={city}>
-                  <Link
-                    to={`/${city}`}
-                    className={`locations__item-link tabs__item ${activeCity === city ? 'tabs__item--active' : ''}`}
-                    onMouseEnter={() => handleMouseEnter(city)}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <span>{city}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section>
+          <Tabs activeCityName={ACTIVE_CITY_NAME} />
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{stayPlaces} places to stay in Amsterdam</b>
+              <b className="places__found">{previewOffers.length} places to stay in {cityData.name}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -71,12 +49,14 @@ export default function MainPage({ stayPlaces, previewOffers }: MainPageProps): 
               </form>
 
               <div className="cities__places-list places__list tabs__content">
-                {previewOffers.map((offer) => <Card key={offer.id} previewOffer={offer}/>)}
+                {previewOffers.map((offer) =>
+                  <Card key={offer.id} previewOffer={offer} setSelectedPointId={setSelectedPointId}/>
+                )}
               </div>
             </section>
 
             <div className="cities__right-section">
-              <Map />
+              <Map className="cities" cityData={cityData} previewOffers={previewOffers} selectedPointId={selectedPointId}/>
             </div>
           </div>
         </div>

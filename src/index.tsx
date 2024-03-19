@@ -5,6 +5,7 @@ import { Data } from './const';
 import { previewOffers } from './mocks/preview-offers';
 import { fullOffers } from './mocks/full-offers';
 import { reviews } from './mocks/reviews';
+import { cityData } from './mocks/city-data';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -15,9 +16,9 @@ root.render(
     <App
       previewOffers={previewOffers}
       favoritesVolume = {Data.FavoritesVolume}
-      stayPlaces = {Data.StayPlaces}
       fullOffers={fullOffers}
       reviews={reviews}
+      cityData={cityData}
     />
   </React.StrictMode>
 );

@@ -135,7 +135,7 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {previewOffers.slice(0, 3).map((offer) =>
+              {previewOffers.filter((offer) => offer.id !== offerId).slice(0, 3).map((offer) =>
                 <NearPlacesCard key={offer.id} previewOffer={offer} />
               )}
             </div>

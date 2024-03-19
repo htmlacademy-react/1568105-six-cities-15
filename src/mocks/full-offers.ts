@@ -16,15 +16,15 @@ export const fullOffers: FullOffer[] = [
       'https://15.design.htmlacademy.pro/static/hotel/17.jpg'
     ],
     city: {
-      name: 'Dusseldorf',
+      name: 'Amsterdam',
       location: {
-        latitude: 51.225402,
-        longitude: 6.776314,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
         zoom: 13
       }},
     location: {
-      latitude: 51.225402,
-      longitude: 6.784314,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 16
     },
     goods: [
@@ -67,16 +67,16 @@ export const fullOffers: FullOffer[] = [
       'https://15.design.htmlacademy.pro/static/hotel/16.jpg'
     ],
     city: {
-      name: 'Hamburg',
+      name: 'Amsterdam',
       location: {
-        latitude: 53.550341,
-        longitude: 10.000654,
+        latitude: 52.3609553943508,
+        longitude: 4.85309666406198,
         zoom: 13
       }
     },
     location: {
-      latitude: 53.558341000000006,
-      longitude: 9.999654000000001,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
       zoom: 16
     },
     isPremium: false,
@@ -113,14 +113,14 @@ export const fullOffers: FullOffer[] = [
     city: {
       name: 'Amsterdam',
       location: {
-        latitude: 52.37454,
-        longitude: 4.897976,
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
         zoom: 13
       }
     },
     location: {
-      latitude: 52.385540000000006,
-      longitude: 4.886976,
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
       zoom: 16
     },
     isPremium: false,
@@ -156,16 +156,16 @@ export const fullOffers: FullOffer[] = [
       'https://15.design.htmlacademy.pro/static/hotel/16.jpg'
     ],
     city: {
-      name: 'Brussels',
+      name: 'Amsterdam',
       location: {
-        latitude: 50.846557,
-        longitude: 4.351697,
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
         zoom: 13
       }
     },
     location: {
-      latitude: 50.842557,
-      longitude: 4.363696999999999,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 16
     },
     isPremium: true,
