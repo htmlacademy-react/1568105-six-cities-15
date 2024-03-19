@@ -4,31 +4,17 @@ import Card from '../../components/card';
 import Tabs from '../../components/tabs';
 import Map from '../../components/map';
 import { PLACE_OPTIONS } from '../../const';
-import { PreviewOffer, City} from '../../types/types'; // , Location
+import { PreviewOffer, City} from '../../types/types';
 
 type MainPageProps = {
   previewOffers: PreviewOffer[];
   cityData: City;
-  // Location: Location;
 }
 
+const ACTIVE_CITY_NAME = 'Cologne';
+
 export default function MainPage({ previewOffers, cityData }: MainPageProps): JSX.Element {
-  const [selectedPoint, setSelectedPoint] = useState<Location | undefined>(undefined);
-
-  const handleListItemHover = (listItemName: string) => {
-    const currentPoint = previewOffers.find((offer) => offer.title === listItemName);
-
-    setSelectedPoint(currentPoint);
-  };
-  // const [activeCity, setActiveCity] = useState<string | null>(null);
-
-  // const handleMouseEnter = (city: string) => {
-  //   setActiveCity(city);
-  // };
-
-  // const handleMouseLeave = () => {
-  //   setActiveCity(null);
-  // };
+  const [selectedPointId, setSelectedPointId] = useState('');
 
   return (
     <div className="page page--gray page--main">
@@ -38,25 +24,7 @@ export default function MainPage({ previewOffers, cityData }: MainPageProps): JS
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Tabs previewOffers={previewOffers} onListItemHover={handleListItemHover} />
-
-          {/* <section className="locations container">
-            <ul className="locations__list tabs__list">
-              {CITIES.map((city) => (
-                <li className="locations__item" key={city}>
-                  <Link
-                    to={`/${city}`}
-                    className={`locations__item-link tabs__item ${activeCity === city ? 'tabs__item--active' : ''}`}
-                    onMouseEnter={() => handleMouseEnter(city)}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <span>{city}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </section> */}
-
+          <Tabs activeCityName={ACTIVE_CITY_NAME} />
         </div>
         <div className="cities">
           <div className="cities__places-container container">
@@ -81,12 +49,14 @@ export default function MainPage({ previewOffers, cityData }: MainPageProps): JS
               </form>
 
               <div className="cities__places-list places__list tabs__content">
-                {previewOffers.map((offer) => <Card key={offer.id} previewOffer={offer}/>)}
+                {previewOffers.map((offer) =>
+                  <Card key={offer.id} previewOffer={offer} setSelectedPointId={setSelectedPointId}/>
+                )}
               </div>
             </section>
 
             <div className="cities__right-section">
-              <Map cityData={cityData} previewOffers={previewOffers} selectedPoint={selectedPoint}/>
+              <Map className="cities" cityData={cityData} previewOffers={previewOffers} selectedPointId={selectedPointId}/>
             </div>
           </div>
         </div>

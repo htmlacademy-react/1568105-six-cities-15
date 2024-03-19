@@ -1,30 +1,19 @@
 import {useRef, useEffect} from 'react';
-import {Icon, Marker, layerGroup} from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import { Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
-// import {City, Points, Point} from '../../types/types';
-import { City, PreviewOffer, Location } from '../../types/types';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../const';
+import { City, PreviewOffer } from '../../types/types';
+import { defaultIcon, currentIcon } from '../../const';
 
 type MapProps = {
   cityData: City;
   previewOffers: PreviewOffer[];
-  selectedPoint: Location | undefined;
+  selectedPointId: string;
+  className: string;
 };
 
-const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
-});
-
-const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
-});
-
 function Map(props: MapProps): JSX.Element {
-  const {cityData, previewOffers, selectedPoint} = props;
+  const {cityData, previewOffers, selectedPointId, className } = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, cityData);
@@ -34,15 +23,15 @@ function Map(props: MapProps): JSX.Element {
       const markerLayer = layerGroup().addTo(map);
       previewOffers.forEach((offer) => {
         const marker = new Marker({
-          latitude: offer.location.latitude,
-          longitude: offer.location.longitude
+          lat: offer.location.latitude,
+          lng: offer.location.longitude
         });
 
         marker
           .setIcon(
-            selectedPoint !== undefined && offer.title === selectedPoint.name
-              ? currentCustomIcon
-              : defaultCustomIcon
+            selectedPointId === offer.id
+              ? currentIcon
+              : defaultIcon
           )
           .addTo(markerLayer);
       });
@@ -51,9 +40,9 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, previewOffers, selectedPoint]);
+  }, [map, previewOffers, selectedPointId]);
 
-  return <div ref={mapRef}></div>;
+  return <section className={`${className}__map map`} ref={mapRef}></section>;
 }
 
 export default Map;

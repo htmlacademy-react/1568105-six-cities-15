@@ -14,17 +14,13 @@ function useMap(
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = new Map(mapRef.current, {
         center: {
-          latitude: cityData.location.latitude,
-          longitude: cityData.location.longitude
+          lat: cityData.location.latitude,
+          lng: cityData.location.longitude
         },
         zoom: 10
       });
 
-      const layer = new TileLayer(TILE_LAYER,
-        {
-          attribution: ATTRIBUTION
-        }
-      );
+      const layer = new TileLayer(TILE_LAYER, { attribution: ATTRIBUTION });
 
       instance.addLayer(layer);
 
