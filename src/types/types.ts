@@ -1,4 +1,4 @@
-//* Location * "Point"(в Лифлете)
+//* Location *
 export type Location = {
   latitude: number;
   longitude: number;
@@ -11,6 +11,7 @@ export type City = {
   location: Location;
 };
 
+//* Host *
 export type Host = {
   name: string;
   avatarUrl: string;

@@ -27,6 +27,8 @@ export const CITIES: string[] = [
   'Dusseldorf',
 ];
 
+export const ACTIVE_CITY_NAME = 'Paris';
+
 export const PLACE_OPTIONS: string[] = [
   'Popular',
   'Price: low to high',

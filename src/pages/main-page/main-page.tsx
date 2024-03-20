@@ -3,15 +3,13 @@ import { Helmet } from 'react-helmet-async';
 import Card from '../../components/card';
 import Tabs from '../../components/tabs';
 import Map from '../../components/map';
-import { PLACE_OPTIONS } from '../../const';
-import { PreviewOffer, City} from '../../types/types';
+import { PLACE_OPTIONS, ACTIVE_CITY_NAME } from '../../const';
+import { PreviewOffer, City } from '../../types/types';
 
 type MainPageProps = {
   previewOffers: PreviewOffer[];
   cityData: City;
 }
-
-const ACTIVE_CITY_NAME = 'Cologne';
 
 export default function MainPage({ previewOffers, cityData }: MainPageProps): JSX.Element {
   const [selectedPointId, setSelectedPointId] = useState('');

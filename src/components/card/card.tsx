@@ -6,17 +6,17 @@ import { doFirstCap } from '../../utils';
 
 type CardProps = {
   previewOffer: PreviewOffer;
-  setSelectedPointId: (id: string) => void;
+  setSelectedPointId?: (id: string) => void;
 }
 
-export default function Card({previewOffer, setSelectedPointId}: CardProps) {
+export default function Card({ previewOffer, setSelectedPointId }: CardProps) {
 
   const {id, title, type, price, previewImage, isPremium, isFavorite, rating } = previewOffer;
 
   return (
     <article
       className="cities__card place-card"
-      onMouseEnter={() => setSelectedPointId(id)}
+      onMouseEnter={setSelectedPointId && (() => setSelectedPointId(id))}
       onMouseLeave={() => setSelectedPointId('')}
     >
       {isPremium &&
