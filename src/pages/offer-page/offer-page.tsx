@@ -11,11 +11,11 @@ import OfferGoods from '../../components/offer-goods';
 import OfferHost from '../../components/offer-host';
 import Reviews from '../../components/reviews';
 import OfferDescription from '../../components/offer-description';
-// import Map from '../../components/map';
+import Map from '../../components/map';
 import Card from '../../components/card';
 
 type OfferPageProps = {
-  previewOffers: PreviewOffer[];
+  previewOffers: (PreviewOffer | FullOffer)[];
   fullOffers: FullOffer[];
   reviews: Review[];
 }
@@ -24,9 +24,9 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
 
   const { id: offerId } = useParams();
   const currentOffer = fullOffers.find((offer) => offer.id === offerId);
-  const nearOffer = previewOffers.filter((offer) => offer.id !== offerId).slice(0, 3);
+  const nearOffers = previewOffers.filter((offer) => offer.id !== offerId).slice(0, 3);
 
-  if (!currentOffer) {
+  if (!offerId || !currentOffer) {
     return <PageNotFound />;
   }
 
@@ -76,7 +76,7 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
 
               <OfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults} />
               <OfferPrice price={price} />
-              <OfferGoods goods={goods}/>
+              <OfferGoods goods={goods} />
 
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
@@ -86,17 +86,17 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
               <Reviews reviews={reviews}/>
             </div>
           </div>
-
-          <section className="offer__map map" />
-          {/* <Map className="offer" selectedPointId={selectedPointId}/> */}
-          {/* cityData={cityData} previewOffers={previewOffers} selectedPointId={selectedPointId} */}
+          <Map
+            className="offer"selectedPointId={offerId}
+            cityData={currentOffer.city} previewOffers={nearOffers.concat(currentOffer)}
+          />
         </section>
 
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffer.map((offer) =>
+              {nearOffers.map((offer) =>
                 <Card key={offer.id} previewOffer={offer} />
               )}
             </div>
