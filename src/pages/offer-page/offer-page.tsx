@@ -15,7 +15,7 @@ import Map from '../../components/map';
 import Card from '../../components/card';
 
 type OfferPageProps = {
-  previewOffers: (PreviewOffer | FullOffer)[];
+  previewOffers: PreviewOffer[];
   fullOffers: FullOffer[];
   reviews: Review[];
 }
