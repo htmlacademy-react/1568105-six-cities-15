@@ -3,9 +3,16 @@ import { useParams } from 'react-router-dom';
 import PageNotFound from '../page-not-found';
 import { FullOffer, PreviewOffer, Review } from '../../types/types';
 import { getPercents } from '../../utils';
-import { doFirstCap } from '../../utils';
+// import { doFirstCap } from '../../utils';
+import OfferGallery from '../../components/offer-gallery';
+import OfferFeatures from '../../components/offer-features';
+import OfferPrice from '../../components/offer-price';
+import OfferGoods from '../../components/offer-goods';
+import OfferHost from '../../components/offer-host';
 import Reviews from '../../components/reviews';
-import NearPlacesCard from '../../components/near-places-card';
+import OfferDescription from '../../components/offer-description';
+import Map from '../../components/map';
+import Card from '../../components/card';
 
 type OfferPageProps = {
   previewOffers: PreviewOffer[];
@@ -17,12 +24,16 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
 
   const { id: offerId } = useParams();
   const currentOffer = fullOffers.find((offer) => offer.id === offerId);
+  const nearOffers = previewOffers.filter((offer) => offer.id !== offerId).slice(0, 3);
 
-  if (!currentOffer) {
+  if (!offerId || !currentOffer) {
     return <PageNotFound />;
   }
 
-  const { title, description, type, price, images, goods, host, isPremium, isFavorite, rating, bedrooms, maxAdults } = currentOffer;
+  const {
+    title, description, type, price, images, goods, host,
+    isPremium, isFavorite, rating, bedrooms, maxAdults
+  } = currentOffer;
 
   return (
     <div className="page">
@@ -32,18 +43,7 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
-            <div className="offer__gallery">
-
-              {images.map((image: string) => (
-                <div className="offer__image-wrapper" key={image}>
-                  <img className="offer__image"
-                    src={image}
-                    alt="Photo studio"
-                  />
-                </div>
-              ))}
-
-            </div>
+            <OfferGallery images={images}/>
           </div>
 
           <div className="offer__container container">
@@ -74,69 +74,30 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
                 <span className="offer__rating-value rating__value">{rating}</span>
               </div>
 
-              <ul className="offer__features">
-                <li className="offer__feature offer__feature--entire">
-                  {type && doFirstCap(type)}
-                </li>
-
-                <li className="offer__feature offer__feature--bedrooms">
-                  {bedrooms && `${bedrooms} Bedrooms`}
-                </li>
-
-                <li className="offer__feature offer__feature--adults">
-                  {`Max ${maxAdults && maxAdults} adults`}
-                </li>
-              </ul>
-
-              <div className="offer__price">
-                <b className="offer__price-value">&euro;{price}</b>
-                <span className="offer__price-text">&nbsp;night</span>
-              </div>
-
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <ul className="offer__inside-list">
-                  {goods.map((good) =>
-                    <li className="offer__inside-item" key={good}>{good}</li>
-                  )}
-                </ul>
-              </div>
+              <OfferFeatures type={type} bedrooms={bedrooms} maxAdults={maxAdults} />
+              <OfferPrice price={price} />
+              <OfferGoods goods={goods} />
 
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
-                <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img
-                      className="offer__avatar user__avatar"
-                      src={host.avatarUrl}
-                      width={74} height={74} alt="Host avatar"
-                    />
-                  </div>
-
-                  <span className="offer__user-name">{host.name}</span>
-
-                  {host.isPro &&
-                    <span className="offer__user-status">Pro</span>}
-                </div>
-
-                <div className="offer__description">
-                  {description &&
-                    <p className="offer__text">{description}</p>}
-                </div>
+                <OfferHost avatarUrl={host.avatarUrl} name={host.name} isPro={host.isPro}/>
+                <OfferDescription description={description}/>
               </div>
-
               <Reviews reviews={reviews}/>
             </div>
           </div>
-          <section className="offer__map map" />
+          <Map
+            className="offer"selectedPointId={offerId}
+            cityData={currentOffer.city} previewOffers={nearOffers.concat(currentOffer)}
+          />
         </section>
 
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {previewOffers.filter((offer) => offer.id !== offerId).slice(0, 3).map((offer) =>
-                <NearPlacesCard key={offer.id} previewOffer={offer} />
+              {nearOffers.map((offer) =>
+                <Card key={offer.id} previewOffer={offer} />
               )}
             </div>
           </section>
