@@ -1,6 +1,24 @@
+import { useAppSelector } from '../../hooks';
+import { PreviewOffer } from '../../types/types';
+
+const getOffersByCity = (offers: PreviewOffer[]) => offers.reduce((acc, item) => {
+  const cityName: string = item.city.name;
+
+  if (!(cityName in acc)) {
+    acc[cityName] = [];
+  }
+  acc[cityName].push(item);
+  return acc;
+}, {})
+
 export default function FavoritesList() {
+  const favoritesOffers = useAppSelector((state) => state.favorites);
+
+  const offersByCities = getOffersByCity(favoritesOffers);
+  console.log(offersByCities);
   return (
     <ul className="favorites__list">
+
       <li className="favorites__locations-items">
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">
@@ -77,6 +95,7 @@ export default function FavoritesList() {
           </article>
         </div>
       </li>
+
       <li className="favorites__locations-items">
         <div className="favorites__locations locations locations--current">
           <div className="locations__item">
@@ -122,6 +141,7 @@ export default function FavoritesList() {
           </article>
         </div>
       </li>
+
     </ul>
   );
 }

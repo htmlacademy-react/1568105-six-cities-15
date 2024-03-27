@@ -2,18 +2,19 @@ import {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import { Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
-import { City, PreviewOffer } from '../../types/types';
+import { City, FullOffer, PreviewOffer } from '../../types/types';
 import { defaultIcon, currentIcon } from '../../const';
 
 type MapProps = {
   cityData: City;
-  previewOffers: PreviewOffer[];
+  previewOffers: (PreviewOffer | FullOffer)[];
   selectedPointId: string;
   className: string;
 };
 
+
 function Map(props: MapProps): JSX.Element {
-  const {cityData, previewOffers, selectedPointId, className } = props;
+  const { cityData, previewOffers, selectedPointId, className } = props;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, cityData);

@@ -11,7 +11,7 @@ type CardProps = {
 
 export default function Card({ previewOffer, setSelectedPointId }: CardProps) {
 
-  const {id, title, type, price, previewImage, isPremium, isFavorite, rating } = previewOffer;
+  const { id, title, type, price, previewImage, isPremium, isFavorite, rating } = previewOffer;
 
   return (
     <article

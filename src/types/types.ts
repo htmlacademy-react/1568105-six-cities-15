@@ -1,3 +1,5 @@
+import { store } from '../store';
+
 //* Location *
 export type Location = {
   latitude: number;
@@ -62,3 +64,7 @@ export type Review = {
   comment: string;
   rating: number;
 }
+
+export type TState = ReturnType<typeof store.getState>;
+
+export type TAppDispatch = typeof store.dispatch;
