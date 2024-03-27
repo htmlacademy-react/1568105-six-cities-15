@@ -2,12 +2,12 @@ import {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import { Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
-import { City, FullOffer, PreviewOffer } from '../../types/types';
+import { TCity, TFullOffer, TPreviewOffer } from '../../types/types';
 import { defaultIcon, currentIcon } from '../../const';
 
 type MapProps = {
-  cityData: City;
-  previewOffers: (PreviewOffer | FullOffer)[];
+  cityData: TCity;
+  previewOffers: (TPreviewOffer | TFullOffer)[];
   selectedPointId: string;
   className: string;
 };

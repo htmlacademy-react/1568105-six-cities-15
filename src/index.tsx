@@ -8,7 +8,7 @@ import { fullOffers } from './mocks/full-offers';
 import { reviews } from './mocks/reviews';
 import { cityData } from './mocks/city-data';
 import { store } from './store';
-import {fetchFavorites} from './store/action';
+import { fetchFavorites } from './store/action';
 
 store.dispatch(fetchFavorites(previewOffers));
 

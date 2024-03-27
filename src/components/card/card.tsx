@@ -1,11 +1,11 @@
-import { PreviewOffer } from '../../types/types';
+import { TPreviewOffer } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getPercents } from '../../utils';
 import { doFirstCap } from '../../utils';
 
 type CardProps = {
-  previewOffer: PreviewOffer;
+  previewOffer: TPreviewOffer;
   setSelectedPointId?: (id: string) => void;
 }
 

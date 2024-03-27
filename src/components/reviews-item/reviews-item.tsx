@@ -1,8 +1,8 @@
-import { Review } from '../../types/types';
+import { TReview } from '../../types/types';
 import { getPercents } from '../../utils';
 
 type ReviewsItemProps = {
-  review: Review;
+  review: TReview;
 }
 
 export default function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {

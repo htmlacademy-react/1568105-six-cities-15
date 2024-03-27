@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import PageNotFound from '../page-not-found';
-import { FullOffer, PreviewOffer, Review } from '../../types/types';
+import { TFullOffer, TPreviewOffer, TReview } from '../../types/types';
 import { getPercents } from '../../utils';
 // import { doFirstCap } from '../../utils';
 import OfferGallery from '../../components/offer-gallery';
@@ -15,9 +15,9 @@ import Map from '../../components/map';
 import Card from '../../components/card';
 
 type OfferPageProps = {
-  previewOffers: PreviewOffer[];
-  fullOffers: FullOffer[];
-  reviews: Review[];
+  previewOffers: TPreviewOffer[];
+  fullOffers: TFullOffer[];
+  reviews: TReview[];
 }
 
 export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPageProps): JSX.Element {

@@ -1,6 +1,6 @@
-import { FullOffer } from '../types/types';
+import { TFullOffer } from '../types/types';
 
-export const fullOffers: FullOffer[] = [
+export const fullOffers: TFullOffer[] = [
   {
     id: 'ba3bf035-7a38-4f59-bf40-ff07122f5456',
     title: 'Canal View Prinsengracht',

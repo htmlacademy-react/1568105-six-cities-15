@@ -3,10 +3,10 @@ import ReviewForm from '../review-form';
 import { AuthStatus } from '../../const';
 import { getUserAuth } from '../../get-user-auth';
 
-import { Review } from '../../types/types';
+import { TReview } from '../../types/types';
 
 type ReviewsProps = {
-  reviews: Review[];
+  reviews: TReview[];
 }
 
 export default function Reviews({ reviews }: ReviewsProps): JSX.Element {

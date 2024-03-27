@@ -4,11 +4,11 @@ import Card from '../../components/card';
 import Tabs from '../../components/tabs';
 import Map from '../../components/map';
 import { PLACE_OPTIONS, ACTIVE_CITY_NAME } from '../../const';
-import { City } from '../../types/types';
+import { TCity } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 
 type MainPageProps = {
-  cityData: City;
+  cityData: TCity;
 }
 
 export default function MainPage({ cityData }: MainPageProps): JSX.Element {

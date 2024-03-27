@@ -1,6 +1,6 @@
-import { PreviewOffer } from '../types/types';
+import { TPreviewOffer } from '../types/types';
 
-export const previewOffers: PreviewOffer[] = [
+export const previewOffers: TPreviewOffer[] = [
   {
     id: 'ba3bf035-7a38-4f59-bf40-ff07122f5456',
     title: 'Canal View Prinsengracht',

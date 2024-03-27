@@ -1,12 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { OfferBase, Review } from '../types/types';
+import { TPreviewOffer } from '../types/types'; // , TReview
 import { fetchFavorites, fetchOffers } from './action';
 import { previewOffers } from '../mocks/preview-offers';
-import { reviews } from '../mocks/reviews';
+// import { reviews } from '../mocks/reviews';
 
 const initialState: {
-  offers: OfferBase[];
-  favorites: OfferBase[];
+  offers: TPreviewOffer[];
+  favorites: TPreviewOffer[];
 } = {
   offers: previewOffers,
   favorites: []

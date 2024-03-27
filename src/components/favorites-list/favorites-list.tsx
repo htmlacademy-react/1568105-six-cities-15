@@ -1,7 +1,7 @@
 import { useAppSelector } from '../../hooks';
-import { PreviewOffer } from '../../types/types';
+import { TPreviewOffer } from '../../types/types';
 
-const getOffersByCity = (offers: PreviewOffer[]) => offers.reduce((acc, item) => {
+const getOffersByCity = (offers: TPreviewOffer[]) => offers.reduce((acc, item) => {
   const cityName: string = item.city.name;
 
   if (!(cityName in acc)) {
@@ -9,13 +9,13 @@ const getOffersByCity = (offers: PreviewOffer[]) => offers.reduce((acc, item) =>
   }
   acc[cityName].push(item);
   return acc;
-}, {})
+}, {});
 
 export default function FavoritesList() {
   const favoritesOffers = useAppSelector((state) => state.favorites);
 
   const offersByCities = getOffersByCity(favoritesOffers);
-  console.log(offersByCities);
+
   return (
     <ul className="favorites__list">
 
