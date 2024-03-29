@@ -6,27 +6,37 @@ import { doFirstCap } from '../../utils';
 
 type CardProps = {
   previewOffer: TPreviewOffer;
+  isFavoritePage?: boolean;
   setSelectedPointId?: (id: string) => void;
 }
 
-export default function Card({ previewOffer, setSelectedPointId }: CardProps) {
+export default function Card({ previewOffer, setSelectedPointId, isFavoritePage = false }: CardProps) {
 
   const { id, title, type, price, previewImage, isPremium, isFavorite, rating } = previewOffer;
 
   return (
     <article
-      className="cities__card place-card"
+      className={`${isFavoritePage ? 'favorites__card' : 'cities__card'} place-card`}
       onMouseEnter={setSelectedPointId && (() => setSelectedPointId(id))}
-      onMouseLeave={() => setSelectedPointId('')}
+      onMouseLeave={setSelectedPointId && (() => setSelectedPointId(''))}
     >
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`
+        ${isFavoritePage ? 'favorites__image-wrapper' : 'cities__image-wrapper '}
+        place-card__image-wrapper`}
+      >
         <Link to={AppRoute.OfferPage.replace(':id', id)}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
+          <img
+            className="place-card__image"
+            src={previewImage}
+            width={isFavoritePage ? 150 : 260}
+            height={isFavoritePage ? 110 : 200}
+            alt="Place image"
+          />
         </Link>
       </div>
 
@@ -47,7 +57,7 @@ export default function Card({ previewOffer, setSelectedPointId }: CardProps) {
 
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: getPercents(rating)}}></span>
+            <span style={{ width: getPercents(rating) }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
