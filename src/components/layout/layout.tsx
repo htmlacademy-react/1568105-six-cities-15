@@ -4,17 +4,14 @@ import { AppRoute, AuthStatus } from '../../const';
 import { getLayoutState } from '../../utils';
 import { getUserAuth } from '../../get-user-auth';
 import ScrollToTop from '../../utils';
+import {useAppSelector} from '../../hooks';
 // import Footer from '../footer';
 
-type LayoutProps = {
-  favoritesVolume: number;
-}
-
-export default function Layout({favoritesVolume}: LayoutProps): JSX.Element {
+export default function Layout() {
   const {pathname} = useLocation();
   const {rootClassName, linkClassName, renderUser} = getLayoutState(pathname as AppRoute); /* , renderFooter */
   const userAuth = getUserAuth();
-
+  const favoritesOffers = useAppSelector((state) => state.favorites);
   return (
     <div className={`page${rootClassName}`}>
       <ScrollToTop />
@@ -37,7 +34,7 @@ export default function Layout({favoritesVolume}: LayoutProps): JSX.Element {
                         {userAuth === AuthStatus.Auth ? (
                           <>
                             <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                            <span className="header__favorite-count">{favoritesVolume}</span>
+                            <span className="header__favorite-count">{favoritesOffers.length}</span>
                           </>
                         ) : <span className="header__login">Sign in</span>}
                       </Link>

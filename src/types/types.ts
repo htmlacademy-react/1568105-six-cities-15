@@ -1,52 +1,54 @@
-//* Location *
-export type Location = {
+import { store } from '../store';
+
+//* TLocation *
+export type TLocation = {
   latitude: number;
   longitude: number;
   zoom: number;
 };
 
-//* City *
-export type City = {
+//* TCity *
+export type TCity = {
   name: string;
-  location: Location;
+  location: TLocation;
 };
 
-//* Host *
-export type Host = {
+//* THost *
+export type THost = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
 };
 
-export type OfferBase = {
+export type TOfferBase = {
   id: string;
   title: string;
   type: string;
   price: number;
-  city: City;
-  location: Location;
+  city: TCity;
+  location: TLocation;
   isFavorite: boolean;
   isPremium: boolean;
   rating: number;
 }
 
-//* FullOffer *
-export type FullOffer = OfferBase & {
+//* TFullOffer *
+export type TFullOffer = TOfferBase & {
   description: string;
   bedrooms: number;
   goods: string[];
-  host: Host;
+  host: THost;
   images: string[];
   maxAdults: number;
 }
 
-//* PreviewOffer *
-export type PreviewOffer = OfferBase & {
+//* TPreviewOffer *
+export type TPreviewOffer = TOfferBase & {
   previewImage: string;
 }
 
-//* User *
-export type User = {
+//* TUser *
+export type TUser = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
@@ -54,11 +56,15 @@ export type User = {
   token: string;
 }
 
-// * Review *
-export type Review = {
+// * TReview *
+export type TReview = {
   id: string;
   date: string;
-  user: Omit<User, 'email' | 'token'>;
+  user: Omit<TUser, 'email' | 'token'>;
   comment: string;
   rating: number;
 }
+
+export type TState = ReturnType<typeof store.getState>;
+
+export type TAppDispatch = typeof store.dispatch;

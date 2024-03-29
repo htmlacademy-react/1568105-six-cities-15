@@ -1,6 +1,6 @@
-import { User } from '../types/types';
+import { TUser } from '../types/types';
 
-export const user: User = {
+export const user: TUser = {
   name: 'Oliver Conner',
   avatarUrl: 'https://url-to-image/image.png',
   isPro: false,

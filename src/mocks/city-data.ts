@@ -1,6 +1,6 @@
-import { City } from '../types/types';
+import { TCity } from '../types/types';
 
-export const cityData: City = {
+export const cityData: TCity = {
   name : 'Amsterdam',
   location: {
     latitude: 52.37454,

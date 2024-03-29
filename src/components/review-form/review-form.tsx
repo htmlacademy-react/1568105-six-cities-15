@@ -1,38 +1,33 @@
-// import { Fragment, ReactEventHandler, useState } from 'react';
-// import { Review } from '../../types/types';
+import { Fragment, ReactEventHandler, useState } from 'react';
 
-// type ReviewsFormProps = {
-//   reviews: Review[];
-// }
+type ChangeHandler = ReactEventHandler <HTMLInputElement | HTMLTextAreaElement>
 
-// type ChangeHandler = ReactEventHandler <HTMLInputElement | HTMLTextAreaElement>
+type RatingAttributes = {
+  value: number;
+  label: string;
+}
 
-// const rating = [
-//   {value: 5, label: 'perfect'},
-//   {value: 4, label: 'good'},
-//   {value: 3, label: 'not bad'},
-//   {value: 2, label: 'bad'},
-//   {value: 1, label: 'horrible'}
-// ];
-
-// type Rating = {
-//   name: string;
-//   rating: number;
-// }
+const ratingAttributes: RatingAttributes[] = [
+  {value: 5, label: 'perfect'},
+  {value: 4, label: 'good'},
+  {value: 3, label: 'not bad'},
+  {value: 2, label: 'bad'},
+  {value: 1, label: 'horrible'}
+];
 
 export default function ReviewForm() {
-  // const [review, setReview] = useState({rating: 0, review: ''});
+  const [review, setReview] = useState({ rating: 0, review: '' });
 
-  // const handleChange: ChangeHandler = (event) => {
-  //   const {name, value} = event.currentTarget;
-  //   setReview({...review, [name]: value});
-  // };
+  const handleChange: ChangeHandler = (event) => {
+    const {name, value} = event.currentTarget;
+    setReview({...review, [name]: value});
+  };
 
   return (
     <form className="reviews__form form" action="#" method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {/* {rating.map((value, label) => (
+        {ratingAttributes.map(({value, label}) => (
           <Fragment key={value}>
             <input
               className="form__rating-input visually-hidden"
@@ -49,23 +44,28 @@ export default function ReviewForm() {
               </svg>
             </label>
           </Fragment>
-        ))} */}
+        ))}
       </div>
 
       <textarea
         className="reviews__textarea form__textarea"
-        id="review" name="review" defaultValue={''}
+        id="review" name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        // onChange={handleChange}
+        onChange={handleChange}
+        defaultValue={''}
       />
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your
-          stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
 
-        <button className="reviews__submit form__submit button" type="submit" disabled >Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={review.review.length < 50 || review.rating === 0}
+        >Submit
+        </button>
       </div>
     </form>
   );

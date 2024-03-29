@@ -4,15 +4,17 @@ import Card from '../../components/card';
 import Tabs from '../../components/tabs';
 import Map from '../../components/map';
 import { PLACE_OPTIONS, ACTIVE_CITY_NAME } from '../../const';
-import { PreviewOffer, City } from '../../types/types';
+import { TCity } from '../../types/types';
+import { useAppSelector } from '../../hooks';
 
 type MainPageProps = {
-  previewOffers: PreviewOffer[];
-  cityData: City;
+  cityData: TCity;
 }
 
-export default function MainPage({ previewOffers, cityData }: MainPageProps): JSX.Element {
+export default function MainPage({ cityData }: MainPageProps): JSX.Element {
   const [selectedPointId, setSelectedPointId] = useState('');
+
+  const previewOffers = useAppSelector((state) => state.offers);
 
   return (
     <div className="page page--gray page--main">

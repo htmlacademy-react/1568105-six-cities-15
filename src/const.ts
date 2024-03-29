@@ -53,3 +53,12 @@ export const currentIcon = new Icon({
   iconSize: [28, 40],
   iconAnchor: [14, 40]
 });
+
+export enum NameSpace {
+  Offers = 'OFFERS',
+  Offer = 'OFFER',
+  NearPlaces = 'NEAR_PLACES',
+  Favorites = 'FAVORITES',
+  Reviews = 'REVIEWS',
+  User = 'USER'
+}

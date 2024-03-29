@@ -1,9 +1,10 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import PageNotFound from '../page-not-found';
-import { FullOffer, PreviewOffer, Review } from '../../types/types';
+import { TFullOffer, TPreviewOffer, TReview } from '../../types/types';
 import { getPercents } from '../../utils';
 // import { doFirstCap } from '../../utils';
+import { useState } from 'react';
 import OfferGallery from '../../components/offer-gallery';
 import OfferFeatures from '../../components/offer-features';
 import OfferPrice from '../../components/offer-price';
@@ -15,9 +16,9 @@ import Map from '../../components/map';
 import Card from '../../components/card';
 
 type OfferPageProps = {
-  previewOffers: PreviewOffer[];
-  fullOffers: FullOffer[];
-  reviews: Review[];
+  previewOffers: TPreviewOffer[];
+  fullOffers: TFullOffer[];
+  reviews: TReview[];
 }
 
 export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPageProps): JSX.Element {
@@ -25,6 +26,7 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
   const { id: offerId } = useParams();
   const currentOffer = fullOffers.find((offer) => offer.id === offerId);
   const nearOffers = previewOffers.filter((offer) => offer.id !== offerId).slice(0, 3);
+  const [selectedPointId, setSelectedPointId] = useState('');
 
   if (!offerId || !currentOffer) {
     return <PageNotFound />;
@@ -87,7 +89,7 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
             </div>
           </div>
           <Map
-            className="offer"selectedPointId={offerId}
+            className="offer" selectedPointId={selectedPointId}
             cityData={currentOffer.city} previewOffers={nearOffers.concat(currentOffer)}
           />
         </section>
@@ -97,7 +99,7 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {nearOffers.map((offer) =>
-                <Card key={offer.id} previewOffer={offer} />
+                <Card key={`${offer.id}1`} previewOffer={offer} setSelectedPointId={setSelectedPointId}/>
               )}
             </div>
           </section>

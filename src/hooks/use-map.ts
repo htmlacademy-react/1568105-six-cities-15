@@ -1,11 +1,11 @@
 import { useEffect, useState, MutableRefObject, useRef } from 'react';
 import { Map, TileLayer } from 'leaflet';
 import { TILE_LAYER, ATTRIBUTION } from '../const';
-import { City } from '../types/types';
+import { TCity } from '../types/types';
 
 function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  cityData: City
+  cityData: TCity
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);

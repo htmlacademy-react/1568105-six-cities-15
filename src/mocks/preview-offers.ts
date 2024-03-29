@@ -1,6 +1,6 @@
-import { PreviewOffer } from '../types/types';
+import { TPreviewOffer } from '../types/types';
 
-export const previewOffers: PreviewOffer[] = [
+export const previewOffers: TPreviewOffer[] = [
   {
     id: 'ba3bf035-7a38-4f59-bf40-ff07122f5456',
     title: 'Canal View Prinsengracht',
@@ -91,5 +91,28 @@ export const previewOffers: PreviewOffer[] = [
     isPremium: true,
     isFavorite: true,
     rating: 3.8,
+  },
+  {
+    id: '55232be2-36d1-4ea6-50d6-5c0a33ffa1ce',
+    title: 'The house 111 111 among olive ',
+    type: 'house',
+    price: 265,
+    previewImage: 'https://15.design.htmlacademy.pro/static/hotel/10.jpg',
+    city: {
+      name: 'Paris',
+      location: {
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
+        zoom: 13
+      }
+    },
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: 16
+    },
+    isPremium: false,
+    isFavorite: true,
+    rating: 3.4,
   }
 ];

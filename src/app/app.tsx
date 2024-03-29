@@ -8,15 +8,15 @@ import OfferPage from '../pages/offer-page';
 import LoginPage from '../pages/login-page';
 import FavoritesPage from '../pages/favorites-page';
 import PageNotFound from '../pages/page-not-found';
-import { FullOffer, PreviewOffer, Review, City } from '../types/types';
+import { TFullOffer, TPreviewOffer, TReview, TCity } from '../types/types';
 import { getUserAuth } from '../get-user-auth';
 
 type AppProps = {
-  previewOffers: PreviewOffer[];
-  fullOffers: FullOffer[];
-  reviews: Review[];
+  previewOffers: TPreviewOffer[];
+  fullOffers: TFullOffer[];
+  reviews: TReview[];
   favoritesVolume: number;
-  cityData: City;
+  cityData: TCity;
 }
 
 export default function App({ favoritesVolume, reviews, previewOffers, fullOffers, cityData }: AppProps): JSX.Element {
