@@ -20,8 +20,6 @@ export default function Reviews({ reviews }: ReviewsProps): JSX.Element {
       <ReviewsList reviews={reviews}/>
       {userAuth === AuthStatus.Auth && <ReviewForm />}
       {userAuth === AuthStatus.NoAuth && <p className="reviews__title offer__price-text">Only authorized users can make a review.</p> }
-
-      {/* log in and you can leave comments */}
     </section>
   );
 }

@@ -12,6 +12,7 @@ export default function Layout() {
   const {rootClassName, linkClassName, renderUser} = getLayoutState(pathname as AppRoute); /* , renderFooter */
   const userAuth = getUserAuth();
   const favoritesOffers = useAppSelector((state) => state.favorites);
+
   return (
     <div className={`page${rootClassName}`}>
       <ScrollToTop />
