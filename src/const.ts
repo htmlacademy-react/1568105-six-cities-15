@@ -29,12 +29,22 @@ export const CITIES: string[] = [
 
 export const ACTIVE_CITY_NAME = 'Paris';
 
+export enum SortType {
+  Popular = 'Popular',
+  LowPrice = 'Price: low to high',
+  HightPrice = 'Price: high to low',
+  Rating = 'Top rated first'
+}
+
+
 export const PLACE_OPTIONS: string[] = [
-  'Popular',
-  'Price: low to high',
-  'Price: high to low',
-  'Top rated first',
+  SortType.Popular,
+  SortType.LowPrice,
+  SortType.HightPrice,
+  SortType.Rating,
 ];
+
+export const DEFAULT_SORTING = 'Popular';
 
 export const TILE_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';

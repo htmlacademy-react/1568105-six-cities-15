@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getPercents } from '../../utils';
 import { doFirstCap } from '../../utils';
+import { useAppDispatch } from '../../hooks';
+import {setFavouriteStatus}from '../../store/action';
 
 type CardProps = {
   previewOffer: TPreviewOffer;
@@ -11,9 +13,11 @@ type CardProps = {
 }
 
 export default function Card({ previewOffer, setSelectedPointId, isFavoritePage = false }: CardProps) {
-
+  const dispatch = useAppDispatch();
   const { id, title, type, price, previewImage, isPremium, isFavorite, rating } = previewOffer;
-
+  const setFavoriteHandler = () => {
+    dispatch(setFavouriteStatus(id));
+  };
   return (
     <article
       className={`${isFavoritePage ? 'favorites__card' : 'cities__card'} place-card`}
@@ -47,7 +51,10 @@ export default function Card({ previewOffer, setSelectedPointId, isFavoritePage 
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
 
-          <button className={`place-card__bookmark-button button ${isFavorite && 'place-card__bookmark-button--active'}`} type="button">
+          <button
+            onClick={setFavoriteHandler}
+            className={`place-card__bookmark-button button ${isFavorite && 'place-card__bookmark-button--active'}`} type="button"
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
