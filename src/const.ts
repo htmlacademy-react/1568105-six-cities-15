@@ -9,13 +9,14 @@ export enum AppRoute {
   Root = '/',
   Login = '/login',
   FavoritesPage = '/favorites',
-  OfferPage = '/offer/:id'
+  OfferPage = '/offer/:id',
+  Offers = 'offers'
 }
 
 export enum AuthStatus {
-  Auth='Auth',
-  NoAuth='NoAuth',
-  Unknown='Unknown'
+  Auth = 'Auth',
+  NoAuth = 'NoAuth',
+  Unknown = 'Unknown'
 }
 
 export const CITIES: string[] = [
