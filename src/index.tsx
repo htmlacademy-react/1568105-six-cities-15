@@ -9,9 +9,9 @@ import { reviews } from './mocks/reviews';
 import { cityData } from './mocks/city-data';
 import { store } from './store';
 import { fetchFavorites } from './store/action';
-import {fetchOffersAction} from './store/api-action'
+import {fetchOffersAction} from './store/api-action';
 
-store.dispatch(fetchOffersAction())
+store.dispatch(fetchOffersAction());
 store.dispatch(fetchFavorites(previewOffers));
 
 const root = ReactDOM.createRoot(

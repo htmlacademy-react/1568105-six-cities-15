@@ -1,9 +1,9 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import { 
-    TState, 
-    TAppDispatch, 
-    TPreviewOffer,
+import {
+  TState,
+  TAppDispatch,
+  TPreviewOffer,
 } from '../types/types';
 import {fetchOffers, requireAuthorization} from './action';
 import {saveToken} from '../services/token';

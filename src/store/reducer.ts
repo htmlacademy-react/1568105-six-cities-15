@@ -1,11 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { TPreviewOffer } from '../types/types'; // , TReview
 import { ACTIVE_CITY_NAME, DEFAULT_SORTING, AuthStatus } from '../const'; //  CITIES,
-import { 
-  fetchFavorites, 
-  fetchOffers, 
-  setFavouriteStatus, 
-  setActiveCity, 
+import {
+  fetchFavorites,
+  fetchOffers,
+  setFavouriteStatus,
+  setActiveCity,
   setActiveSort,
   requireAuthorization
 } from './action';
@@ -17,7 +17,7 @@ const initialState: {
   favorites: TPreviewOffer[];
   activeCity: string;
   activeSorting: string;
-  authorizationStatus: AuthStatus
+  authorizationStatus: AuthStatus;
 } = {
   offers: [],
   favorites: [],
@@ -49,6 +49,5 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
-    })    
-    ;
+    });
 });
