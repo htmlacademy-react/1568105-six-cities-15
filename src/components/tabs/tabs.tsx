@@ -1,4 +1,5 @@
 // import { Link } from 'react-router-dom';
+import { MouseEvent } from 'react';
 import { CITIES, SortType } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import {setActiveCity, setActiveSort} from '../../store/action';
@@ -7,7 +8,7 @@ export default function Tabs() {
   const activeCityName = useAppSelector((state) => state.activeCity);
   const dispatch = useAppDispatch();
 
-  const clickTabHandler = (evt, activeCity) => {
+  const clickTabHandler = (evt: MouseEvent<HTMLAnchorElement>, activeCity: string) => {
     evt.preventDefault();
     dispatch(setActiveCity(activeCity));
     dispatch(setActiveSort(SortType.Popular));

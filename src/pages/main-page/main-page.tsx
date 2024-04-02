@@ -14,7 +14,7 @@ type MainPageProps = {
   cityData: TCity;
 }
 
-const getOffersByCity = (list, city) => list.filter((offer: TPreviewOffer) => offer.city.name === city);
+const getOffersByCity = (list: TPreviewOffer[], city: string) => list.filter((offer: TPreviewOffer) => offer.city.name === city);
 
 export default function MainPage({ cityData }: MainPageProps): JSX.Element {
   const [selectedPointId, setSelectedPointId] = useState('');
@@ -23,8 +23,8 @@ export default function MainPage({ cityData }: MainPageProps): JSX.Element {
   const activeCityName = useAppSelector((state) => state.activeCity);
   const activeSort = useAppSelector((state) => state.activeSorting);
   const previewOffersByCity = getOffersByCity(previewOffers, activeCityName);
-
   const sortedOffers = sortingType[activeSort](previewOffersByCity);
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -50,7 +50,7 @@ export default function MainPage({ cityData }: MainPageProps): JSX.Element {
               </section>
               : <MainEmpty />}
             <div className="cities__right-section">
-              {previewOffersByCity.length && <Map className="cities" cityData={cityData} previewOffers={previewOffers} selectedPointId={selectedPointId} />}
+              {previewOffersByCity.length && <Map className="cities" cityData={cityData} previewOffers={previewOffersByCity} selectedPointId={selectedPointId} />}
             </div>
           </div>
         </div>

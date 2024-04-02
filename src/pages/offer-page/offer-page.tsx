@@ -90,7 +90,7 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
           </div>
           <Map
             className="offer" selectedPointId={selectedPointId}
-            cityData={currentOffer.city} previewOffers={nearOffers.concat(currentOffer)}
+            cityData={currentOffer.city} previewOffers={[...nearOffers, currentOffer]}
           />
         </section>
 

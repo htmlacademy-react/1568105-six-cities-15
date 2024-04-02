@@ -5,6 +5,7 @@ import { getLayoutState } from '../../utils';
 import { getUserAuth } from '../../get-user-auth';
 import ScrollToTop from '../../utils';
 import {useAppSelector} from '../../hooks';
+import Loader from '../loader';
 // import Footer from '../footer';
 
 export default function Layout() {
@@ -12,6 +13,7 @@ export default function Layout() {
   const {rootClassName, linkClassName, renderUser} = getLayoutState(pathname as AppRoute); /* , renderFooter */
   const userAuth = getUserAuth();
   const favoritesOffers = useAppSelector((state) => state.favorites);
+  const isLoadingData = useAppSelector((state) => state.isLoadingMode);
 
   return (
     <div className={`page${rootClassName}`}>
@@ -58,6 +60,7 @@ export default function Layout() {
       {/* {renderFooter ? (
         <Footer />
       ) : null} */}
+      {isLoadingData && <Loader />}
     </div>
   );
 }

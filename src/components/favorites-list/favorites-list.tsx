@@ -19,8 +19,8 @@ export default function FavoritesList() {
   // console.log(offersByCities);
   return (
     <ul className="favorites__list">
-      {Object.keys(offersByCities).map((city, index) => (
-        <li className="favorites__locations-items" key={index}>
+      {Object.keys(offersByCities).map((city) => (
+        <li className="favorites__locations-items" key={city}>
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">

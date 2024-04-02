@@ -41,8 +41,8 @@ export const doFirstCap = (str: string) => str[0].toUpperCase() + str.slice(1);
 export const getPercents = (item: number) => `${String(Math.round(item) * 20)}%`;
 
 export const sortingType = {
-  [SortType.Popular]: (offers: TPreviewOffer) => [...offers],
-  [SortType.HightPrice]: (offers: TPreviewOffer) => offers.slice().sort((offerFirst, offerSecond) => offerSecond.price - offerFirst.price),
-  [SortType.LowPrice]: (offers: TPreviewOffer) => offers.slice().sort((offerFirst, offerSecond) => offerFirst.price - offerSecond.price),
-  [SortType.Rating]: (offers: TPreviewOffer) => offers.slice().sort((offerFirst, offerSecond) => offerSecond.rating - offerFirst.rating)
+  [SortType.Popular]: (offers: TPreviewOffer[]) => [...offers],
+  [SortType.HightPrice]: (offers: TPreviewOffer[]) => offers.slice().sort((offerFirst, offerSecond) => offerSecond.price - offerFirst.price),
+  [SortType.LowPrice]: (offers: TPreviewOffer[]) => offers.slice().sort((offerFirst, offerSecond) => offerFirst.price - offerSecond.price),
+  [SortType.Rating]: (offers: TPreviewOffer[]) => offers.slice().sort((offerFirst, offerSecond) => offerSecond.rating - offerFirst.rating)
 };
