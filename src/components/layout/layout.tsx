@@ -45,7 +45,8 @@ export default function Layout() {
                       style={{
                         backgroundImage: `url(${userData?.avatarUrl ?? '../img/avatar.svg'})`,
                         borderRadius: '50%'
-                      }}>
+                      }}
+                    >
                     </div>
                     {isAuth
                       ? (
@@ -62,8 +63,7 @@ export default function Layout() {
                     <a className="header__nav-link" href="#" onClick={handleClickLogout}>
                       <span className="header__signout">Sign out</span>
                     </a>
-                  </li>
-                }
+                  </li>}
               </ul>
             </nav>
 

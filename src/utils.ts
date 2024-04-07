@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { 
-  AppRoute, 
-  SortType, 
-  EMAIL_REG_EXP, 
-  PASSWORD_REG_EXP, 
-  LoginFields 
+import {
+  AppRoute,
+  SortType,
+  EMAIL_REG_EXP,
+  PASSWORD_REG_EXP,
+  LoginFields
 } from './const';
 import { TPreviewOffer } from './types/types';
 

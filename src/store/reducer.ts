@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { 
-  TPreviewOffer, 
+import {
+  TPreviewOffer,
   TFullOffer,
   TReview,
   TUser
@@ -74,7 +74,7 @@ export const reducer = createReducer(initialState, (builder) => {
       state.isLoadingMode = action.payload;
     })
     .addCase(setCurrentOffer, (state, action) => {
-      state.currentOffer = action.payload
+      state.currentOffer = action.payload;
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;
@@ -90,7 +90,5 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setUserData, (state, action) => {
       state.userData = action.payload;
-    })
-
-    ;
+    });
 });

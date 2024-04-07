@@ -15,10 +15,10 @@ export default function FavoritesPage() {
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
-            {favoritesOffers.length 
-            ? <FavoritesList favoritesOffers={favoritesOffers} /> 
-            : <FavoritesEmpty />}
-            
+            {favoritesOffers.length
+              ? <FavoritesList favoritesOffers={favoritesOffers} />
+              : <FavoritesEmpty />}
+
           </section>
         </div>
       </main>

@@ -1,12 +1,12 @@
-import { TPreviewOffer } from "../../types/types";
-import { useState } from "react";
+import { TPreviewOffer } from '../../types/types';
+import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { AuthStatus, AppRoute } from "../../const";
+import { AuthStatus, AppRoute } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import {
   updateFavoriteStatusAction,
   fetchFavoriteAction
-} from '../../store/api-action'
+} from '../../store/api-action';
 
 type FavoritButtonProps = {
   id: TPreviewOffer['id'];

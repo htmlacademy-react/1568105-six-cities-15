@@ -84,7 +84,7 @@ export enum NameSpace {
   Data = 'DATA'
 }
 
-export const ALLOW_SCROLL = 'city'
+export const ALLOW_SCROLL = 'city';
 
 export const EMAIL_REG_EXP = /^[a-zA-Zа-яёА-ЯЁ0-9]+([._-][a-zA-Zа-яёА-ЯЁ0-9]+)*@[a-zA-Zа-яёА-ЯЁ0-9]+([.-][a-zA-Zа-яёА-ЯЁ0-9]+)*\.[a-zA-Zа-яёА-ЯЁ]{2,6}$/;
 export const PASSWORD_REG_EXP = /^(?=.*[A-Za-zА-Яа-я])(?=.*\d)[A-Za-zА-Яа-я\d]{2,}$/;

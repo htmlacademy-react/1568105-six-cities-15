@@ -34,9 +34,9 @@ export default function OfferPage(): JSX.Element {
     if (!id) {
       return;
     }
-    dispatch(fetchOfferByIdAction(id))
-    dispatch(fetchOfferReviewsAction(id))
-    dispatch(fetchNearbyOffersAction(id))
+    dispatch(fetchOfferByIdAction(id));
+    dispatch(fetchOfferReviewsAction(id));
+    dispatch(fetchNearbyOffersAction(id));
 
   }, [dispatch, id]);
 
@@ -100,8 +100,8 @@ export default function OfferPage(): JSX.Element {
             </div>
           </div>
           <Map
-            className="offer" 
-            selectedPointId={selectedPointId} 
+            className="offer"
+            selectedPointId={selectedPointId}
             previewOffers={nearOffers}
           />
         </section>

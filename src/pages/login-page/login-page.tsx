@@ -24,7 +24,7 @@ export default function LoginPage() {
         // toast.warn('Пароль должен содержать минимум одну цифру и латинскую букву');
       }
     }
-  }
+  };
 
   return (
     <main className="page__main page__main--login">
