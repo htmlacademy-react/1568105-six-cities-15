@@ -2,11 +2,10 @@ import {useRef, useEffect} from 'react';
 import 'leaflet/dist/leaflet.css';
 import { Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
-import { TCity, TFullOffer, TPreviewOffer } from '../../types/types';
-import { defaultIcon, currentIcon } from '../../const';
+import { TFullOffer, TPreviewOffer } from '../../types/types';
+import { defaultIcon, currentIcon, ALLOW_SCROLL } from '../../const';
 
 type MapProps = {
-  cityData: TCity;
   previewOffers: (TPreviewOffer | TFullOffer)[];
   selectedPointId: string;
   className: string;
@@ -14,13 +13,16 @@ type MapProps = {
 
 
 function Map(props: MapProps): JSX.Element {
-  const { cityData, previewOffers, selectedPointId, className } = props;
+  const { previewOffers, selectedPointId, className } = props;
 
   const mapRef = useRef(null);
-  const map = useMap(mapRef, cityData);
+  const cityData = previewOffers[0].city.location;
+  const zoomAllow = className === ALLOW_SCROLL;
+  const map = useMap(mapRef, cityData, zoomAllow);
 
   useEffect(() => {
     if (map) {
+      map.flyTo([cityData.latitude, cityData.longitude], cityData.zoom);
       const markerLayer = layerGroup().addTo(map);
       previewOffers.forEach((offer) => {
         const marker = new Marker({
@@ -41,7 +43,7 @@ function Map(props: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, previewOffers, selectedPointId]);
+  }, [map, previewOffers, selectedPointId, cityData]);
 
   return <section className={`${className}__map map`} ref={mapRef}></section>;
 }

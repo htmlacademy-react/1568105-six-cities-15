@@ -1,6 +1,9 @@
-import { useAppSelector } from '../../hooks';
 import { TPreviewOffer } from '../../types/types';
 import Card from '../card';
+
+type FavoritesListProps = {
+  favoritesOffers: TPreviewOffer[];
+}
 
 const getOffersByCity = (offers: TPreviewOffer[]) => offers.reduce<{[key: string]: TPreviewOffer[]}>((acc, item) => {
   const cityName: string = item.city.name;
@@ -12,15 +15,13 @@ const getOffersByCity = (offers: TPreviewOffer[]) => offers.reduce<{[key: string
   return acc;
 }, {});
 
-export default function FavoritesList() {
-  const favoritesOffers = useAppSelector((state) => state.favorites);
+export default function FavoritesList({favoritesOffers}:FavoritesListProps): JSX.Element {
 
   const offersByCities = getOffersByCity(favoritesOffers);
-  // console.log(offersByCities);
   return (
     <ul className="favorites__list">
-      {Object.keys(offersByCities).map((city, index) => (
-        <li className="favorites__locations-items" key={index}>
+      {Object.keys(offersByCities).map((city) => (
+        <li className="favorites__locations-items" key={city}>
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">

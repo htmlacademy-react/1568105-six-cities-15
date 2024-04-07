@@ -10,6 +10,7 @@ import FavoritesPage from '../pages/favorites-page';
 import PageNotFound from '../pages/page-not-found';
 import { TFullOffer, TPreviewOffer, TReview, TCity } from '../types/types';
 import { getUserAuth } from '../get-user-auth';
+import { useAppSelector } from '../hooks';
 
 type AppProps = {
   previewOffers: TPreviewOffer[];
@@ -20,8 +21,7 @@ type AppProps = {
 }
 
 export default function App({ favoritesVolume, reviews, previewOffers, fullOffers, cityData }: AppProps): JSX.Element {
-  const auth = getUserAuth();
-
+  const auth = useAppSelector((state) => state.authorizationStatus);
   return (
     <HelmetProvider>
       <BrowserRouter>

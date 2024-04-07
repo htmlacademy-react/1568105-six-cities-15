@@ -13,6 +13,15 @@ export enum AppRoute {
   Offers = 'offers'
 }
 
+export enum ApiRoute {
+  Login = '/login',
+  Offers = '/offers',
+  Reviews = '/comments',
+  Nearby= 'nearby',
+  Favorite = '/favorite',
+  Logout = '/logout'
+}
+
 export enum AuthStatus {
   Auth = 'Auth',
   NoAuth = 'NoAuth',
@@ -37,15 +46,14 @@ export enum SortType {
   Rating = 'Top rated first'
 }
 
-
-export const PLACE_OPTIONS: string[] = [
+export const PLACE_OPTIONS: SortType[] = [
   SortType.Popular,
   SortType.LowPrice,
   SortType.HightPrice,
   SortType.Rating,
 ];
 
-export const DEFAULT_SORTING = 'Popular';
+export const DEFAULT_SORTING = SortType.Popular;
 
 export const TILE_LAYER = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
 export const ATTRIBUTION = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>';
@@ -71,5 +79,17 @@ export enum NameSpace {
   NearPlaces = 'NEAR_PLACES',
   Favorites = 'FAVORITES',
   Reviews = 'REVIEWS',
-  User = 'USER'
+  User = 'USER',
+  Mode = 'MODE',
+  Data = 'DATA'
+}
+
+export const ALLOW_SCROLL = 'city';
+
+export const EMAIL_REG_EXP = /^[a-zA-Zа-яёА-ЯЁ0-9]+([._-][a-zA-Zа-яёА-ЯЁ0-9]+)*@[a-zA-Zа-яёА-ЯЁ0-9]+([.-][a-zA-Zа-яёА-ЯЁ0-9]+)*\.[a-zA-Zа-яёА-ЯЁ]{2,6}$/;
+export const PASSWORD_REG_EXP = /^(?=.*[A-Za-zА-Яа-я])(?=.*\d)[A-Za-zА-Яа-я\d]{2,}$/;
+
+export enum LoginFields {
+  Email = 'email',
+  Password = 'password'
 }

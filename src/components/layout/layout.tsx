@@ -4,15 +4,27 @@ import { AppRoute, AuthStatus } from '../../const';
 import { getLayoutState } from '../../utils';
 import { getUserAuth } from '../../get-user-auth';
 import ScrollToTop from '../../utils';
-import {useAppSelector} from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import Loader from '../loader';
+import { useCallback } from 'react';
+import { logoutAction } from '../../store/api-action';
 // import Footer from '../footer';
 
 export default function Layout() {
-  const {pathname} = useLocation();
-  const {rootClassName, linkClassName, renderUser} = getLayoutState(pathname as AppRoute); /* , renderFooter */
+  const { pathname } = useLocation();
+  const dispatch = useAppDispatch();
+  const { rootClassName, linkClassName, renderUser } = getLayoutState(pathname as AppRoute); /* , renderFooter */
   const userAuth = getUserAuth();
   const favoritesOffers = useAppSelector((state) => state.favorites);
+  const isLoadingData = useAppSelector((state) => state.isLoadingMode);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isAuth = authorizationStatus === AuthStatus.Auth;
+  const userData = useAppSelector((state) => state.userData);
 
+  const handleClickLogout = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    evt.preventDefault();
+    dispatch(logoutAction());
+  }, [dispatch]);
   return (
     <div className={`page${rootClassName}`}>
       <ScrollToTop />
@@ -24,40 +36,45 @@ export default function Layout() {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
               </Link>
             </div>
-            {
-              renderUser ? (
-                <nav className="header__nav">
-                  <ul className="header__nav-list">
-                    <li className="header__nav-item user">
-                      <Link className="header__nav-link header__nav-link--profile" to="/favorites">
-                        <div className="header__avatar-wrapper user__avatar-wrapper">
-                        </div>
-                        {userAuth === AuthStatus.Auth ? (
-                          <>
-                            <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                            <span className="header__favorite-count">{favoritesOffers.length}</span>
-                          </>
-                        ) : <span className="header__login">Sign in</span>}
-                      </Link>
-                    </li>
-                    {userAuth === AuthStatus.Auth ? (
-                      <li className="header__nav-item">
-                        <a className="header__nav-link" href="#">
-                          <span className="header__signout">Sign out</span>
-                        </a>
-                      </li>
-                    ) : null}
-                  </ul>
-                </nav>
-              ) : null
-            }
+
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                <li className="header__nav-item user">
+                  <Link className="header__nav-link header__nav-link--profile" to={isAuth ? AppRoute.FavoritesPage : AppRoute.Login}>
+                    <div className="header__avatar-wrapper user__avatar-wrapper"
+                      style={{
+                        backgroundImage: `url(${userData?.avatarUrl ?? '../img/avatar.svg'})`,
+                        borderRadius: '50%'
+                      }}
+                    >
+                    </div>
+                    {isAuth
+                      ? (
+                        <>
+                          <span className="header__user-name user__name">{userData?.email}</span>
+                          <span className="header__favorite-count">{favoritesOffers.length}</span>
+                        </>
+                      )
+                      : <span className="header__login">Sign in</span>}
+                  </Link>
+                </li>
+                {isAuth &&
+                  <li className="header__nav-item">
+                    <a className="header__nav-link" href="#" onClick={handleClickLogout}>
+                      <span className="header__signout">Sign out</span>
+                    </a>
+                  </li>}
+              </ul>
+            </nav>
+
           </div>
         </div>
-      </header>
+      </header >
       <Outlet />
       {/* {renderFooter ? (
         <Footer />
       ) : null} */}
-    </div>
+      {isLoadingData && <Loader />}
+    </div >
   );
 }

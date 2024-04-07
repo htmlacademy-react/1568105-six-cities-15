@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import PageNotFound from '../page-not-found';
@@ -14,22 +15,40 @@ import Reviews from '../../components/reviews';
 import OfferDescription from '../../components/offer-description';
 import Map from '../../components/map';
 import Card from '../../components/card';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import {
+  fetchOfferByIdAction,
+  fetchOfferReviewsAction,
+  fetchNearbyOffersAction
+} from '../../store/api-action';
+import FavoriteButton from '../../components/favorite-button/favorite-button';
 
-type OfferPageProps = {
-  previewOffers: TPreviewOffer[];
-  fullOffers: TFullOffer[];
-  reviews: TReview[];
-}
 
-export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPageProps): JSX.Element {
+export default function OfferPage(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
+  const isLoadingMode = useAppSelector((state) => state.isLoadingMode);
+  const reviews = useAppSelector((state) => state.reviews);
+  const nearOffers = useAppSelector((state) => state.nearbyOffers);
+  useEffect(() => {
+    if (!id) {
+      return;
+    }
+    dispatch(fetchOfferByIdAction(id));
+    dispatch(fetchOfferReviewsAction(id));
+    dispatch(fetchNearbyOffersAction(id));
 
-  const { id: offerId } = useParams();
-  const currentOffer = fullOffers.find((offer) => offer.id === offerId);
-  const nearOffers = previewOffers.filter((offer) => offer.id !== offerId).slice(0, 3);
+  }, [dispatch, id]);
+
+  const currentOffer = useAppSelector((state) => state.currentOffer);
   const [selectedPointId, setSelectedPointId] = useState('');
 
-  if (!offerId || !currentOffer) {
+  if (!id || !currentOffer) {
     return <PageNotFound />;
+  }
+
+  if (isLoadingMode) {
+    return <></>;
   }
 
   const {
@@ -45,7 +64,7 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
-            <OfferGallery images={images}/>
+            <OfferGallery images={images} />
           </div>
 
           <div className="offer__container container">
@@ -57,20 +76,12 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
 
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                <button
-                  className={`offer__bookmark-button button ${isFavorite && 'offer__bookmark-button--active'}`}
-                  type="button"
-                >
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark" />
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                |<FavoriteButton id={id} className='offer' iconWidth='31' iconHeight='33' isFavorite={isFavorite}/>
               </div>
 
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: getPercents(rating)}}></span>
+                  <span style={{ width: getPercents(rating) }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="offer__rating-value rating__value">{rating}</span>
@@ -82,15 +93,16 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
 
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
-                <OfferHost avatarUrl={host.avatarUrl} name={host.name} isPro={host.isPro}/>
-                <OfferDescription description={description}/>
+                <OfferHost avatarUrl={host.avatarUrl} name={host.name} isPro={host.isPro} />
+                <OfferDescription description={description} />
               </div>
-              <Reviews reviews={reviews}/>
+              <Reviews reviews={reviews} />
             </div>
           </div>
           <Map
-            className="offer" selectedPointId={selectedPointId}
-            cityData={currentOffer.city} previewOffers={nearOffers.concat(currentOffer)}
+            className="offer"
+            selectedPointId={selectedPointId}
+            previewOffers={nearOffers}
           />
         </section>
 
@@ -99,7 +111,7 @@ export default function OfferPage({fullOffers, previewOffers, reviews}: OfferPag
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {nearOffers.map((offer) =>
-                <Card key={`${offer.id}1`} previewOffer={offer} setSelectedPointId={setSelectedPointId}/>
+                <Card key={`${offer.id}1`} previewOffer={offer} setSelectedPointId={setSelectedPointId} />
               )}
             </div>
           </section>
