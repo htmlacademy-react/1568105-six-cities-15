@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { AppRoute, SortType } from './const';
+import { 
+  AppRoute, 
+  SortType, 
+  EMAIL_REG_EXP, 
+  PASSWORD_REG_EXP, 
+  LoginFields 
+} from './const';
 import { TPreviewOffer } from './types/types';
 
 //* getLayoutState() *
@@ -45,4 +51,11 @@ export const sortingType = {
   [SortType.HightPrice]: (offers: TPreviewOffer[]) => offers.slice().sort((offerFirst, offerSecond) => offerSecond.price - offerFirst.price),
   [SortType.LowPrice]: (offers: TPreviewOffer[]) => offers.slice().sort((offerFirst, offerSecond) => offerFirst.price - offerSecond.price),
   [SortType.Rating]: (offers: TPreviewOffer[]) => offers.slice().sort((offerFirst, offerSecond) => offerSecond.rating - offerFirst.rating)
+};
+
+export const validateLoginFields = (authData: FormData) => {
+  const isValidEmail = EMAIL_REG_EXP.test(authData.get(LoginFields.Email) as string);
+  const isValidPassword = PASSWORD_REG_EXP.test(authData.get(LoginFields.Password) as string);
+
+  return isValidEmail && isValidPassword;
 };

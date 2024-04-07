@@ -3,7 +3,7 @@ import 'leaflet/dist/leaflet.css';
 import { Marker, layerGroup } from 'leaflet';
 import useMap from '../../hooks/use-map';
 import { TFullOffer, TPreviewOffer } from '../../types/types';
-import { defaultIcon, currentIcon } from '../../const';
+import { defaultIcon, currentIcon, ALLOW_SCROLL } from '../../const';
 
 type MapProps = {
   previewOffers: (TPreviewOffer | TFullOffer)[];
@@ -17,7 +17,8 @@ function Map(props: MapProps): JSX.Element {
 
   const mapRef = useRef(null);
   const cityData = previewOffers[0].city.location;
-  const map = useMap(mapRef, cityData);
+  const zoomAllow = className === ALLOW_SCROLL;
+  const map = useMap(mapRef, cityData, zoomAllow);
 
   useEffect(() => {
     if (map) {

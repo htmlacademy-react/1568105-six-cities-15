@@ -5,7 +5,8 @@ import { TLocation } from '../types/types';
 
 function useMap(
   mapRef: MutableRefObject<HTMLElement | null>,
-  cityData: TLocation
+  cityData: TLocation,
+  zoomAllow: boolean
 ): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
@@ -17,7 +18,8 @@ function useMap(
           lat: cityData.latitude,
           lng: cityData.longitude
         },
-        zoom: cityData.zoom
+        zoom: cityData.zoom,
+        scrollWheelZoom: zoomAllow
       });
 
       const layer = new TileLayer(TILE_LAYER, { attribution: ATTRIBUTION });

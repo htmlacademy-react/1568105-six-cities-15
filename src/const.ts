@@ -13,6 +13,15 @@ export enum AppRoute {
   Offers = 'offers'
 }
 
+export enum ApiRoute {
+  Login = '/login',
+  Offers = '/offers',
+  Reviews = '/comments',
+  Nearby= 'nearby',
+  Favorite = '/favorite',
+  Logout = '/logout'
+}
+
 export enum AuthStatus {
   Auth = 'Auth',
   NoAuth = 'NoAuth',
@@ -36,7 +45,6 @@ export enum SortType {
   HightPrice = 'Price: high to low',
   Rating = 'Top rated first'
 }
-
 
 export const PLACE_OPTIONS: SortType[] = [
   SortType.Popular,
@@ -72,5 +80,16 @@ export enum NameSpace {
   Favorites = 'FAVORITES',
   Reviews = 'REVIEWS',
   User = 'USER',
-  Mode = 'MODE'
+  Mode = 'MODE',
+  Data = 'DATA'
+}
+
+export const ALLOW_SCROLL = 'city'
+
+export const EMAIL_REG_EXP = /^[a-zA-Zа-яёА-ЯЁ0-9]+([._-][a-zA-Zа-яёА-ЯЁ0-9]+)*@[a-zA-Zа-яёА-ЯЁ0-9]+([.-][a-zA-Zа-яёА-ЯЁ0-9]+)*\.[a-zA-Zа-яёА-ЯЁ]{2,6}$/;
+export const PASSWORD_REG_EXP = /^(?=.*[A-Za-zА-Яа-я])(?=.*\d)[A-Za-zА-Яа-я\d]{2,}$/;
+
+export enum LoginFields {
+  Email = 'email',
+  Password = 'password'
 }

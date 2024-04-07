@@ -5,6 +5,7 @@ import { getPercents } from '../../utils';
 import { doFirstCap } from '../../utils';
 import { useAppDispatch } from '../../hooks';
 import {setFavouriteStatus}from '../../store/action';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 type CardProps = {
   previewOffer: TPreviewOffer;
@@ -51,7 +52,7 @@ export default function Card({ previewOffer, setSelectedPointId, isFavoritePage 
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
 
-          <button
+          {/* <button
             onClick={setFavoriteHandler}
             className={`place-card__bookmark-button button ${isFavorite && 'place-card__bookmark-button--active'}`} type="button"
           >
@@ -59,7 +60,8 @@ export default function Card({ previewOffer, setSelectedPointId, isFavoritePage 
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
             <span className="visually-hidden">To bookmarks</span>
-          </button>
+          </button> */}
+          <FavoriteButton id={id} className='place-card' iconWidth='18' iconHeight='19' isFavorite={isFavorite}/>
         </div>
 
         <div className="place-card__rating rating">

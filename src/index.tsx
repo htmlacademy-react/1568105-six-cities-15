@@ -8,11 +8,10 @@ import { fullOffers } from './mocks/full-offers';
 import { reviews } from './mocks/reviews';
 import { cityData } from './mocks/city-data';
 import { store } from './store';
-import { fetchFavorites } from './store/action';
 import {fetchOffersAction} from './store/api-action';
 
 store.dispatch(fetchOffersAction());
-store.dispatch(fetchFavorites(previewOffers));
+// store.dispatch(fetchFavoriteAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

@@ -1,5 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { TPreviewOffer } from '../types/types'; // , TReview
+import { 
+  TPreviewOffer, 
+  TFullOffer,
+  TReview,
+  TUser
+} from '../types/types'; // , TReview
 import { ACTIVE_CITY_NAME, DEFAULT_SORTING, AuthStatus, SortType } from '../const'; //  CITIES,
 import {
   fetchFavorites,
@@ -8,7 +13,12 @@ import {
   setActiveCity,
   setActiveSort,
   requireAuthorization,
-  setLoadingMode
+  setLoadingMode,
+  setCurrentOffer,
+  setDataLoadedStatus,
+  setReviews,
+  setNearbyOffers,
+  setUserData
 } from './action';
 // import { previewOffers } from '../mocks/preview-offers';
 // import { reviews } from '../mocks/reviews';
@@ -20,13 +30,23 @@ const initialState: {
   activeSorting: SortType;
   authorizationStatus: AuthStatus;
   isLoadingMode: boolean;
+  currentOffer: TFullOffer | null;
+  isDataLoaded: boolean;
+  reviews: TReview[];
+  nearbyOffers: TPreviewOffer[];
+  userData: TUser | null;
 } = {
   offers: [],
   favorites: [],
   activeCity: ACTIVE_CITY_NAME,
   activeSorting: DEFAULT_SORTING,
-  authorizationStatus: AuthStatus.Unknown,
-  isLoadingMode: false
+  authorizationStatus: AuthStatus.NoAuth,
+  isLoadingMode: false,
+  currentOffer: null,
+  isDataLoaded: false,
+  reviews: [],
+  nearbyOffers: [],
+  userData: null
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -34,8 +54,8 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(fetchOffers, (state, action) => {
       state.offers = action.payload;
     })
-    .addCase(fetchFavorites, (state) => {
-      state.favorites = state.offers.filter((offer) => offer.isFavorite);
+    .addCase(fetchFavorites, (state, action) => {
+      state.favorites = action.payload;
     })
     .addCase(setFavouriteStatus, (state, action) => {
       const element = state.offers.find((item) => item.id === action.payload);
@@ -50,10 +70,27 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setActiveSort, (state, action) => {
       state.activeSorting = action.payload;
     })
+    .addCase(setLoadingMode, (state, action) => {
+      state.isLoadingMode = action.payload;
+    })
+    .addCase(setCurrentOffer, (state, action) => {
+      state.currentOffer = action.payload
+    })
+    .addCase(setDataLoadedStatus, (state, action) => {
+      state.isDataLoaded = action.payload;
+    })
+    .addCase(setReviews, (state, action) => {
+      state.reviews = action.payload;
+    })
+    .addCase(setNearbyOffers, (state, action) => {
+      state.nearbyOffers = action.payload;
+    })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(setLoadingMode, (state, action) => {
-      state.isLoadingMode = action.payload;
-    });
+    .addCase(setUserData, (state, action) => {
+      state.userData = action.payload;
+    })
+
+    ;
 });
