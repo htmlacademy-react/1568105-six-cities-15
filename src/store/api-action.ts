@@ -12,6 +12,7 @@ import {
   TUser,
   TNewReview
 } from '../types/types';
+
 import {
   fetchOffers,
   requireAuthorization,
@@ -24,6 +25,7 @@ import {
   setUserData,
   redirectToRoute
 } from './action';
+
 import { saveToken, dropToken } from '../services/token';
 import { AppRoute, AuthStatus, NameSpace, ApiRoute } from '../const';
 
