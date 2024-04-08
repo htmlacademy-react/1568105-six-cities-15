@@ -1,58 +1,66 @@
-import { Fragment, ReactEventHandler, useState } from 'react';
+import { ChangeEvent, ReactEventHandler, useCallback, useState, useEffect, FormEvent, memo } from 'react';
+import MemoizedReviewStars from '../review-stars/review-stars';
+import { STARS_NAME, MIN_REVIEW_LENGHT, MAX_REVIEW_LENGHT } from '../../const';
+import { TFullOffer } from '../../types/types';
+import { useAppDispatch } from '../../hooks';
+import { addReviewAction, fetchOfferReviewsAction } from '../../store/api-action';
 
-type ChangeHandler = ReactEventHandler <HTMLInputElement | HTMLTextAreaElement>
+const form = document.querySelector('.reviews__form');
 
-type RatingAttributes = {
-  value: number;
-  label: string;
+type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
+
+type ReviewsFormProps = {
+  id: TFullOffer['id'];
 }
 
-const ratingAttributes: RatingAttributes[] = [
-  {value: 5, label: 'perfect'},
-  {value: 4, label: 'good'},
-  {value: 3, label: 'not bad'},
-  {value: 2, label: 'bad'},
-  {value: 1, label: 'horrible'}
-];
+function ReviewForm({ id }: ReviewsFormProps): JSX.Element {
+  const dispatch = useAppDispatch();
+  const [review, setReview] = useState('');
+  const [isChecked, setIsChecked] = useState('0');
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+  const changeReviewHandler: ChangeHandler = useCallback(({ target }: ChangeEvent<HTMLTextAreaElement>) => {
+    setReview(target.value);
+  }, []);
 
-export default function ReviewForm() {
-  const [review, setReview] = useState({ rating: 0, review: '' });
+  const changeStarHandle = useCallback(({ target }: ChangeEvent<HTMLInputElement>) => {
+    if (target.name === STARS_NAME) {
+      setIsChecked(target.value);
+    }
+  }, []);
 
-  const handleChange: ChangeHandler = (event) => {
-    const {name, value} = event.currentTarget;
-    setReview({...review, [name]: value});
+  useEffect(() => {
+    setIsSubmitDisabled(isChecked === '0' || review.length < MIN_REVIEW_LENGHT || review.length > MAX_REVIEW_LENGHT);
+  }, [isChecked, review.length]);
+
+  const formSubmitHandler = (evt: FormEvent) => {
+    evt.preventDefault();
+    if (review && isChecked) {
+      dispatch(addReviewAction({
+        id: id,
+        comment: review,
+        rating: Number(isChecked)
+      })).then(() => {
+        dispatch(fetchOfferReviewsAction(id));
+        setIsChecked('0');
+        setReview('');
+      });
+    }
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onSubmit={formSubmitHandler}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {ratingAttributes.map(({value, label}) => (
-          <Fragment key={value}>
-            <input
-              className="form__rating-input visually-hidden"
-              name="rating" defaultValue={value}
-              id={`${value}-stars`} type="radio"
-            />
-            <label
-              htmlFor={`${value}-stars`}
-              className="reviews__rating-label form__rating-label"
-              title={label}
-            >
-              <svg className="form__star-image" width={37} height={33}>
-                <use xlinkHref="#icon-star" />
-              </svg>
-            </label>
-          </Fragment>
-        ))}
+        <MemoizedReviewStars isChecked={isChecked} setStarsHandle={changeStarHandle} />
       </div>
 
       <textarea
         className="reviews__textarea form__textarea"
-        id="review" name="review"
+        id="review"
+        name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleChange}
-        defaultValue={''}
+        onChange={changeReviewHandler}
+        value={review}
       />
 
       <div className="reviews__button-wrapper">
@@ -63,10 +71,14 @@ export default function ReviewForm() {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.review.length < 50 || review.rating === 0}
+          disabled={isSubmitDisabled}
         >Submit
         </button>
       </div>
     </form>
   );
 }
+
+const MemoizedReviewForm = memo(ReviewForm);
+
+export default MemoizedReviewForm;
