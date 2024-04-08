@@ -96,7 +96,7 @@ export default function OfferPage(): JSX.Element {
                 <OfferHost avatarUrl={host.avatarUrl} name={host.name} isPro={host.isPro} />
                 <OfferDescription description={description} />
               </div>
-              <Reviews reviews={reviews} />
+              <Reviews reviews={reviews} id={id} />
             </div>
           </div>
           <Map

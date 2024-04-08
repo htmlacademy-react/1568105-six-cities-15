@@ -93,3 +93,9 @@ export enum LoginFields {
   Email = 'email',
   Password = 'password'
 }
+
+export const STARS_NAME = 'rating';
+
+export const MIN_REVIEW_LENGHT = 50;
+
+export const MAX_REVIEW_LENGHT = 300;

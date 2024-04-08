@@ -65,6 +65,8 @@ export type TReview = {
   rating: number;
 }
 
+export type TNewReview = Omit<TReview, 'user' | 'date'>;
+
 export type TState = ReturnType<typeof store.getState>;
 
 export type TAppDispatch = typeof store.dispatch;

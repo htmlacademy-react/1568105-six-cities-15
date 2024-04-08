@@ -9,7 +9,8 @@ import {
   TReview,
   TFavoriteStatus,
   TAuthData,
-  TUser
+  TUser,
+  TNewReview
 } from '../types/types';
 import {
   fetchOffers,
@@ -132,4 +133,16 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     dispatch(requireAuthorization(AuthStatus.NoAuth));
     dispatch(setUserData(null));
   }
+);
+
+export const addReviewAction = createAsyncThunk<TReview, TNewReview, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  `${NameSpace.Reviews}/post`,
+  async ({id, comment, rating}, {extra: api}) => {
+    const {data} = await api.post<TReview>(`${ApiRoute.Reviews}/${id}`, {comment, rating});
+    return data;
+  },
 );

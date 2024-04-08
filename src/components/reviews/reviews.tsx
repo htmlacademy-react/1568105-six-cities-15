@@ -1,16 +1,17 @@
 import ReviewsList from '../reviews-list';
 import ReviewForm from '../review-form';
 import { AuthStatus } from '../../const';
-import { getUserAuth } from '../../get-user-auth';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
-import { TReview } from '../../types/types';
+import { TReview, TFullOffer } from '../../types/types';
 
 type ReviewsProps = {
   reviews: TReview[];
+  id: TFullOffer['id'];
 }
 
-export default function Reviews({ reviews }: ReviewsProps): JSX.Element {
-  const userAuth = getUserAuth();
+export default function Reviews({ reviews, id }: ReviewsProps): JSX.Element {
+  const userAuth = useAppSelector((state) => state.authorizationStatus);
 
   return (
     <section className="offer__reviews reviews">
@@ -18,7 +19,7 @@ export default function Reviews({ reviews }: ReviewsProps): JSX.Element {
         Reviews &middot; <span className="reviews__amount">{ReviewsList.length}</span>
       </h2>
       <ReviewsList reviews={reviews}/>
-      {userAuth === AuthStatus.Auth && <ReviewForm />}
+      {userAuth === AuthStatus.Auth && <ReviewForm id={id} />}
       {userAuth === AuthStatus.NoAuth && <p className="reviews__title offer__price-text">Only authorized users can make a review.</p> }
     </section>
   );
