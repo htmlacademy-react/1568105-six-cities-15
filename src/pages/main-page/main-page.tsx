@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import Card from '../../components/card';
 import Tabs from '../../components/tabs';
 import Map from '../../components/map';
-// import { PLACE_OPTIONS, ACTIVE_CITY_NAME } from '../../const';
 import { TCity, TPreviewOffer } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import MainEmpty from './main-empty';
