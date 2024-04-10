@@ -16,7 +16,7 @@ export default function Reviews({ reviews, id }: ReviewsProps): JSX.Element {
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">
-        Reviews &middot; <span className="reviews__amount">{ReviewsList.length}</span>
+        Reviews &middot; <span className="reviews__amount">{reviews.length}</span>
       </h2>
       <ReviewsList reviews={reviews}/>
       {userAuth === AuthStatus.Auth && <ReviewForm id={id} />}

@@ -36,12 +36,10 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   `${NameSpace.Offers}/load`,
   async (_arg, { dispatch, extra: api }) => {
-    dispatch(setDataLoadedStatus(false));
     dispatch(setLoadingMode(true));
     const { data } = await api.get<TPreviewOffer>(AppRoute.Offers);
     dispatch(fetchOffers(data));
     dispatch(setLoadingMode(false));
-    dispatch(setDataLoadedStatus(true));
   },
 );
 
@@ -53,9 +51,18 @@ export const fetchOfferByIdAction = createAsyncThunk<void, TPreviewOffer['id'], 
   `${NameSpace.Offer}/load`,
   async (id: TFullOffer['id'], { dispatch, extra: api }) => {
     dispatch(setLoadingMode(true));
-    const { data } = await api.get<TFullOffer>(`${AppRoute.Offers}/${id}`);
-    dispatch(setCurrentOffer(data));
-    dispatch(setLoadingMode(false));
+    try {
+      const { data } = await api.get<TFullOffer>(`${AppRoute.Offers}/${id}`);
+      dispatch(setCurrentOffer(data)).then(() => {
+        dispatch(setLoadingMode(false));
+      })
+    } catch {
+      dispatch(setDataLoadedStatus('error'))
+      throw new Error("qwe");
+      
+    }
+
+
   },
 );
 
@@ -66,8 +73,10 @@ export const fetchOfferReviewsAction = createAsyncThunk<void, TPreviewOffer['id'
 }>(
   `${NameSpace.Reviews}/fetch`,
   async (id: TFullOffer['id'], { dispatch, extra: api }) => {
+    dispatch(setLoadingMode(true));
     const { data } = await api.get<TReview>(`${ApiRoute.Reviews}/${id}`);
     dispatch(setReviews(data));
+    dispatch(setLoadingMode(false));
   },
 );
 
@@ -78,8 +87,10 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, TPreviewOffer['id'
 }>(
   `${NameSpace.NearPlaces}/fetch`,
   async (id: TFullOffer['id'], { dispatch, extra: api }) => {
+    dispatch(setLoadingMode(true));
     const { data } = await api.get<TPreviewOffer[]>(`${ApiRoute.Offers}/${id}/${ApiRoute.Nearby}`);
     dispatch(setNearbyOffers(data));
+    dispatch(setLoadingMode(false));
   },
 );
 
@@ -114,8 +125,8 @@ export const loginAction = createAsyncThunk<void, TAuthData, {
   extra: AxiosInstance;
 }>(
   `${NameSpace.User}/login`,
-  async ({email, password}, {dispatch, extra: api}) => {
-    const {data} = await api.post<TUser>(ApiRoute.Login, {email, password});
+  async ({ email, password }, { dispatch, extra: api }) => {
+    const { data } = await api.post<TUser>(ApiRoute.Login, { email, password });
     saveToken(data.token);
     dispatch(requireAuthorization(AuthStatus.Auth));
     dispatch(setUserData(data));
@@ -129,7 +140,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   `${NameSpace.User}/logout`,
-  async (_arg, {dispatch, extra: api}) => {
+  async (_arg, { dispatch, extra: api }) => {
     await api.delete(ApiRoute.Logout);
     dropToken();
     dispatch(requireAuthorization(AuthStatus.NoAuth));
@@ -143,8 +154,10 @@ export const addReviewAction = createAsyncThunk<TReview, TNewReview, {
   extra: AxiosInstance;
 }>(
   `${NameSpace.Reviews}/post`,
-  async ({id, comment, rating}, {extra: api}) => {
-    const {data} = await api.post<TReview>(`${ApiRoute.Reviews}/${id}`, {comment, rating});
+  async ({ id, comment, rating }, { dispatch, extra: api }) => {
+    dispatch(setLoadingMode(true));
+    const { data } = await api.post<TReview>(`${ApiRoute.Reviews}/${id}`, { comment, rating });
+    dispatch(setLoadingMode(false));
     return data;
   },
 );

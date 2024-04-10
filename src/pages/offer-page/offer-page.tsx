@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import Loader from '../../components/loader';
 import PageNotFound from '../page-not-found';
 import { TFullOffer, TPreviewOffer, TReview } from '../../types/types';
 import { getPercents } from '../../utils';
-// import { doFirstCap } from '../../utils';
 import { useState } from 'react';
 import OfferGallery from '../../components/offer-gallery';
 import OfferFeatures from '../../components/offer-features';
@@ -27,9 +28,13 @@ import FavoriteButton from '../../components/favorite-button/favorite-button';
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const isLoadingMode = useAppSelector((state) => state.isLoadingMode);
   const reviews = useAppSelector((state) => state.reviews);
   const nearOffers = useAppSelector((state) => state.nearbyOffers);
+  const currentOffer = useAppSelector((state) => state.currentOffer);
+  const [selectedPointId, setSelectedPointId] = useState('');
+  const isLoadingMode = useAppSelector((state) => state.isLoadingMode);
+  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+
   useEffect(() => {
     if (!id) {
       return;
@@ -40,15 +45,12 @@ export default function OfferPage(): JSX.Element {
 
   }, [dispatch, id]);
 
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const [selectedPointId, setSelectedPointId] = useState('');
-
-  if (!id || !currentOffer) {
-    return <PageNotFound />;
+  if(!currentOffer || isLoadingMode || !nearOffers.length || !reviews.length){
+    return <Loader />
   }
 
-  if (isLoadingMode) {
-    return <></>;
+  if (!currentOffer && !isLoadingMode && !nearOffers.length && !reviews.length) {
+    return <Navigate to={AppRoute.PageNotFound} replace />;
   }
 
   const {
@@ -96,21 +98,21 @@ export default function OfferPage(): JSX.Element {
                 <OfferHost avatarUrl={host.avatarUrl} name={host.name} isPro={host.isPro} />
                 <OfferDescription description={description} />
               </div>
-              <Reviews reviews={reviews} id={id} />
+              <Reviews reviews={reviews.slice(0,10)} id={id} />
             </div>
           </div>
-          <Map
+          { nearOffers.length && <Map
             className="offer"
             selectedPointId={selectedPointId}
-            previewOffers={nearOffers}
-          />
+            previewOffers={nearOffers.slice(0, 3)}
+          />}
         </section>
 
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearOffers.map((offer) =>
+              {nearOffers.length && nearOffers.slice(0, 3).map((offer) =>
                 <Card key={`${offer.id}1`} previewOffer={offer} setSelectedPointId={setSelectedPointId} />
               )}
             </div>

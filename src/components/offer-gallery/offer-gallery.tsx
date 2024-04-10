@@ -7,10 +7,10 @@ export default function OfferGallery ({ images }: OfferGalleryProps): JSX.Elemen
     <div className="offer__gallery">
       {images.map((image: string) => (
         <div className="offer__image-wrapper" key={image}>
-          <img className="offer__image"
+          {image && <img className="offer__image"
             src={image}
             alt="Photo studio"
-          />
+          />}
         </div>
       ))}
     </div>

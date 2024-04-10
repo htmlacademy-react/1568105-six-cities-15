@@ -5,7 +5,8 @@ import { AuthStatus, AppRoute } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import {
   updateFavoriteStatusAction,
-  fetchFavoriteAction
+  fetchFavoriteAction,
+  fetchOffersAction
 } from '../../store/api-action';
 
 type FavoritButtonProps = {
@@ -26,17 +27,18 @@ export default function FavoriteButton({ id, className, iconWidth, iconHeight, i
 
   const handleFavoritButtonClick = () => {
     if (!isAuthorized) {
-      return navigate(AppRoute.Login, {replace: true});
+      return navigate(AppRoute.Login, { replace: true });
     }
     setFavoriteStatus((prevState) => !prevState);
 
-    dispatch(updateFavoriteStatusAction({id, status}))
+    dispatch(updateFavoriteStatusAction({ id, status }))
+      .then(() => dispatch(fetchOffersAction()))
       .then(() => dispatch(fetchFavoriteAction()));
   };
 
   return (
     <button
-      className={`${className}__bookmark-button button ${favoriteStatus && `${className}__bookmark-button--active`}`}
+      className={`${className}__bookmark-button button ${isAuthorized && favoriteStatus && `${className}__bookmark-button--active`}`}
       type="button"
       onClick={handleFavoritButtonClick}
     >

@@ -59,3 +59,7 @@ export const validateLoginFields = (authData: FormData) => {
 
   return isValidEmail && isValidPassword;
 };
+
+export function getRandomArrayItem<T>(items: T[]) {
+  return items[Math.floor(Math.random() * items.length)];
+}
