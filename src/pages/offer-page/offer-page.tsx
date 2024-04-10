@@ -45,11 +45,11 @@ export default function OfferPage(): JSX.Element {
 
   }, [dispatch, id]);
 
-  if(!currentOffer || isLoadingMode || !nearOffers.length || !reviews.length){
+  if(isLoadingMode){
     return <Loader />;
   }
 
-  if (!currentOffer && !isLoadingMode && !nearOffers.length && !reviews.length) {
+  if (!currentOffer) {
     return <Navigate to={AppRoute.PageNotFound} replace />;
   }
 

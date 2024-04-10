@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
-import { useRef, useState, MouseEvent } from 'react';
+import { useRef, useState, MouseEvent, FormEvent } from 'react';
 import {validateLoginFields, getRandomArrayItem} from '../../utils';
 import { useAppDispatch } from '../../hooks';
 import { CITIES, SortType, AppRoute } from '../../const';
@@ -22,7 +22,7 @@ export default function LoginPage() {
 
   };
 
-  const formSubmitHandler = (evt) => {
+  const formSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (formLoginRef.current !== null) {

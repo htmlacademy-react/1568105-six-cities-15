@@ -41,7 +41,7 @@ const initialState: {
   activeCity: ACTIVE_CITY_NAME,
   activeSorting: DEFAULT_SORTING,
   authorizationStatus: AuthStatus.NoAuth,
-  isLoadingMode: false,
+  isLoadingMode: true,
   currentOffer: null,
   isDataLoaded: '',
   reviews: [],
