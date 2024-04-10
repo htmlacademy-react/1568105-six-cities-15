@@ -31,7 +31,7 @@ const initialState: {
   authorizationStatus: AuthStatus;
   isLoadingMode: boolean;
   currentOffer: TFullOffer | null;
-  isDataLoaded: boolean;
+  isDataLoaded: string;
   reviews: TReview[];
   nearbyOffers: TPreviewOffer[];
   userData: TUser | null;
@@ -43,7 +43,7 @@ const initialState: {
   authorizationStatus: AuthStatus.NoAuth,
   isLoadingMode: false,
   currentOffer: null,
-  isDataLoaded: false,
+  isDataLoaded: '',
   reviews: [],
   nearbyOffers: [],
   userData: null
@@ -75,6 +75,7 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentOffer, (state, action) => {
       state.currentOffer = action.payload;
+      console.log(state.currentOffer)
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;

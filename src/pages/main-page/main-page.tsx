@@ -23,23 +23,23 @@ export default function MainPage({ cityData }: MainPageProps): JSX.Element {
   const activeSort = useAppSelector((state) => state.activeSorting);
   const previewOffersByCity = getOffersByCity(previewOffers, activeCityName);
   const sortedOffers = sortingType[activeSort](previewOffersByCity);
-
+  const getWordPlaces = (value: number) => value > 1 ? 'places' : 'place';
   return (
     <div className="page page--gray page--main">
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-      <main className="page__main page__main--index">
+      <main className={`page__main page__main--index ${!previewOffersByCity.length && 'page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <Tabs />
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
+          <div className={`cities__places-container container ${!previewOffersByCity.length && 'cities__places-container--empty'}`}>
             {previewOffersByCity.length ?
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{previewOffersByCity.length} places to stay in {activeCityName}</b>
+                <b className="places__found">{previewOffersByCity.length} {getWordPlaces(previewOffersByCity.length)} to stay in {activeCityName}</b>
                 <Sorting />
                 <div className="cities__places-list places__list tabs__content">
                   {sortedOffers.map((offer: TPreviewOffer) =>
@@ -47,7 +47,7 @@ export default function MainPage({ cityData }: MainPageProps): JSX.Element {
                   )}
                 </div>
               </section>
-              : <MainEmpty />}
+              : <MainEmpty city = {activeCityName}/>}
             <div className="cities__right-section">
               {previewOffersByCity.length && <Map className="cities" cityData={cityData} previewOffers={previewOffersByCity} selectedPointId={selectedPointId} />}
             </div>

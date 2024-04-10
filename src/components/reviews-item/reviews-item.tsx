@@ -7,13 +7,14 @@ type ReviewsItemProps = {
 
 export default function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
 
-  const { user, comment, rating } = review; // id, name, avatarUrl, isPro /// date, – доделать
-
+  const { user, comment, rating, date } = review; // id, name, avatarUrl, isPro /// date, – доделать
+  const reviewDate = new Date(date);
+  const month = reviewDate.toLocaleString('en-EN', { month: 'long' });
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg"
+          <img className="reviews__avatar user__avatar" src={user.avatarUrl}
             width={54} height={54} alt="Reviews avatar"
           />
         </div>
@@ -29,7 +30,7 @@ export default function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
 
         <p className="reviews__text">{comment}</p>
 
-        <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
+        <time className="reviews__time" dateTime={date}>{month} {reviewDate.getFullYear()}</time>
       </div>
     </li>
   );
