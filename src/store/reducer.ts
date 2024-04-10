@@ -4,8 +4,8 @@ import {
   TFullOffer,
   TReview,
   TUser
-} from '../types/types'; // , TReview
-import { ACTIVE_CITY_NAME, DEFAULT_SORTING, AuthStatus, SortType } from '../const'; //  CITIES,
+} from '../types/types';
+import { ACTIVE_CITY_NAME, DEFAULT_SORTING, AuthStatus, SortType } from '../const';
 import {
   fetchFavorites,
   fetchOffers,
@@ -75,7 +75,7 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentOffer, (state, action) => {
       state.currentOffer = action.payload;
-      console.log(state.currentOffer)
+      // console.log(state.currentOffer);
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;

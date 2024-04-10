@@ -1,9 +1,9 @@
 import { Icon } from 'leaflet';
 
-export const Data = {
-  FavoritesVolume: 3,
-  StayPlaces: 312
-} as const;
+// export const Data = {
+//   FavoritesVolume: 3,
+//   StayPlaces: 312
+// } as const;
 
 export enum AppRoute {
   Root = '/',

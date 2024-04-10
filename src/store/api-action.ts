@@ -55,11 +55,11 @@ export const fetchOfferByIdAction = createAsyncThunk<void, TPreviewOffer['id'], 
       const { data } = await api.get<TFullOffer>(`${AppRoute.Offers}/${id}`);
       dispatch(setCurrentOffer(data)).then(() => {
         dispatch(setLoadingMode(false));
-      })
+      });
     } catch {
-      dispatch(setDataLoadedStatus('error'))
-      throw new Error("qwe");
-      
+      dispatch(setDataLoadedStatus('error'));
+      throw new Error('qwe');
+
     }
 
 

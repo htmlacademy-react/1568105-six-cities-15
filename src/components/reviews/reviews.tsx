@@ -1,7 +1,8 @@
 import ReviewsList from '../reviews-list';
 import ReviewForm from '../review-form';
 import { AuthStatus } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
+//  useAppDispatch
 
 import { TReview, TFullOffer } from '../../types/types';
 

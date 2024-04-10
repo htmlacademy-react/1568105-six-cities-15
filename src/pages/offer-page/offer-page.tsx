@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet-async';
 import { useParams, Navigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Loader from '../../components/loader';
-import PageNotFound from '../page-not-found';
-import { TFullOffer, TPreviewOffer, TReview } from '../../types/types';
+// import PageNotFound from '../page-not-found';
+// import { TFullOffer, TPreviewOffer, TReview } from '../../types/types';
 import { getPercents } from '../../utils';
 import { useState } from 'react';
 import OfferGallery from '../../components/offer-gallery';
@@ -33,7 +33,7 @@ export default function OfferPage(): JSX.Element {
   const currentOffer = useAppSelector((state) => state.currentOffer);
   const [selectedPointId, setSelectedPointId] = useState('');
   const isLoadingMode = useAppSelector((state) => state.isLoadingMode);
-  const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
+  // const isDataLoaded = useAppSelector((state) => state.isDataLoaded);
 
   useEffect(() => {
     if (!id) {
@@ -46,7 +46,7 @@ export default function OfferPage(): JSX.Element {
   }, [dispatch, id]);
 
   if(!currentOffer || isLoadingMode || !nearOffers.length || !reviews.length){
-    return <Loader />
+    return <Loader />;
   }
 
   if (!currentOffer && !isLoadingMode && !nearOffers.length && !reviews.length) {
@@ -101,7 +101,8 @@ export default function OfferPage(): JSX.Element {
               <Reviews reviews={reviews.slice(0,10)} id={id} />
             </div>
           </div>
-          { nearOffers.length && <Map
+          { nearOffers.length &&
+          <Map
             className="offer"
             selectedPointId={selectedPointId}
             previewOffers={nearOffers.slice(0, 3)}
