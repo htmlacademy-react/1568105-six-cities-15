@@ -53,16 +53,12 @@ export const fetchOfferByIdAction = createAsyncThunk<void, TPreviewOffer['id'], 
     dispatch(setLoadingMode(true));
     try {
       const { data } = await api.get<TFullOffer>(`${AppRoute.Offers}/${id}`);
-      dispatch(setCurrentOffer(data)).then(() => {
-        dispatch(setLoadingMode(false));
-      })
+      dispatch(setCurrentOffer(data));
     } catch {
-      dispatch(setDataLoadedStatus('error'))
-      throw new Error("qwe");
-      
+      dispatch(setDataLoadedStatus('error'));
+    } finally {
+      dispatch(setLoadingMode(false));
     }
-
-
   },
 );
 
@@ -74,7 +70,7 @@ export const fetchOfferReviewsAction = createAsyncThunk<void, TPreviewOffer['id'
   `${NameSpace.Reviews}/fetch`,
   async (id: TFullOffer['id'], { dispatch, extra: api }) => {
     dispatch(setLoadingMode(true));
-    const { data } = await api.get<TReview>(`${ApiRoute.Reviews}/${id}`);
+    const { data } = await api.get<TReview[]>(`${ApiRoute.Reviews}/${id}`);
     dispatch(setReviews(data));
     dispatch(setLoadingMode(false));
   },
@@ -94,7 +90,7 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, TPreviewOffer['id'
   },
 );
 
-export const updateFavoriteStatusAction = createAsyncThunk<TPreviewOffer[], TFavoriteStatus, {
+export const updateFavoriteStatusAction = createAsyncThunk<TPreviewOffer, TFavoriteStatus, {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;

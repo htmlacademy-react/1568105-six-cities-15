@@ -1,4 +1,8 @@
-export default function MainEmpty({ city }) {
+type MainEmptyProps = {
+  city: string;
+}
+
+export default function MainEmpty({ city }: MainEmptyProps): JSX.Element {
   return (
     <section className="cities__no-places">
       <div className="cities__status-wrapper tabs__content">

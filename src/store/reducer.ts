@@ -4,8 +4,8 @@ import {
   TFullOffer,
   TReview,
   TUser
-} from '../types/types'; // , TReview
-import { ACTIVE_CITY_NAME, DEFAULT_SORTING, AuthStatus, SortType } from '../const'; //  CITIES,
+} from '../types/types';
+import { ACTIVE_CITY_NAME, DEFAULT_SORTING, AuthStatus, SortType } from '../const';
 import {
   fetchFavorites,
   fetchOffers,
@@ -41,7 +41,7 @@ const initialState: {
   activeCity: ACTIVE_CITY_NAME,
   activeSorting: DEFAULT_SORTING,
   authorizationStatus: AuthStatus.NoAuth,
-  isLoadingMode: false,
+  isLoadingMode: true,
   currentOffer: null,
   isDataLoaded: '',
   reviews: [],
@@ -75,7 +75,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentOffer, (state, action) => {
       state.currentOffer = action.payload;
-      console.log(state.currentOffer)
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;

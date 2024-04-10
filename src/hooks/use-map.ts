@@ -29,7 +29,7 @@ function useMap(
       setMap(instance);
       isRenderedRef.current = true;
     }
-  }, [mapRef, cityData]);
+  }, [mapRef, cityData, zoomAllow]);
 
   return map;
 }

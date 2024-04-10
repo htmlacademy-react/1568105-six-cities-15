@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthStatus, ACTIVE_CITY_NAME, SortType } from '../../const';
 import { getLayoutState } from '../../utils';
-import { getUserAuth } from '../../get-user-auth';
+// import { getUserAuth } from '../../get-user-auth';
 import ScrollToTop from '../../utils';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import Loader from '../loader';
@@ -15,8 +15,8 @@ import {setActiveCity, setActiveSort} from '../../store/action';
 export default function Layout() {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
-  const { rootClassName, linkClassName, renderUser } = getLayoutState(pathname as AppRoute); /* , renderFooter */
-  const userAuth = getUserAuth();
+  const { rootClassName, linkClassName } = getLayoutState(pathname as AppRoute); /* , renderFooter */ /* , renderUser  */
+  // const userAuth = getUserAuth();
   const favoritesOffers = useAppSelector((state) => state.favorites);
   const isLoadingData = useAppSelector((state) => state.isLoadingMode);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -31,7 +31,8 @@ export default function Layout() {
   const clickLogoHandler = () => {
     dispatch(setActiveCity(ACTIVE_CITY_NAME));
     dispatch(setActiveSort(SortType.Popular));
-  }
+  };
+
   return (
     <div className={`page${rootClassName}`}>
       <ScrollToTop />

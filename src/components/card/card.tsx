@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getPercents } from '../../utils';
 import { doFirstCap } from '../../utils';
-import { useAppDispatch } from '../../hooks';
+
 // import {setFavouriteStatus}from '../../store/action';
 import FavoriteButton from '../favorite-button/favorite-button';
 

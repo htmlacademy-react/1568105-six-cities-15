@@ -9,7 +9,7 @@ import LoginPage from '../pages/login-page';
 import FavoritesPage from '../pages/favorites-page';
 import PageNotFound from '../pages/page-not-found';
 import { TFullOffer, TPreviewOffer, TReview, TCity } from '../types/types';
-import { getUserAuth } from '../get-user-auth';
+// import { getUserAuth } from '../get-user-auth';
 import { useAppSelector } from '../hooks';
 
 type AppProps = {
