@@ -56,12 +56,9 @@ export const fetchOfferByIdAction = createAsyncThunk<void, TPreviewOffer['id'], 
       dispatch(setCurrentOffer(data));
     } catch {
       dispatch(setDataLoadedStatus('error'));
-      // throw new Error('qwe');
     } finally {
       dispatch(setLoadingMode(false));
     }
-
-
   },
 );
 

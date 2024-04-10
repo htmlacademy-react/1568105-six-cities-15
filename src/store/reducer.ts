@@ -75,7 +75,6 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setCurrentOffer, (state, action) => {
       state.currentOffer = action.payload;
-      // console.log(state.currentOffer);
     })
     .addCase(setDataLoadedStatus, (state, action) => {
       state.isDataLoaded = action.payload;

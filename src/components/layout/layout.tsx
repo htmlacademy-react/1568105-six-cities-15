@@ -32,6 +32,7 @@ export default function Layout() {
     dispatch(setActiveCity(ACTIVE_CITY_NAME));
     dispatch(setActiveSort(SortType.Popular));
   };
+
   return (
     <div className={`page${rootClassName}`}>
       <ScrollToTop />
