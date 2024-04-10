@@ -7,7 +7,7 @@ type OfferHostProps = {
 export default function OfferHost({ avatarUrl, name, isPro }: OfferHostProps): JSX.Element {
   return (
     <div className="offer__host-user user">
-      <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+      <div className={`offer__avatar-wrapper ${isPro && 'offer__avatar-wrapper--pro'} user__avatar-wrapper`}>
         <img
           className="offer__avatar user__avatar"
           src={avatarUrl}

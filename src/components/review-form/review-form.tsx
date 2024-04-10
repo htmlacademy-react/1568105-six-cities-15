@@ -5,7 +5,7 @@ import { TFullOffer } from '../../types/types';
 import { useAppDispatch } from '../../hooks';
 import { addReviewAction, fetchOfferReviewsAction } from '../../store/api-action';
 
-const form = document.querySelector('.reviews__form');
+// const form = document.querySelector('.reviews__form');
 
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 

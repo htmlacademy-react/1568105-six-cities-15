@@ -1,20 +1,22 @@
 import { Link } from 'react-router-dom';
 import { Outlet, useLocation } from 'react-router-dom';
-import { AppRoute, AuthStatus } from '../../const';
+import { AppRoute, AuthStatus, ACTIVE_CITY_NAME, SortType } from '../../const';
 import { getLayoutState } from '../../utils';
-import { getUserAuth } from '../../get-user-auth';
+// import { getUserAuth } from '../../get-user-auth';
 import ScrollToTop from '../../utils';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import Loader from '../loader';
 import { useCallback } from 'react';
 import { logoutAction } from '../../store/api-action';
+import {setActiveCity, setActiveSort} from '../../store/action';
+
 // import Footer from '../footer';
 
 export default function Layout() {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
-  const { rootClassName, linkClassName, renderUser } = getLayoutState(pathname as AppRoute); /* , renderFooter */
-  const userAuth = getUserAuth();
+  const { rootClassName, linkClassName } = getLayoutState(pathname as AppRoute); /* , renderFooter */ /* , renderUser  */
+  // const userAuth = getUserAuth();
   const favoritesOffers = useAppSelector((state) => state.favorites);
   const isLoadingData = useAppSelector((state) => state.isLoadingMode);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -25,6 +27,11 @@ export default function Layout() {
     evt.preventDefault();
     dispatch(logoutAction());
   }, [dispatch]);
+
+  const clickLogoHandler = () => {
+    dispatch(setActiveCity(ACTIVE_CITY_NAME));
+    dispatch(setActiveSort(SortType.Popular));
+  };
   return (
     <div className={`page${rootClassName}`}>
       <ScrollToTop />
@@ -32,7 +39,7 @@ export default function Layout() {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link className={`header__logo-link${linkClassName}`} to="/">
+              <Link className={`header__logo-link${linkClassName}`} to="/" onClick={clickLogoHandler }>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
               </Link>
             </div>

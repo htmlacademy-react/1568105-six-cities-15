@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './app';
-import { Data } from './const';
+// import { Data } from './const';
 import { previewOffers } from './mocks/preview-offers';
 import { fullOffers } from './mocks/full-offers';
 import { reviews } from './mocks/reviews';
@@ -23,7 +23,7 @@ root.render(
     <Provider store={store}>
       <App
         previewOffers={previewOffers}
-        favoritesVolume={Data.FavoritesVolume}
+        // favoritesVolume={Data.FavoritesVolume}
         fullOffers={fullOffers}
         reviews={reviews}
         cityData={cityData}

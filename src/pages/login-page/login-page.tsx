@@ -1,15 +1,28 @@
 import { Helmet } from 'react-helmet-async';
-import { useRef } from 'react';
-import {validateLoginFields} from '../../utils';
+import { useNavigate } from 'react-router-dom';
+import { useRef, useState, MouseEvent, FormEvent } from 'react';
+import {validateLoginFields, getRandomArrayItem} from '../../utils';
 import { useAppDispatch } from '../../hooks';
+import { CITIES, SortType, AppRoute } from '../../const';
 import {loginAction, fetchFavoriteAction} from '../../store/api-action';
+import {setActiveCity, setActiveSort} from '../../store/action';
 // import { toast } from 'react-toastify';
 
 export default function LoginPage() {
   const formLoginRef = useRef(null);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [randomCity,] = useState(getRandomArrayItem(CITIES));
 
-  const formSubitHandler = (evt) => {
+  const clickTabHandler = (evt: MouseEvent<HTMLAnchorElement>, activeCity: string) => {
+    evt.preventDefault();
+    dispatch(setActiveCity(activeCity));
+    dispatch(setActiveSort(SortType.Popular));
+    navigate(AppRoute.Root);
+
+  };
+
+  const formSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (formLoginRef.current !== null) {
@@ -34,7 +47,7 @@ export default function LoginPage() {
       <div className="page__login-container container">
         <section className="login">
           <h1 className="login__title">Sign in</h1>
-          <form className="login__form form" action="#" method="post" ref={formLoginRef} onSubmit={formSubitHandler}>
+          <form className="login__form form" action="#" method="post" ref={formLoginRef} onSubmit={formSubmitHandler}>
             <div className="login__input-wrapper form__input-wrapper">
               <label className="visually-hidden">E-mail</label>
               <input className="login__input form__input" type="email" name="email" placeholder="Email" required />
@@ -48,8 +61,8 @@ export default function LoginPage() {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
-              <span>Amsterdam</span>
+            <a className="locations__item-link" href="#" onClick={(evt)=>clickTabHandler(evt, randomCity)}>
+              <span>{randomCity}</span>
             </a>
           </div>
         </section>

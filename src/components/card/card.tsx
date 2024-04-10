@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { getPercents } from '../../utils';
 import { doFirstCap } from '../../utils';
-import { useAppDispatch } from '../../hooks';
-import {setFavouriteStatus}from '../../store/action';
+// import { useAppDispatch } from '../../hooks';
+// import {setFavouriteStatus}from '../../store/action';
 import FavoriteButton from '../favorite-button/favorite-button';
 
 type CardProps = {
@@ -14,11 +14,11 @@ type CardProps = {
 }
 
 export default function Card({ previewOffer, setSelectedPointId, isFavoritePage = false }: CardProps) {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const { id, title, type, price, previewImage, isPremium, isFavorite, rating } = previewOffer;
-  const setFavoriteHandler = () => {
-    dispatch(setFavouriteStatus(id));
-  };
+  // const setFavoriteHandler = () => {
+  //   dispatch(setFavouriteStatus(id));
+  // };
   return (
     <article
       className={`${isFavoritePage ? 'favorites__card' : 'cities__card'} place-card`}
