@@ -4,7 +4,6 @@ import { useParams, Navigate } from 'react-router-dom';
 import { AppRoute, Status } from '../../const';
 import Loader from '../../components/loader';
 import { getPercents } from '../../utils';
-import { useState } from 'react';
 import OfferGallery from '../../components/offer-gallery';
 import OfferFeatures from '../../components/offer-features';
 import OfferPrice from '../../components/offer-price';
@@ -29,7 +28,6 @@ import {
 } from '../../store/offers-process/offers-process.selectors';
 import { getReviewsLoadingStatus } from '../../store/review-process/review-process.selectors';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
-
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -108,7 +106,7 @@ export default function OfferPage(): JSX.Element {
                 <OfferHost avatarUrl={host.avatarUrl} name={host.name} isPro={host.isPro} />
                 <OfferDescription description={description} />
               </div>
-              <Reviews reviews={reviews.slice(0, 10)} id={id} />
+              <Reviews reviews={reviews} id={id} />
             </div>
           </div>
           {nearOffers.length && <Map className="offer" selectedPointId={currentOffer.id} previewOffers={dataForMap} />}

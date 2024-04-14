@@ -13,11 +13,11 @@ export default function Layout(): JSX.Element {
   const { pathname } = useLocation();
   const favoritesOffers = useAppSelector(getFavoritsData);
 
-  const classLink = useMemo(() => `page 
-  ${pathname === AppRoute.Root ? 'page--gray page--main' : ''} 
-  ${pathname === AppRoute.Login ? 'page--gray page--login' : ''} 
+  const classLink = useMemo(() => `page
+  ${pathname === AppRoute.Root ? 'page--gray page--main' : ''}
+  ${pathname === AppRoute.Login ? 'page--gray page--login' : ''}
   ${pathname === AppRoute.FavoritesPage && !favoritesOffers.length ? 'page--favorites-empty' : ''}`,
-    [favoritesOffers.length, pathname]);
+  [favoritesOffers.length, pathname]);
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const userData = useAppSelector(getUserData);
@@ -77,9 +77,6 @@ export default function Layout(): JSX.Element {
         </div>
       </header >
       <Outlet />
-      {/* {renderFooter ? (
-        <Footer />
-      ) : null} */}
     </div >
   );
 }

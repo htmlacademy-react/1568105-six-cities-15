@@ -7,8 +7,8 @@ import { favoritesData } from './favorite-process/favorite-process.slice';
 
 
 export const rootReducer = combineReducers({
-    [NameSpace.Offers]: offersData.reducer,
-    [NameSpace.Reviews]: reviewsData.reducer,
-    [NameSpace.User]: userProcess.reducer,
-    [NameSpace.Favorites]: favoritesData.reducer
+  [NameSpace.Offers]: offersData.reducer,
+  [NameSpace.Reviews]: reviewsData.reducer,
+  [NameSpace.User]: userProcess.reducer,
+  [NameSpace.Favorites]: favoritesData.reducer
 });

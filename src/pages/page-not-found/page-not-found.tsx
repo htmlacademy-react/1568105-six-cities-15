@@ -13,8 +13,6 @@ export default function PageNotFound() {
           <section className="favorites favorites--empty">
             <h1 className="">404<br/>Page not found</h1>
             <Link to='/' className="favorites__status">back to Main Page</Link>
-            {/* <b className="favorites__status">back to Main Page</b> */}
-            {/* <p className="favorites__status-description">return to Main Page</p> */}
           </section>
         </div>
       </main>

@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo } from 'react';
 import ReviewsList from '../reviews-list';
 import ReviewForm from '../review-form';
 import { AuthStatus } from '../../const';
@@ -22,8 +22,8 @@ export default function Reviews({ reviews, id }: ReviewsProps): JSX.Element {
         (reviewFirst, reviewSecond) => new Date(reviewFirst.date).getTime() - new Date(reviewSecond.date).getTime()
       )
       .reverse()
-      .slice(DEFAULT_ZERO, MAX_REVIEWS_COUNT)
-  ), [reviews]);
+      .slice(DEFAULT_ZERO, MAX_REVIEWS_COUNT)),
+  [reviews]);
   return (
     <section className="offer__reviews reviews">
       <h2 className="reviews__title">

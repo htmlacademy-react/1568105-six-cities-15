@@ -10,12 +10,11 @@ import MainEmpty from './main-empty';
 import Sorting from '../../components/sorting';
 import { sortingType } from '../../utils';
 import {
-  ACTIVE_CITY_NAME, 
-  DEFAULT_SORTING, 
-  CITY, 
-  SORT_TYPE,
-  CITIES
-} from '../../const'
+  ACTIVE_CITY_NAME,
+  DEFAULT_SORTING,
+  CITY,
+  SORT_TYPE
+} from '../../const';
 import { getOffersData } from '../../store/offers-process/offers-process.selectors';
 
 const getOffersByCity = (list: TPreviewOffer[], city: string) => list.filter((offer: TPreviewOffer) => offer.city.name === city);
@@ -24,7 +23,7 @@ export default function MainPage(): JSX.Element {
   const [selectedPointId, setSelectedPointId] = useState('');
 
   const previewOffers = useAppSelector(getOffersData);
-  const {search} = useLocation()
+  const {search} = useLocation();
   const [searchParams, setSearchParams] = useSearchParams({
     city: ACTIVE_CITY_NAME,
     sortType: DEFAULT_SORTING
@@ -34,7 +33,7 @@ export default function MainPage(): JSX.Element {
   const activeSort = searchParams.get(SORT_TYPE);
 
 
-  const handleSortTypeChange = (sortType) => {
+  const handleSortTypeChange = (sortType: string) => {
     searchParams.set(SORT_TYPE, sortType);
     setSearchParams(searchParams);
   };
@@ -45,13 +44,9 @@ export default function MainPage(): JSX.Element {
     }
   }, [search, searchParams, setSearchParams]);
 
-  const filteredOffers = useMemo(() => getOffersByCity( previewOffers, activeCityName), [activeCityName, previewOffers]);
-
+  const filteredOffers = useMemo(() => getOffersByCity(previewOffers, activeCityName), [activeCityName, previewOffers]);
   const filteredAndSortedOffers = useMemo(() => sortingType[activeSort](filteredOffers), [filteredOffers, activeSort]);
-
   const hasNoFilteredOrSortedOffers = !filteredAndSortedOffers.length;
-
-
   const getWordPlaces = (value: number) => value > 1 ? 'places' : 'place';
 
   return (

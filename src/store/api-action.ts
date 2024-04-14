@@ -36,7 +36,7 @@ export const fetchOfferByIdAction = createAsyncThunk<TFullOffer, TFullOffer['id'
   `${NameSpace.Offer}/load`,
   async (id: TFullOffer['id'], { extra: api }) => {
     const { data } = await api.get<TFullOffer>(`${ApiRoute.Offers}/${id}`);
-    return data
+    return data;
   },
 );
 

@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, Status } from '../../const';
 import { FavoriteProcess } from '../../types/types';
-import { 
-  fetchFavoriteAction, 
-    logoutAction, 
-    updateFavoriteStatusAction 
+import {
+  fetchFavoriteAction,
+  logoutAction,
+  updateFavoriteStatusAction
 } from '../api-action';
 
 const initialState: FavoriteProcess = {

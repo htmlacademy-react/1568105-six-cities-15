@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { useRef, useState, MouseEvent, FormEvent } from 'react';
-import {validateLoginFields, getRandomArrayItem} from '../../utils';
+import { useRef, useState, FormEvent } from 'react';
+import { validateLoginFields, getRandomArrayItem } from '../../utils';
 import { useAppDispatch } from '../../hooks';
 import { CITIES, AppRoute, CITY, SORT_TYPE, DEFAULT_SORTING } from '../../const';
-import {loginAction, fetchFavoriteAction} from '../../store/api-action';
+import { loginAction, fetchFavoriteAction } from '../../store/api-action';
+
 export default function LoginPage() {
   const formLoginRef = useRef(null);
   const dispatch = useAppDispatch();
@@ -21,8 +22,6 @@ export default function LoginPage() {
         const password = formData.get('password') as string;
 
         dispatch(loginAction({email, password})).then(() => dispatch(fetchFavoriteAction()));
-      } else {
-        // toast.warn('Пароль должен содержать минимум одну цифру и латинскую букву');
       }
     }
   };

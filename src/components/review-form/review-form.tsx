@@ -4,10 +4,8 @@ import { STARS_NAME, MIN_REVIEW_LENGHT, MAX_REVIEW_LENGHT, Status } from '../../
 import { TFullOffer } from '../../types/types';
 import { useAppDispatch } from '../../hooks';
 import { addReviewAction } from '../../store/api-action';
-import { useAppSelector } from '../../hooks'; 
+import { useAppSelector } from '../../hooks';
 import { getAddReviewsLoadingStatus } from '../../store/review-process/review-process.selectors';
-
-// const form = document.querySelector('.reviews__form');
 
 type ChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
@@ -57,9 +55,9 @@ function ReviewForm({ id }: ReviewsFormProps): JSX.Element {
         id: id,
         comment: review,
         rating: Number(isChecked)
-      }))
-    };
-  }
+      }));
+    }
+  };
 
 
   return (

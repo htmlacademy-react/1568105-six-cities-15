@@ -28,7 +28,7 @@ export default function FavoriteButton({ id, className, iconWidth, iconHeight, i
       return navigate(AppRoute.Login, { replace: true });
     }
     setFavoriteStatus((prevState) => !prevState);
-    dispatch(updateFavoriteStatusAction({ id, status }))
+    dispatch(updateFavoriteStatusAction({ id, status }));
 
   };
 

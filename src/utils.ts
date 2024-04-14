@@ -14,7 +14,6 @@ export const getLayoutState = (pathName: AppRoute) => {
   let rootClassName = '';
   let linkClassName = '';
   let renderUser = true;
-  // let renderFooter = false;
 
   if (pathName === AppRoute.Root) {
     rootClassName = ' page--gray page--main';
@@ -22,11 +21,9 @@ export const getLayoutState = (pathName: AppRoute) => {
   } else if (pathName === AppRoute.Login) {
     rootClassName = ' page--gray page--login';
     renderUser = false;
-  } /* else if (pathName === AppRoute.FavoritesPage) {
-    renderFooter = true;
-  }*/
+  }
 
-  return { rootClassName, linkClassName, renderUser }; /* , renderFooter */
+  return { rootClassName, linkClassName, renderUser };
 };
 
 //* ScrollToTop() *

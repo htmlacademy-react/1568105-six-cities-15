@@ -20,8 +20,6 @@ import {
   setNearbyOffers,
   setUserData
 } from './action';
-// import { previewOffers } from '../mocks/preview-offers';
-// import { reviews } from '../mocks/reviews';
 
 const initialState: {
   offers: TPreviewOffer[];

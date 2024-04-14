@@ -1,10 +1,7 @@
-import { MouseEvent } from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { TPreviewOffer } from '../../types/types';
 import Card from '../card';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
-import { SortType, AppRoute, CITY, SORT_TYPE, DEFAULT_SORTING } from '../../const';
+import { AppRoute, CITY, SORT_TYPE, DEFAULT_SORTING } from '../../const';
 type FavoritesListProps = {
   favoritesOffers: TPreviewOffer[];
 }

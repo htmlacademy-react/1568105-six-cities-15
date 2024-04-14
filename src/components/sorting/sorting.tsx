@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { PLACE_OPTIONS } from '../../const';
+import { PLACE_OPTIONS, SortType } from '../../const';
 
 export default function Sorting({ change, currentSort }) {
   const [isOpenSorting, setIsOpenSorting] = useState(false);
 
-  const setActiveSortingHandler = (sort: string) => {
+  const setActiveSortingHandler = (sort: SortType) => {
     change(sort);
     setIsOpenSorting(false);
   };

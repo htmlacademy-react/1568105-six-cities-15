@@ -1,4 +1,4 @@
-import { DEFAULT_ZERO, MAX_IMAGES_OFFER } from "../../const";
+import { DEFAULT_ZERO, MAX_IMAGES_OFFER } from '../../const';
 type OfferGalleryProps = {
   images: string[];
 }

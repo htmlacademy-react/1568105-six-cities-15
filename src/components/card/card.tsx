@@ -12,7 +12,7 @@ type CardProps = {
   setSelectedPointId?: (id: string) => void;
   className?: string;
 }
-// className={`${isFavoritePage ? 'favorites__card' : 'cities__card'} place-card`}
+
 export default function Card({ previewOffer, setSelectedPointId, isFavoritePage = false, className }: CardProps) {
   const { id, title, type, price, previewImage, isPremium, isFavorite, rating } = previewOffer;
   return (
