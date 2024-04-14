@@ -1,55 +1,85 @@
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Helmet } from 'react-helmet-async';
 import Card from '../../components/card';
 import Tabs from '../../components/tabs';
 import Map from '../../components/map';
-import { TCity, TPreviewOffer } from '../../types/types';
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { TPreviewOffer } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import MainEmpty from './main-empty';
 import Sorting from '../../components/sorting';
 import { sortingType } from '../../utils';
-
-type MainPageProps = {
-  cityData: TCity;
-}
+import {
+  ACTIVE_CITY_NAME, 
+  DEFAULT_SORTING, 
+  CITY, 
+  SORT_TYPE,
+  CITIES
+} from '../../const'
+import { getOffersData } from '../../store/offers-process/offers-process.selectors';
 
 const getOffersByCity = (list: TPreviewOffer[], city: string) => list.filter((offer: TPreviewOffer) => offer.city.name === city);
 
-export default function MainPage({ cityData }: MainPageProps): JSX.Element {
+export default function MainPage(): JSX.Element {
   const [selectedPointId, setSelectedPointId] = useState('');
 
-  const previewOffers = useAppSelector((state) => state.offers);
-  const activeCityName = useAppSelector((state) => state.activeCity);
-  const activeSort = useAppSelector((state) => state.activeSorting);
-  const previewOffersByCity = getOffersByCity(previewOffers, activeCityName);
-  const sortedOffers = sortingType[activeSort](previewOffersByCity);
+  const previewOffers = useAppSelector(getOffersData);
+  const {search} = useLocation()
+  const [searchParams, setSearchParams] = useSearchParams({
+    city: ACTIVE_CITY_NAME,
+    sortType: DEFAULT_SORTING
+  });
+
+  const activeCityName = searchParams.get(CITY);
+  const activeSort = searchParams.get(SORT_TYPE);
+
+
+  const handleSortTypeChange = (sortType) => {
+    searchParams.set(SORT_TYPE, sortType);
+    setSearchParams(searchParams);
+  };
+
+  useEffect(() => {
+    if (!search) {
+      setSearchParams(searchParams);
+    }
+  }, [search, searchParams, setSearchParams]);
+
+  const filteredOffers = useMemo(() => getOffersByCity( previewOffers, activeCityName), [activeCityName, previewOffers]);
+
+  const filteredAndSortedOffers = useMemo(() => sortingType[activeSort](filteredOffers), [filteredOffers, activeSort]);
+
+  const hasNoFilteredOrSortedOffers = !filteredAndSortedOffers.length;
+
+
   const getWordPlaces = (value: number) => value > 1 ? 'places' : 'place';
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
         <title>6 cities</title>
       </Helmet>
-      <main className={`page__main page__main--index ${!previewOffersByCity.length && 'page__main--index-empty'}`}>
+      <main className={`page__main page__main--index ${hasNoFilteredOrSortedOffers && 'page__main--index-empty'}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <Tabs />
+          <Tabs city={activeCityName} isTabs/>
         </div>
         <div className="cities">
-          <div className={`cities__places-container container ${!previewOffersByCity.length && 'cities__places-container--empty'}`}>
-            {previewOffersByCity.length ?
+          <div className={`cities__places-container container ${hasNoFilteredOrSortedOffers && 'cities__places-container--empty'}`}>
+            {!hasNoFilteredOrSortedOffers ?
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{previewOffersByCity.length} {getWordPlaces(previewOffersByCity.length)} to stay in {activeCityName}</b>
-                <Sorting />
+                <b className="places__found">{filteredAndSortedOffers.length} {getWordPlaces(filteredAndSortedOffers.length)} to stay in {activeCityName}</b>
+                <Sorting change={handleSortTypeChange} currentSort={activeSort} />
                 <div className="cities__places-list places__list tabs__content">
-                  {sortedOffers.map((offer: TPreviewOffer) =>
-                    <Card key={offer.id} previewOffer={offer} setSelectedPointId={setSelectedPointId} />
+                  {filteredAndSortedOffers.map((offer: TPreviewOffer) =>
+                    <Card key={offer.id} previewOffer={offer} setSelectedPointId={setSelectedPointId} className='cities__card' />
                   )}
                 </div>
               </section>
               : <MainEmpty city = {activeCityName}/>}
             <div className="cities__right-section">
-              {previewOffersByCity.length && <Map className="cities" cityData={cityData} previewOffers={previewOffersByCity} selectedPointId={selectedPointId} />}
+              {filteredOffers.length && <Map className="cities" previewOffers={filteredOffers} selectedPointId={selectedPointId} />}
             </div>
           </div>
         </div>

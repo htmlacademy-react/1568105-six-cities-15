@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Navigate } from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, Status } from '../../const';
 import Loader from '../../components/loader';
 import { getPercents } from '../../utils';
 import { useState } from 'react';
@@ -15,22 +15,33 @@ import OfferDescription from '../../components/offer-description';
 import Map from '../../components/map';
 import Card from '../../components/card';
 import { useAppSelector, useAppDispatch } from '../../hooks';
+import { getReviewsData } from '../../store/review-process/review-process.selectors';
+import { getNearByOffers, getFullOffer } from '../../store/offers-process/offers-process.selectors';
 import {
   fetchOfferByIdAction,
   fetchOfferReviewsAction,
-  fetchNearbyOffersAction
+  fetchNearByOffersAction
 } from '../../store/api-action';
+import {
+  getFullOfferLoadingStatus,
+  getNearByOffersLoadingStatus,
+
+} from '../../store/offers-process/offers-process.selectors';
+import { getReviewsLoadingStatus } from '../../store/review-process/review-process.selectors';
 import FavoriteButton from '../../components/favorite-button/favorite-button';
 
 
 export default function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams();
-  const reviews = useAppSelector((state) => state.reviews);
-  const nearOffers = useAppSelector((state) => state.nearbyOffers);
-  const currentOffer = useAppSelector((state) => state.currentOffer);
-  const [selectedPointId, setSelectedPointId] = useState('');
-  const isLoadingMode = useAppSelector((state) => state.isLoadingMode);
+
+  const isLoadingFullOffer = useAppSelector(getFullOfferLoadingStatus);
+  const isLoadingNearByOffers = useAppSelector(getNearByOffersLoadingStatus);
+  const isReviewLoading = useAppSelector(getReviewsLoadingStatus);
+
+  const reviews = useAppSelector(getReviewsData);
+  const nearOffers = useAppSelector(getNearByOffers);
+  const currentOffer = useAppSelector(getFullOffer);
 
   useEffect(() => {
     if (!id) {
@@ -38,15 +49,17 @@ export default function OfferPage(): JSX.Element {
     }
     dispatch(fetchOfferByIdAction(id));
     dispatch(fetchOfferReviewsAction(id));
-    dispatch(fetchNearbyOffersAction(id));
+    dispatch(fetchNearByOffersAction(id));
 
   }, [dispatch, id]);
 
-  if(!currentOffer || isLoadingMode || !nearOffers.length || !reviews.length){
+  if ((isLoadingFullOffer === Status.Idle || isLoadingFullOffer === Status.Loading) ||
+    (isReviewLoading === Status.Idle || isReviewLoading === Status.Loading) ||
+    (isLoadingNearByOffers === Status.Idle || isLoadingNearByOffers === Status.Loading)) {
     return <Loader />;
   }
 
-  if (!currentOffer && !isLoadingMode && !nearOffers.length && !reviews.length) {
+  if (!currentOffer) {
     return <Navigate to={AppRoute.PageNotFound} replace />;
   }
 
@@ -54,7 +67,7 @@ export default function OfferPage(): JSX.Element {
     title, description, type, price, images, goods, host,
     isPremium, isFavorite, rating, bedrooms, maxAdults
   } = currentOffer;
-
+  const dataForMap = [...nearOffers.slice(0, 3), currentOffer];
   return (
     <div className="page">
       <Helmet>
@@ -75,7 +88,7 @@ export default function OfferPage(): JSX.Element {
 
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
-                |<FavoriteButton id={id} className='offer' iconWidth='31' iconHeight='33' isFavorite={isFavorite}/>
+                <FavoriteButton id={id} className='offer' iconWidth='31' iconHeight='33' isFavorite={isFavorite} />
               </div>
 
               <div className="offer__rating rating">
@@ -95,10 +108,10 @@ export default function OfferPage(): JSX.Element {
                 <OfferHost avatarUrl={host.avatarUrl} name={host.name} isPro={host.isPro} />
                 <OfferDescription description={description} />
               </div>
-              <Reviews reviews={reviews.slice(0,10)} id={id} />
+              <Reviews reviews={reviews.slice(0, 10)} id={id} />
             </div>
           </div>
-          { nearOffers.length && <Map className="offer" selectedPointId={selectedPointId} previewOffers={nearOffers.slice(0, 3)} />}
+          {nearOffers.length && <Map className="offer" selectedPointId={currentOffer.id} previewOffers={dataForMap} />}
         </section>
 
         <div className="container">
@@ -106,7 +119,7 @@ export default function OfferPage(): JSX.Element {
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
               {nearOffers.length && nearOffers.slice(0, 3).map((offer) =>
-                <Card key={`${offer.id}1`} previewOffer={offer} setSelectedPointId={setSelectedPointId} />
+                <Card key={`${offer.id}1`} previewOffer={offer} setSelectedPointId={() => { }} className='near-places__card' />
               )}
             </div>
           </section>

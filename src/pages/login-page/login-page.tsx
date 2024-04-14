@@ -1,26 +1,14 @@
 import { Helmet } from 'react-helmet-async';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useRef, useState, MouseEvent, FormEvent } from 'react';
 import {validateLoginFields, getRandomArrayItem} from '../../utils';
 import { useAppDispatch } from '../../hooks';
-import { CITIES, SortType, AppRoute } from '../../const';
+import { CITIES, AppRoute, CITY, SORT_TYPE, DEFAULT_SORTING } from '../../const';
 import {loginAction, fetchFavoriteAction} from '../../store/api-action';
-import {setActiveCity, setActiveSort} from '../../store/action';
-// import { toast } from 'react-toastify';
-
 export default function LoginPage() {
   const formLoginRef = useRef(null);
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [randomCity,] = useState(getRandomArrayItem(CITIES));
-
-  const clickTabHandler = (evt: MouseEvent<HTMLAnchorElement>, activeCity: string) => {
-    evt.preventDefault();
-    dispatch(setActiveCity(activeCity));
-    dispatch(setActiveSort(SortType.Popular));
-    navigate(AppRoute.Root);
-
-  };
 
   const formSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -61,9 +49,9 @@ export default function LoginPage() {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#" onClick={(evt)=>clickTabHandler(evt, randomCity)}>
+            <Link className="locations__item-link" to={`${AppRoute.Root}?${CITY}=${randomCity}&${SORT_TYPE}=${DEFAULT_SORTING}`}>
               <span>{randomCity}</span>
-            </a>
+            </Link>
           </div>
         </section>
       </div>

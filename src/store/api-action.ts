@@ -13,80 +13,54 @@ import {
   TNewReview
 } from '../types/types';
 
-import {
-  fetchOffers,
-  requireAuthorization,
-  setLoadingMode,
-  setCurrentOffer,
-  setDataLoadedStatus,
-  setReviews,
-  setNearbyOffers,
-  fetchFavorites,
-  setUserData,
-  redirectToRoute
-} from './action';
-
 import { saveToken, dropToken } from '../services/token';
-import { AppRoute, AuthStatus, NameSpace, ApiRoute } from '../const';
+import { NameSpace, ApiRoute } from '../const';
 
-export const fetchOffersAction = createAsyncThunk<void, undefined, {
+export const fetchOffersAction = createAsyncThunk<TPreviewOffer[], undefined, {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.Offers}/load`,
-  async (_arg, { dispatch, extra: api }) => {
-    dispatch(setLoadingMode(true));
-    const { data } = await api.get<TPreviewOffer>(AppRoute.Offers);
-    dispatch(fetchOffers(data));
-    dispatch(setLoadingMode(false));
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<TPreviewOffer[]>(ApiRoute.Offers);
+    return data;
   },
 );
 
-export const fetchOfferByIdAction = createAsyncThunk<void, TPreviewOffer['id'], {
+export const fetchOfferByIdAction = createAsyncThunk<TFullOffer, TFullOffer['id'], {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.Offer}/load`,
-  async (id: TFullOffer['id'], { dispatch, extra: api }) => {
-    dispatch(setLoadingMode(true));
-    try {
-      const { data } = await api.get<TFullOffer>(`${AppRoute.Offers}/${id}`);
-      dispatch(setCurrentOffer(data));
-    } catch {
-      dispatch(setDataLoadedStatus('error'));
-    } finally {
-      dispatch(setLoadingMode(false));
-    }
+  async (id: TFullOffer['id'], { extra: api }) => {
+    const { data } = await api.get<TFullOffer>(`${ApiRoute.Offers}/${id}`);
+    return data
   },
 );
 
-export const fetchOfferReviewsAction = createAsyncThunk<void, TPreviewOffer['id'], {
+export const fetchOfferReviewsAction = createAsyncThunk<TReview[], TFullOffer['id'], {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.Reviews}/fetch`,
-  async (id: TFullOffer['id'], { dispatch, extra: api }) => {
-    dispatch(setLoadingMode(true));
+  async (id: TFullOffer['id'], { extra: api }) => {
     const { data } = await api.get<TReview[]>(`${ApiRoute.Reviews}/${id}`);
-    dispatch(setReviews(data));
-    dispatch(setLoadingMode(false));
+    return data;
   },
 );
 
-export const fetchNearbyOffersAction = createAsyncThunk<void, TPreviewOffer['id'], {
+export const fetchNearByOffersAction = createAsyncThunk<TPreviewOffer[], TPreviewOffer['id'], {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.NearPlaces}/fetch`,
-  async (id: TFullOffer['id'], { dispatch, extra: api }) => {
-    dispatch(setLoadingMode(true));
+  async (id: TFullOffer['id'], { extra: api }) => {
     const { data } = await api.get<TPreviewOffer[]>(`${ApiRoute.Offers}/${id}/${ApiRoute.Nearby}`);
-    dispatch(setNearbyOffers(data));
-    dispatch(setLoadingMode(false));
+    return data;
   },
 );
 
@@ -98,50 +72,57 @@ export const updateFavoriteStatusAction = createAsyncThunk<TPreviewOffer, TFavor
   `${NameSpace.Favorites}/update`,
   async ({ id, status }, { extra: api }) => {
     const { data } = await api.post<TPreviewOffer>(`${ApiRoute.Favorite}/${id}/${status}`);
-
     return data;
   },
 );
 
-export const fetchFavoriteAction = createAsyncThunk<void, undefined, {
+export const fetchFavoriteAction = createAsyncThunk<TPreviewOffer[], undefined, {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.Favorites}/fetch`,
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     const { data } = await api.get<TPreviewOffer[]>(ApiRoute.Favorite);
-    dispatch(fetchFavorites(data));
+    return data;
   },
 );
 
-export const loginAction = createAsyncThunk<void, TAuthData, {
+export const loginAction = createAsyncThunk<TUser, TAuthData, {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.User}/login`,
-  async ({ email, password }, { dispatch, extra: api }) => {
+  async ({ email, password }, { extra: api }) => {
     const { data } = await api.post<TUser>(ApiRoute.Login, { email, password });
     saveToken(data.token);
-    dispatch(requireAuthorization(AuthStatus.Auth));
-    dispatch(setUserData(data));
-    dispatch(redirectToRoute(AppRoute.Root));
+    return data;
   },
 );
 
-export const logoutAction = createAsyncThunk<void, undefined, {
+export const logoutAction = createAsyncThunk<TUser, undefined, {
   dispatch: TAppDispatch;
   state: TState;
   extra: AxiosInstance;
 }>(
   `${NameSpace.User}/logout`,
-  async (_arg, { dispatch, extra: api }) => {
+  async (_arg, { extra: api }) => {
     await api.delete(ApiRoute.Logout);
     dropToken();
-    dispatch(requireAuthorization(AuthStatus.NoAuth));
-    dispatch(setUserData(null));
   }
+);
+
+export const checkAuthAction = createAsyncThunk<TUser, undefined, {
+  dispatch: TAppDispatch;
+  state: TState;
+  extra: AxiosInstance;
+}>(
+  `${NameSpace.User}/fetchCheckAuth`,
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<TUser>(ApiRoute.Login);
+    return data;
+  },
 );
 
 export const addReviewAction = createAsyncThunk<TReview, TNewReview, {
@@ -150,10 +131,10 @@ export const addReviewAction = createAsyncThunk<TReview, TNewReview, {
   extra: AxiosInstance;
 }>(
   `${NameSpace.Reviews}/post`,
-  async ({ id, comment, rating }, { dispatch, extra: api }) => {
-    dispatch(setLoadingMode(true));
+  async ({ id, comment, rating }, { extra: api }) => {
     const { data } = await api.post<TReview>(`${ApiRoute.Reviews}/${id}`, { comment, rating });
-    dispatch(setLoadingMode(false));
     return data;
   },
 );
+
+

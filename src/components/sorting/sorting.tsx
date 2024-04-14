@@ -1,15 +1,11 @@
 import { useState } from 'react';
 import { PLACE_OPTIONS } from '../../const';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { setActiveSort } from '../../store/action';
 
-export default function Sorting() {
+export default function Sorting({ change, currentSort }) {
   const [isOpenSorting, setIsOpenSorting] = useState(false);
-  const currentSort = useAppSelector((state) => state.activeSorting);
-  const dispatch = useAppDispatch();
 
   const setActiveSortingHandler = (sort: string) => {
-    dispatch(setActiveSort(sort));
+    change(sort);
     setIsOpenSorting(false);
   };
 

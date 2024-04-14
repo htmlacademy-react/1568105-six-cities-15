@@ -10,6 +10,7 @@ export default function ReviewsItem({ review }: ReviewsItemProps): JSX.Element {
   const { user, comment, rating, date } = review; // id, name, avatarUrl, isPro /// date, – доделать
   const reviewDate = new Date(date);
   const month = reviewDate.toLocaleString('en-EN', { month: 'long' });
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">

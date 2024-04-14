@@ -3,6 +3,7 @@ import { Fragment, ChangeEvent, memo } from 'react';
 type ReviewStarsProps = {
   isChecked: string;
   setStarsHandle: ({ target }: ChangeEvent<HTMLInputElement>) => void;
+  isDisabled: boolean;
 }
 
 type RatingAttributes = {
@@ -14,11 +15,11 @@ const ratingAttributes: RatingAttributes[] = [
   { value: '5', label: 'perfect' },
   { value: '4', label: 'good' },
   { value: '3', label: 'not bad' },
-  { value: '2', label: 'bad' },
-  { value: '1', label: 'horrible' }
+  { value: '2', label: 'badly' },
+  { value: '1', label: 'terribly' }
 ];
 
-function ReviewStars({ isChecked, setStarsHandle}: ReviewStarsProps): JSX.Element {
+function ReviewStars({ isChecked, setStarsHandle, isDisabled}: ReviewStarsProps): JSX.Element {
 
 
   return (
@@ -33,6 +34,7 @@ function ReviewStars({ isChecked, setStarsHandle}: ReviewStarsProps): JSX.Elemen
             value={value}
             onChange={setStarsHandle}
             checked={isChecked === value}
+            disabled = {isDisabled}
           />
           <label
             htmlFor={`${value}-stars`}

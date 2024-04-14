@@ -3,11 +3,9 @@ import { useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { AuthStatus, AppRoute } from '../../const';
 import { useNavigate } from 'react-router-dom';
-import {
-  updateFavoriteStatusAction,
-  fetchFavoriteAction,
-  fetchOffersAction
-} from '../../store/api-action';
+
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { updateFavoriteStatusAction } from '../../store/api-action';
 
 type FavoritButtonProps = {
   id: TPreviewOffer['id'];
@@ -18,7 +16,7 @@ type FavoritButtonProps = {
 }
 
 export default function FavoriteButton({ id, className, iconWidth, iconHeight, isFavorite }: FavoritButtonProps) {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isAuthorized = authorizationStatus === AuthStatus.Auth;
   const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
   const navigate = useNavigate();
@@ -30,10 +28,8 @@ export default function FavoriteButton({ id, className, iconWidth, iconHeight, i
       return navigate(AppRoute.Login, { replace: true });
     }
     setFavoriteStatus((prevState) => !prevState);
-
     dispatch(updateFavoriteStatusAction({ id, status }))
-      .then(() => dispatch(fetchOffersAction()))
-      .then(() => dispatch(fetchFavoriteAction()));
+
   };
 
   return (

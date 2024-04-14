@@ -1,6 +1,7 @@
+import {useEffect} from 'react';
 import { BrowserRouter, Route, Routes} from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AppRoute } from '../const';
+import { AppRoute, AuthStatus, Status } from '../const';
 import PrivateRoute from '../components/private-route';
 import Layout from '../components/layout';
 import MainPage from '../pages/main-page';
@@ -8,39 +9,47 @@ import OfferPage from '../pages/offer-page';
 import LoginPage from '../pages/login-page';
 import FavoritesPage from '../pages/favorites-page';
 import PageNotFound from '../pages/page-not-found';
-import { TFullOffer, TPreviewOffer, TReview, TCity } from '../types/types';
-// import { getUserAuth } from '../get-user-auth';
-import { useAppSelector } from '../hooks';
+import { useAppSelector, useAppDispatch } from '../hooks';
+import { getAuthorizationStatus } from '../store/user-process/user-process.selectors';
+import { getOffersLoadingStatus } from '../store/offers-process/offers-process.selectors';
+import { fetchFavoriteAction } from '../store/api-action';
+import Loader from '../components/loader';
 
-type AppProps = {
-  previewOffers: TPreviewOffer[];
-  fullOffers: TFullOffer[];
-  reviews: TReview[];
-  favoritesVolume: number;
-  cityData: TCity;
-}
+export default function App(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const isAuthChecked = useAppSelector(getAuthorizationStatus);
+  const isDataLoading = useAppSelector(getOffersLoadingStatus);
 
-export default function App({ favoritesVolume, reviews, previewOffers, fullOffers, cityData }: AppProps): JSX.Element {
-  const auth = useAppSelector((state) => state.authorizationStatus);
+  useEffect(() => {
+    if (isAuthChecked === AuthStatus.Auth) {
+      dispatch(fetchFavoriteAction());
+    }
+  }, [dispatch, isAuthChecked]);
+
+  if (isAuthChecked === AuthStatus.Unknown || isDataLoading === Status.Loading) {
+    return (
+      <Loader />
+    );
+  }
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Layout favoritesVolume={favoritesVolume} />}
+            element={<Layout />}
           >
             <Route
               index
-              element={<MainPage cityData={cityData} previewOffers={previewOffers}/>}
+              element={<MainPage />}
             />
             <Route
               path={AppRoute.OfferPage}
-              element={(<OfferPage fullOffers={fullOffers} previewOffers={previewOffers} reviews={reviews}/>)}
+              element={(<OfferPage />)}
             />
             <Route
               path={AppRoute.Login} element={(
-                <PrivateRoute authorisedUser={auth} isReverse>
+                <PrivateRoute authorisedUser={isAuthChecked} isReverse>
                   <LoginPage />
                 </PrivateRoute>
               )}
@@ -48,7 +57,7 @@ export default function App({ favoritesVolume, reviews, previewOffers, fullOffer
             <Route
               path={AppRoute.FavoritesPage}
               element={(
-                <PrivateRoute authorisedUser={auth}>
+                <PrivateRoute authorisedUser={isAuthChecked}>
                   <FavoritesPage />
                 </PrivateRoute>
               )}

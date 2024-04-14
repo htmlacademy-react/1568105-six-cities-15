@@ -1,9 +1,11 @@
 import { ChangeEvent, ReactEventHandler, useCallback, useState, useEffect, FormEvent, memo } from 'react';
 import MemoizedReviewStars from '../review-stars/review-stars';
-import { STARS_NAME, MIN_REVIEW_LENGHT, MAX_REVIEW_LENGHT } from '../../const';
+import { STARS_NAME, MIN_REVIEW_LENGHT, MAX_REVIEW_LENGHT, Status } from '../../const';
 import { TFullOffer } from '../../types/types';
 import { useAppDispatch } from '../../hooks';
-import { addReviewAction, fetchOfferReviewsAction } from '../../store/api-action';
+import { addReviewAction } from '../../store/api-action';
+import { useAppSelector } from '../../hooks'; 
+import { getAddReviewsLoadingStatus } from '../../store/review-process/review-process.selectors';
 
 // const form = document.querySelector('.reviews__form');
 
@@ -18,6 +20,10 @@ function ReviewForm({ id }: ReviewsFormProps): JSX.Element {
   const [review, setReview] = useState('');
   const [isChecked, setIsChecked] = useState('0');
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
+
+  const getAddReviewStatus = useAppSelector(getAddReviewsLoadingStatus);
+  const isReviewLoading = getAddReviewStatus === Status.Loading;
+
   const changeReviewHandler: ChangeHandler = useCallback(({ target }: ChangeEvent<HTMLTextAreaElement>) => {
     setReview(target.value);
   }, []);
@@ -32,26 +38,35 @@ function ReviewForm({ id }: ReviewsFormProps): JSX.Element {
     setIsSubmitDisabled(isChecked === '0' || review.length < MIN_REVIEW_LENGHT || review.length > MAX_REVIEW_LENGHT);
   }, [isChecked, review.length]);
 
+  const resetForm = () => {
+    setIsChecked('0');
+    setReview('');
+  };
+
+  useEffect(() => {
+    if (getAddReviewStatus === Status.Success) {
+      resetForm();
+    }
+  }, [getAddReviewStatus]);
+
   const formSubmitHandler = (evt: FormEvent) => {
     evt.preventDefault();
+
     if (review && isChecked) {
       dispatch(addReviewAction({
         id: id,
         comment: review,
         rating: Number(isChecked)
-      })).then(() => {
-        dispatch(fetchOfferReviewsAction(id));
-        setIsChecked('0');
-        setReview('');
-      });
-    }
-  };
+      }))
+    };
+  }
+
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={formSubmitHandler}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        <MemoizedReviewStars isChecked={isChecked} setStarsHandle={changeStarHandle} />
+        <MemoizedReviewStars isChecked={isChecked} setStarsHandle={changeStarHandle} isDisabled={isReviewLoading}/>
       </div>
 
       <textarea
@@ -61,6 +76,7 @@ function ReviewForm({ id }: ReviewsFormProps): JSX.Element {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={changeReviewHandler}
         value={review}
+        disabled={isReviewLoading}
       />
 
       <div className="reviews__button-wrapper">
@@ -71,7 +87,7 @@ function ReviewForm({ id }: ReviewsFormProps): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={isSubmitDisabled}
+          disabled={isSubmitDisabled || isReviewLoading}
         >Submit
         </button>
       </div>
