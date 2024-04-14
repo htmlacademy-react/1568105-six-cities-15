@@ -1,10 +1,5 @@
 import { Icon } from 'leaflet';
 
-// export const Data = {
-//   FavoritesVolume: 3,
-//   StayPlaces: 312
-// } as const;
-
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -95,8 +90,25 @@ export enum LoginFields {
   Password = 'password'
 }
 
+export enum Status {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed',
+}
+
 export const STARS_NAME = 'rating';
 
 export const MIN_REVIEW_LENGHT = 50;
 
 export const MAX_REVIEW_LENGHT = 300;
+
+export const CITY = 'city';
+
+export const SORT_TYPE = 'sortType';
+
+export const MAX_REVIEWS_COUNT = 10;
+
+export const DEFAULT_ZERO = 0;
+
+export const MAX_IMAGES_OFFER = 6;

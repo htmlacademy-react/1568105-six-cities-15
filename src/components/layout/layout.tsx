@@ -1,57 +1,55 @@
-import { Link } from 'react-router-dom';
-import { Outlet, useLocation } from 'react-router-dom';
-import { AppRoute, AuthStatus, ACTIVE_CITY_NAME, SortType } from '../../const';
-import { getLayoutState } from '../../utils';
-// import { getUserAuth } from '../../get-user-auth';
+import { useMemo } from 'react';
+import { Outlet, useLocation, Link } from 'react-router-dom';
+import { AppRoute, AuthStatus} from '../../const';
 import ScrollToTop from '../../utils';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import Loader from '../loader';
 import { useCallback } from 'react';
 import { logoutAction } from '../../store/api-action';
-import {setActiveCity, setActiveSort} from '../../store/action';
+import { getFavoritsData } from '../../store/favorite-process/favorite-process.selectors';
+import { getAuthorizationStatus, getUserData } from '../../store/user-process/user-process.selectors';
+import LogoLink from '../logo-link/logo-link';
 
-// import Footer from '../footer';
-
-export default function Layout() {
+export default function Layout(): JSX.Element {
   const { pathname } = useLocation();
+  const favoritesOffers = useAppSelector(getFavoritsData);
+
+  const classLink = useMemo(() => `page
+  ${pathname === String(AppRoute.Root) ? 'page--gray page--main' : ''}
+  ${pathname === String(AppRoute.Login) ? 'page--gray page--login' : ''}
+  ${pathname === String(AppRoute.FavoritesPage) && !favoritesOffers.length ? 'page--favorites-empty' : ''}`,
+  [favoritesOffers.length, pathname]);
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userData = useAppSelector(getUserData);
+
+  const isAuth = useMemo(() => authorizationStatus === AuthStatus.Auth, [authorizationStatus]);
+  const userAvatar = useMemo(() => userData?.avatarUrl ?? '../img/avatar.svg', [userData?.avatarUrl]);
+  const userEmail = useMemo(() => userData?.email, [userData?.email]);
+  const favoriteCount = useMemo(() => favoritesOffers.length, [favoritesOffers.length]);
+
   const dispatch = useAppDispatch();
-  const { rootClassName, linkClassName } = getLayoutState(pathname as AppRoute); /* , renderFooter */ /* , renderUser  */
-  // const userAuth = getUserAuth();
-  const favoritesOffers = useAppSelector((state) => state.favorites);
-  const isLoadingData = useAppSelector((state) => state.isLoadingMode);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isAuth = authorizationStatus === AuthStatus.Auth;
-  const userData = useAppSelector((state) => state.userData);
 
   const handleClickLogout = useCallback((evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     evt.preventDefault();
     dispatch(logoutAction());
   }, [dispatch]);
 
-  const clickLogoHandler = () => {
-    dispatch(setActiveCity(ACTIVE_CITY_NAME));
-    dispatch(setActiveSort(SortType.Popular));
-  };
-
   return (
-    <div className={`page${rootClassName}`}>
+    <div className={classLink}>
       <ScrollToTop />
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link className={`header__logo-link${linkClassName}`} to="/" onClick={clickLogoHandler }>
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-              </Link>
+              <LogoLink pathname={pathname} />
             </div>
-
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
                   <Link className="header__nav-link header__nav-link--profile" to={isAuth ? AppRoute.FavoritesPage : AppRoute.Login}>
                     <div className="header__avatar-wrapper user__avatar-wrapper"
                       style={{
-                        backgroundImage: `url(${userData?.avatarUrl ?? '../img/avatar.svg'})`,
+                        backgroundImage: `url(${userAvatar})`,
                         borderRadius: '50%'
                       }}
                     >
@@ -59,8 +57,8 @@ export default function Layout() {
                     {isAuth
                       ? (
                         <>
-                          <span className="header__user-name user__name">{userData?.email}</span>
-                          <span className="header__favorite-count">{favoritesOffers.length}</span>
+                          <span className="header__user-name user__name">{userEmail}</span>
+                          <span className="header__favorite-count">{favoriteCount}</span>
                         </>
                       )
                       : <span className="header__login">Sign in</span>}
@@ -79,10 +77,6 @@ export default function Layout() {
         </div>
       </header >
       <Outlet />
-      {/* {renderFooter ? (
-        <Footer />
-      ) : null} */}
-      {isLoadingData && <Loader />}
     </div >
   );
 }

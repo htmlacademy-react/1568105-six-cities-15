@@ -1,4 +1,3 @@
-import React from 'react';
 import Spinner from './spinner.svg';
 import classes from './loader.module.css';
 

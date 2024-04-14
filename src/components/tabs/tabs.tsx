@@ -1,30 +1,27 @@
-// import { Link } from 'react-router-dom';
-import { MouseEvent } from 'react';
-import { CITIES, SortType } from '../../const';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import {setActiveCity, setActiveSort} from '../../store/action';
+import { Link, useSearchParams } from 'react-router-dom';
+import { CITIES, AppRoute, CITY, SORT_TYPE, DEFAULT_SORTING } from '../../const';
 
-export default function Tabs() {
-  const activeCityName = useAppSelector((state) => state.activeCity);
-  const dispatch = useAppDispatch();
+type TabsProps = {
+  city: string;
+  isTabs: boolean;
+}
 
-  const clickTabHandler = (evt: MouseEvent<HTMLAnchorElement>, activeCity: string) => {
-    evt.preventDefault();
-    dispatch(setActiveCity(activeCity));
-    dispatch(setActiveSort(SortType.Popular));
-  };
+export default function Tabs({city, isTabs}: TabsProps) {
+
+  const [searchParams] = useSearchParams();
+  const currentSort = searchParams.get(SORT_TYPE);
+
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
         {CITIES.map((cityName) => (
           <li className="locations__item" key={cityName} >
-            <a
-              className={`locations__item-link tabs__item${activeCityName === cityName ? ' tabs__item--active' : ''}`}
-              href="#"
-              onClick={(evt)=>clickTabHandler(evt, cityName)}
+            <Link
+              className={`locations__item-link tabs__item${city === cityName ? ' tabs__item--active' : ''}`}
+              to={`${AppRoute.Root}?${CITY}=${cityName}&${SORT_TYPE}=${isTabs ? currentSort : DEFAULT_SORTING }`}
             >
               <span>{cityName}</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
