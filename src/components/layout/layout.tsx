@@ -14,9 +14,9 @@ export default function Layout(): JSX.Element {
   const favoritesOffers = useAppSelector(getFavoritsData);
 
   const classLink = useMemo(() => `page
-  ${pathname === AppRoute.Root ? 'page--gray page--main' : ''}
-  ${pathname === AppRoute.Login ? 'page--gray page--login' : ''}
-  ${pathname === AppRoute.FavoritesPage && !favoritesOffers.length ? 'page--favorites-empty' : ''}`,
+  ${pathname === String(AppRoute.Root) ? 'page--gray page--main' : ''}
+  ${pathname === String(AppRoute.Login) ? 'page--gray page--login' : ''}
+  ${pathname === String(AppRoute.FavoritesPage) && !favoritesOffers.length ? 'page--favorites-empty' : ''}`,
   [favoritesOffers.length, pathname]);
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
