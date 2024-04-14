@@ -22,6 +22,8 @@ export default function LoginPage() {
         const password = formData.get('password') as string;
 
         dispatch(loginAction({email, password})).then(() => dispatch(fetchFavoriteAction()));
+      } else {
+        return null;
       }
     }
   };
