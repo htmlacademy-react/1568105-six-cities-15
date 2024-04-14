@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { PLACE_OPTIONS, SortType } from '../../const';
 
-export default function Sorting({ change, currentSort }) {
+type SortingProps = {
+  change: (sort: SortType) => void;
+  currentSort: SortType;
+}
+
+export default function Sorting({ change, currentSort }: SortingProps) {
   const [isOpenSorting, setIsOpenSorting] = useState(false);
 
   const setActiveSortingHandler = (sort: SortType) => {

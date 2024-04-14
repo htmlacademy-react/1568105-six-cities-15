@@ -6,7 +6,7 @@ type LogoLinkProps = {
 }
 
 export default function LogoLink({ pathname }: LogoLinkProps): JSX.Element {
-  const isMain = pathname === AppRoute.Root;
+  const isMain = pathname === String(AppRoute.Root);
 
   return (
     isMain ? (

@@ -45,7 +45,7 @@ export default function MainPage(): JSX.Element {
   }, [search, searchParams, setSearchParams]);
 
   const filteredOffers = useMemo(() => getOffersByCity(previewOffers, activeCityName), [activeCityName, previewOffers]);
-  const filteredAndSortedOffers = useMemo(() => sortingType[activeSort](filteredOffers), [filteredOffers, activeSort]);
+  const filteredAndSortedOffers = useMemo(() => sortingType[activeSort as keyof typeof sortingType](filteredOffers), [filteredOffers, activeSort]);
   const hasNoFilteredOrSortedOffers = !filteredAndSortedOffers.length;
   const getWordPlaces = (value: number) => value > 1 ? 'places' : 'place';
 

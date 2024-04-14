@@ -1,7 +1,12 @@
 import { Link, useSearchParams } from 'react-router-dom';
 import { CITIES, AppRoute, CITY, SORT_TYPE, DEFAULT_SORTING } from '../../const';
 
-export default function Tabs({city, isTabs}) {
+type TabsProps = {
+  city: string;
+  isTabs: boolean;
+}
+
+export default function Tabs({city, isTabs}: TabsProps) {
 
   const [searchParams] = useSearchParams();
   const currentSort = searchParams.get(SORT_TYPE);
